@@ -1,4 +1,15 @@
+fig:fig1lens
+fig:patentscopefront
+fig:fig2patentscope
+fig:fig3patentscope
+fig:fig4wipopearl
+fig:fig5wipopearl
+fig:fig1espacenet
+fig:fig2espacenet
+fig:fig3latipat
+fig:fig4ops
 authorship
+preface
 acknowledgements
 further-information
 conditions-of-use
@@ -84,7 +95,6 @@ pizza-patent-datasets
 patent-landscape-reports-datasets
 other-datasets
 round-up-2
-databases
 introduction-1
 the-databases
 the-lens
@@ -181,9 +191,7 @@ patent-analytics-with-plotly
 introduction-5
 getting-started-with-plotly
 importing-files
-creating-a-graphic
-adding-a-second-axis
-saving-and-sharing
+creating-a-graphic-online
 working-with-plotly-in-r
 round-up-7
 patent-infographics-with-r
@@ -200,7 +208,7 @@ make-a-quickplot-with-qplot
 filter-data-using-filter
 simplify-code-with-pipes
 harmonising-data
-country-trends-using-spread
+country-trends-using-spread-and-pivot_wider
 tidying-data---separating-and-gathering
 trimming-with-stringr
 selecting-applicants-using-filter
