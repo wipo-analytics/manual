@@ -142,8 +142,7 @@ When we now examine pizza_total, we will see the publication year and a summed v
 This raises the question of how we know that R has calculated the count correctly. We already know that there are 9996 records in the pizza dataset. To check our count is correct we can simply use sum and select the column we want to sum using `$`. 
 
 ```{r checksum}
-library(dplyr)
-sum(pizza_total$nn)
+sum(pizza_total$n)
 ```
 
 So, all is good and we can move on. The `$` sign is one of the main ways of subsetting to tell R that we want to work with a specific column (the others are "[" and "[[").
@@ -154,7 +153,10 @@ Next we will use `rename()` from `dplyr` to rename the fields. Note that underst
 
 ```{r rename}
 library(dplyr)
-pizza_total <- rename(pizza_total, pubyear = publication_year, publications = nn) %>% print()
+
+pizza_total <- rename(pizza_total, pubyear = publication_year, publications = n)
+
+head(pizza_total)
 ```
 
 ### Make a quickplot with `qplot()`
@@ -185,10 +187,15 @@ One strength of `filter()` in `dplyr` is that it is easy to filter on multiple v
 ```{r pizza_total}
 library(dplyr)
 library(readr)
+
 pizza_total <- filter(pizza_total, pubyear >= 1990, pubyear <= 2012)
-write_csv(pizza_total, "pizza_total_1990_2012.csv")
-pizza_total
+
+head(pizza_total)
 ```
+```{r, echo=FALSE, eval=FALSE}
+write_csv(pizza_total, "pizza_total_1990_2012.csv")
+```
+
 
 When we print pizza_total to the console we will see that the data now covers the period 1990-2012. When using `filter()` on values in this way it is important to remember to apply this filter to any subsequent operations on the data (such as applicants) so that it matches the same data period.
 
@@ -208,7 +215,7 @@ library(ggplot2)
 df <- select(pizza, publication_number, publication_year)
 df <- mutate(df, n = sum(publication_number = 1))
 df <- count(df, publication_year, wt = n)
-df <- rename(df, "pubyear" = publication_year, publications = nn)
+df <- rename(df, "pubyear" = publication_year, publications = n)
 df <- filter(df, pubyear >= 1990, pubyear <= 2012) 
 qplot(x = pubyear, y = publications, data = df, geom = "line")
 ```
@@ -230,10 +237,10 @@ df1 <-
   select(pizza, publication_number, publication_year) %>%
   mutate(n = sum(publication_number = 1)) %>%
   count(publication_year, wt = n) %>%
-  rename("pubyear" = publication_year, publications = nn) %>%
+  rename("pubyear" = publication_year, publications = n) %>%
   filter(pubyear >= 1990, pubyear <= 2012) %>%
-  qplot(x = pubyear, y = publications, data = ., geom = "line") %>%
-  print()
+  qplot(x = pubyear, y = publications, data = ., geom = "line")
+df1
 ```
 
 <!---![](images_foot/infogram/fig2_infographic_qplot.png)--->
@@ -251,9 +258,9 @@ df2 <-
   select(pizza, publication_number, publication_year) %>%
   mutate(n = sum(publication_number = 1)) %>%
   count(publication_year, wt = n) %>%
-  rename("pubyear" = publication_year, publications = nn) %>%
-  filter(pubyear >= 1990, pubyear <= 2012) %>%
-  print()
+  rename("pubyear" = publication_year, publications = n) %>%
+  filter(pubyear >= 1990, pubyear <= 2012)
+df2
 ```
 
 Note that in this case the only change is that we need to explicitly include the reference to the df2 data frame as the data argument in the call to `qplot()`.
@@ -286,20 +293,22 @@ To handle this we will use `filter()` to create a new baseline dataset with an u
 
 ```{r limited}
 library(dplyr)
+
 pizza_1990_2012 <- rename(pizza, "pubyear" = publication_year) %>%
   filter(pubyear >= 1990, pubyear <= 2012)
-pizza_1990_2012
+
+head(pizza_1990_2012)
 ```
 
 In this case we start with a call to `rename()` to make this consistent with our pizza_total table and then use a pipe to filter the data on the year. Note here that when filtering raw data on a set of values it is important to inspect it first to check that the field is clean (e.g. not concatenated). If for some reason your data is concatenated (which happens quite a lot with patent data) then lookup `?tidyr::separate_rows`. 
 
 We are now in a position to create our country trends table.
 
-## Country Trends using `spread()`
+## Country Trends using `spread()` and `pivot_wider()`
 
 There are two basic data formats: long and wide. Our pizza dataset is in long format because each column is a variable (e.g. `publication_country`) and each row in `publication_country` contains a country name. This is the most common and useful data format. 
 
-However, in some cases, such as `infogr.am` our visualisation software will expect the data to be in wide format. In this case each country name would become a variable (column name) with the years forming the rows and the number of records per year the observations. The key to this is the `tidyr()` function `spread()`. 
+However, in some cases, such as `infogr.am` our visualisation software will expect the data to be in wide format. In this case each country name would become a variable (column name) with the years forming the rows and the number of records per year the observations. The key to this is the `tidyr()` function `spread()` and the more recent replacement `pivot_wider()`. 
 
 As above we will start off by using `select()` to create a table with the fields that we want. We will then use `mutate()` to add a numeric field and then count up that data. To illustrate the process run this code (we will not create an object). 
 
@@ -311,41 +320,64 @@ select(pizza_1990_2012, publication_country_name, publication_number, pubyear) %
   print()
 ```
 
-When we run this code we will see the results in long format. We now want to take our `publication_country_name` column and spread it to form columns with `nn` as the values. 
+When we run this code we will see the results in long format. We now want to take our `publication_country_name` column and spread it to form columns with `n` as the values. 
 
-In using spread note that it takes a data argument (`pizza_1990_2012`), a key (`publication_country_name`), and value column (`nn`) (created from `count()`). We are using pipes so the data only needs to be named in the first line. For additional arguments see `?spread()`. 
+In using spread note that it takes a data argument (`pizza_1990_2012`), a key (`publication_country_name`), and value column (`n`) (created from `count()`). We are using pipes so the data only needs to be named in the first line. For additional arguments see `?spread()`. 
 
 ```{r country_totals}
 library(dplyr)
 library(tidyr)
 country_totals <- select(pizza_1990_2012, publication_country_name, publication_number, pubyear) %>%
   mutate(n = sum(publication_number = 1)) %>% 
-  count(publication_country_name, pubyear, wt = n) %>% # note n
-  spread(publication_country_name, nn) # note double nn
+  count(publication_country_name, pubyear, wt = n) %>%
+  spread(publication_country_name, n)
 country_totals
+```
+
+One problem with spread is that it can be difficult to remember the order of the arguments. In response to this the more recent and preferred approach is to use `pivot_wider()` which replaces spread (see also `pivot_longer()`. `pivot_wider()` takes two main arguments `names_from =` and `values_from`. This is a lot easier to remember with some practice. It is also more likely to be familiar if you have a background in Excel where pivot table. 
+
+We can achieve the same thing in a more transparent way with `pivot_wider()` as we see below. 
+
+```{r country_totals_wider}
+library(dplyr)
+library(tidyr)
+
+country_totals <- select(pizza_1990_2012, publication_country_name, publication_number, pubyear) %>%
+  mutate(n = sum(publication_number = 1)) %>% 
+  count(publication_country_name, pubyear, wt = n) %>%
+  pivot_wider(names_from = publication_country_name, values_from = n) 
+
+head(country_totals)
 ```
 
 We now have data in wide format. 
 
-In some cases, such as infogr.am, visualisation software may expect the country names to be the name of rows and the column names to be years . We can modify our call to `spread()` by replacing the `publication_country_name` with `pubyear`. Then we will write the data to disk for use in our infographic.  
+In some cases, such as infogr.am, visualisation software may expect the country names to be the name of rows and the column names to be years . We can modify our call to `pivot_wider()` by replacing the `publication_country_name` with `pubyear`. Then we will write the data to disk for use in our infographic.  
 
 ```{r write_country_totals}
 library(dplyr)
 library(readr)
 country_totals <- select(pizza_1990_2012, publication_country_name, publication_number, pubyear) %>%
   mutate(n = sum(publication_number = 1)) %>% 
-  count(publication_country_name, pubyear, wt = n) %>% # note n
-  spread(pubyear, nn) # note nn
+  count(publication_country_name, pubyear, wt = n) %>% 
+  pivot_wider(names_from = pubyear, values_from = n)
 country_totals
+
 write_csv(country_totals, "pizza_country_1990_2012.csv")
 ```
 
-To restore the data to long format we would need to use `gather()` as the counterpart to `spread()`. `gather()` takes a dataset, a key for the name of the column we want to gather the countries into, a value for the numeric count (in this case n), and finally the positions of the columns to gather in.  Note here that we need to look up the column positions in `country_totals` (e.g. using `View()`) or count the columns using `ncol(country_totals)`.
+To restore the data to long format we would need to use `pivot_longer()` as the counterpart to `pivot_wider()` (formerly `gather()` was used as the counterpart to `spread()`). `gather()` takes a dataset, a key for the name of the column we want to gather the countries into, a value for the numeric count (in this case n), and finally the positions of the columns to gather in.  Note here that we need to look up the column positions in `country_totals` (e.g. using `View()`) or count the columns using `ncol(country_totals)`.
 
 ```{r gathering country totals}
 library(dplyr)
-gather(country_totals, year, n, 2:24) %>%
-  print()
+
+#country_totals %>% 
+#  pivot_longer(everything(), 
+#               names_to = c("pubyear", "n"),
+#               )
+
+#gather(country_totals, year, n, 2:24) %>%
+#  print()
 ```
 
 The combination of spread and gather work really well to prepare data in formats that are expected by other software. However, one of the main issues we encounter with patent data is that our data is not tidy because various fields are concatenated.  
@@ -376,7 +408,8 @@ The problem here is that when we are dealing with thousands of lines of applican
 ```{r pizza1}
 library(dplyr)
 library(tidyr)
-pizza1 <- separate_rows(pizza_1990_2012, applicants_cleaned, sep = ";")
+pizza1 <- pizza_1990_2012 %>% 
+  separate_rows(applicants_cleaned, sep = ";")
 pizza1
 ```
 
@@ -384,7 +417,7 @@ Our original dataset contained 8,262 rows. Our new dataset split on applicant na
 
 ```{r}
 library(dplyr)
-pizza1 <- select(pizza1, 31, 1:30)
+pizza1 <- pizza1 %>% select(., 31, 1:30)
 ```
 
 `separate_rows()` has done a great job but one of the problems with concatenated names is extra white space around the separator. We will deal with this next.
@@ -402,7 +435,10 @@ This is a big issue because any counts that we make later on using the applicant
 We can address this in a couple of ways. One approach is to recognise that actually our separator is not a simple `";"` but `";space"` in our call to `separate_rows()`. In that case the call to `separate_rows()` would actually be `sep = "; "`. We will add a line of code to illustrate the impact of this change.
 
 ```{r}
-tmp <- separate_rows(pizza_1990_2012, applicants_cleaned, sep = "; ")
+tmp <- pizza_1990_2012 %>% 
+  separate_rows(., applicants_cleaned, sep = "; ")
+
+# inspect the problem entry
 tail(tmp$applicants_cleaned, 20)
 ```
 
@@ -428,11 +464,12 @@ We can tie the steps so far together using pipes into the following simpler code
 library(dplyr)
 library(tidyr)
 library(stringr)
-applicants <- rename(pizza, "pubyear" = publication_year) %>%
+applicants <- pizza %>% 
+  rename(., "pubyear" = publication_year) %>%
   filter(pubyear >= 1990, pubyear <= 2012) %>%
   separate_rows(applicants_cleaned, sep = "; ") %>% 
   rename(applicants = applicants_cleaned) %>% 
-  select(31, 1:30) # moves separated column to the beginning
+  select(31, 1:30) # moves separated column to the beginning (could use everything?)
 applicants
 ```
 
@@ -443,11 +480,12 @@ In this code we will simply print the applicants ranked in descending order. The
 ```{r applicant_count}
 library(tidyr)
 library(dplyr)
-applicant_count <- select(applicants, applicants, publication_number) %>%
+applicant_count <- applicants %>% 
+  select(., applicants, publication_number) %>%
   mutate(n = sum(publication_number = 1)) %>%
   count(applicants, wt = n) %>%
-  arrange(desc(nn)) %>%
-  filter(nn >= 1) %>%
+  arrange(desc(n)) %>%
+  filter(n >= 1) %>%
   na.omit()
 applicant_count 
 ```
@@ -458,11 +496,12 @@ If we inspect applicant count using `View(applicant_count)` we have 6,178 rows. 
 library(dplyr)
 library(tidyr)
 library(readr)
-applicant_count <- select(applicants, applicants, publication_number) %>%
+applicant_count <- applicants %>% 
+  select(., applicants, publication_number) %>%
   mutate(n = sum(publication_number = 1)) %>%
   count(applicants, wt = n) %>%
-  arrange(desc(nn)) %>%
-  filter(nn >= 54) %>% 
+  arrange(desc(n)) %>%
+  filter(n >= 54) %>% 
   na.omit()
 applicant_count 
 write_csv(applicant_count, "pizza_applicants_1990_2012.csv")
@@ -479,7 +518,8 @@ As we saw above, while `select()` functions with columns, `filter()` from `dplyr
 ```{r google}
 library(dplyr)
 library(readr)
-google <- filter(applicants, applicants == "Google Inc")
+google <- applicants %>% 
+  filter(., applicants == "Google Inc")
 google
 write_csv(google, "google_1990_2012.csv")
 ```
@@ -502,14 +542,18 @@ For ease of presentation in an infographic we will use the `ipc_class` field. Fo
 
 To generate the table we can use a generic function based on the code developed for dealing with the applicants data. We will call the function patent_count().
 
-```{r generic_function}
+<!--- rewrite this function--->
+```{r generic_function, echo=FALSE, eval=FALSE}
 patent_count <- function (data, col = "", count_col =  "", n_results = n_results, sep = "[^[:alnum:]]+") 
 {
-  p_count <- dplyr::select_(data, col, count_col) %>%
+  p_count <- data %>% 
+    dplyr::select_(., col, count_col) %>%
     tidyr::separate_rows_(col, sep = sep) %>% 
     dplyr::mutate_(n = sum(count_col = 1)) %>% 
     dplyr::select(2:3) 
-  p_count %>% dplyr::group_by_(col) %>%
+  
+  p_count %>% 
+    dplyr::group_by_(col) %>%
     dplyr::tally() %>%
     dplyr::arrange(desc(nn)) %>%
     dplyr::rename(records = nn) %>% 
@@ -518,6 +562,24 @@ patent_count <- function (data, col = "", count_col =  "", n_results = n_results
     .[1:n_results, ]
 }
 ```
+
+<!--- rewritten function--->
+```{r}
+patent_count <- function (data = NULL, col = NULL, count_col =  NULL, n_results = n_results, sep = "[^[:alnum:]]+") 
+{
+  p_count <- data %>% 
+    dplyr::select(., .data[[col]], .data[[count_col]]) %>%
+    tidyr::separate_rows(.data[[col]], sep = "[;]") %>% # was sep
+    dplyr::mutate(!!col := stringr::str_trim(.data[[col]], side = "both")) %>%
+    dplyr::mutate(n = 1) %>% 
+    group_by(.data[[col]]) %>% 
+    count(., sort = TRUE) %>% 
+    ungroup()
+}
+```
+
+
+
 
 The `patent_count()` function is based on the the code we developed for applicants. It contains variations to make it work as a function. The function takes four arguments:
 
@@ -531,7 +593,7 @@ To generate the `ipc_class` data we can do the following and then write the file
 ```{r pizza_class}
 pizza_ipc_class <- patent_count(data = pizza_1990_2012, col = "ipc_class", count_col = "publication_number", n_results = 10, sep = ";")
 pizza_ipc_class
-write_csv(pizza_ipc_class, "pizza_ipcclass_1990_2012.csv")
+#write_csv(pizza_ipc_class, "pizza_ipcclass_1990_2012.csv")
 ```
 
 Note that this dataset is based on the main `pizza_1990_2012` dataset (including cases where no applicant name is available). The reason we have not used the applicants dataset is because that dataset will duplicate the IPC field for each split of an applicant name. As a result it will over count the IPCs by the number of applicants on a document name. As this suggests, it is important to be careful when working with data that has been tidied because of the impact on other counts. 

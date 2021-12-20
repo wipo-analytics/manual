@@ -1,6 +1,6 @@
 --- 
-title: "The WIPO Manual on Open Source Patent Analytics"
-date: "2016"
+title: "The WIPO Manual on Open Source Patent Analytics (2nd edition)"
+date: "2021"
 output: bookdown::gitbook
 site: bookdown::bookdown_site
 documentclass: book
@@ -12,11 +12,19 @@ description: "A practical introduction to free and open source tools for patent 
 
 ## Authorship
 
-The Manual was written by Dr. Paul Oldham from [One World Analytics](http://oneworldanalytics.com/), with contributions from and under the coordination of Ms. Irene Kitsara ([WIPO](http://www.wipo.int/portal/en/index.html)).
+The 2nd edition of the Manual on Open Source Patent Analytics was written by Dr. Paul Oldham from [One World Analytics](http://oneworldanalytics.com/) and Enric Escorsa (WIPO) with contributions from and under the coordination of Ms. Irene Kitsara ([WIPO](http://www.wipo.int/portal/en/index.html)).
+
+# Preface
+
+Welcome to the Second edition of the WIPO Manual on Open Source Patent Analytics. The first edition of the WIPO Manual on Open Source Patent Analytics broke new ground in patent analytics by documenting and exploring free and open source tools that could be used for patent analytics. The coverage of free tools ranges from databases to visualisation tools and the use of programming languages. 
+
+Between 2016 and 2019, the first edition of the Manual becamee the basis for a series of national and regional training workshops held in Brazil, South Africa, Malaysia, the Philippines and Thailand that offered hands on training in the patent analytics. In the period since the last update to the Manual in 2019 many of the tools have been update and new tools have emerged. The time is therefore ripe for the second edition as the basis for future practical work. 
+
+The second edition of the Manual updates the information on existing tools and adds a small number of new chapters on more recent tools and trends in patent analytics. The Manual is now organised around a `Patent Analytics Workflow` developed by Paul Oldham and Irene Kitsara during the patent analytics training workshops. That workflow can be used by anyone from beginners in patent analytics through to advanced users who are using programming languages and machine learning models. In the coming months the Manual and the patent analytics workflow will be linked to the [WIPO Handbook on Patent Analytics](https://wipo-analytics.github.io/handbook/). 
 
 ## Acknowledgements 
 
-The WIPO Manual on Open Source Tools for Patent Analytics, 2016, was written with the generous financial support of the Patent Office of Japan (JPO). The Manual was prepared under the direction of Mr. Yo Takagi (Assistant Director General) and under the supervision of Mr. Alejandro Roca Campaña (Senior Director) and Mr. Andrew Czajkowski (Head of Section). Mr. Anthony Cutter prepared and analyzed the survey on the use of tools for patent analytics by patent information professionals. We are grateful to the participants in two regional workshops on patent analytics which took place in 2015 in Rio de Janeiro, Brazil, and Manila, Philippines who were presented with the draft Manual and who provided useful feedback, facilitating the optimization and completion of the Manual. We would also like to thank Ms. Alica Daly, Director of the IP Analytics Hub, IP Australia, as well as Mr. Rich Corken, Head of Informatics at the UK IPO for the fruitful discussions and for sharing their experiences with open source tools. The development of this Manual would have not been possible without the excellent support and troubleshooting provided by the open source tools community.  Ms. Catherine Oldham offered valuable comments throughout the preparation of the report and assistance with editing.  Thanks go to colleagues in the Communications Division and in the Printing Plant for their services. 
+The first and second editions of tyhe WIPO Manual on Open Source Tools for Patent Analytics were written with the generous financial support of the Patent Office of Japan (JPO). The Manual was prepared under the direction of Mr. Yo Takagi (Assistant Director General) and under the supervision of Mr. Alejandro Roca Campaña (Senior Director) and Mr. Andrew Czajkowski (Head of Section). Mr. Anthony Cutter prepared and analyzed the survey on the use of tools for patent analytics by patent information professionals. We are grateful to the participants in two regional workshops on patent analytics which took place in 2015 in Rio de Janeiro, Brazil, and Manila, Philippines who were presented with the draft Manual and who provided useful feedback, facilitating the optimization and completion of the Manual. We would also like to thank Ms. Alica Daly, Director of the IP Analytics Hub, IP Australia, as well as Mr. Rich Corken, Head of Informatics at the UK IPO for the fruitful discussions and for sharing their experiences with open source tools. The development of this Manual would have not been possible without the excellent support and troubleshooting provided by the open source tools community.  Ms. Catherine Oldham offered valuable comments throughout the preparation of the report and assistance with editing.  Thanks go to colleagues in the Communications Division and in the Printing Plant for their services. 
 
 ## Further information
 
@@ -24,7 +32,11 @@ The electronic version of the report, as well as all datasets mentioned in the M
 
 ## Conditions of use
 
-You are welcome to use the information provided in this publication, but please cite WIPO and the Manual as the source. Contact e-mail: patent.information@wipo.int 
+This publication is made available under a Creative Commons Attribution licence (CC-BY) and may be freely used and shared subject to attribution. Please cite as
+
+INSERT CITATION
+
+Contact e-mail: patent.information@wipo.int 
 
 ## Disclaimer
 

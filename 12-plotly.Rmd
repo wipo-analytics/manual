@@ -2,141 +2,184 @@
 
 ## Introduction
 
-In this chapter we provide an introduction to the online graphing service [Plotly](http://plotly.com) to create graphics for use in patent analysis. 
+In this chapter we provide an introduction to the online graphing service [Plotly Chart Studio](https://chart-studio.plotly.com/feed/#/) to create graphics for use in patent analysis.
 
-Plotly is an online graphing service that allows you to import excel, text and other files for visualisation. It also has API services for R, Python, MATLAB and a Plotly Javascript Library. A recent update to the `plotly` package in R allows you to easily produce graphics directly in RStudio and to send the graphics to Plotly online for further editing and to share with others. 
+Plotly is an online graphing service that allows you to import excel, text and other files for visualisation. It also has API services for R, Python, MATLAB and a Plotly Javascript Library. A recent update to the `plotly` package in R allows you to easily produce graphics directly in RStudio and to send the graphics to Plotly online for further editing and to share with others.
 
-Plotly's great strength is that it produces attractive interactive graphics that can easily be shared with colleagues or made public. It also has a wide variety of graph types including contour and heat maps and is built with the very popular [D3.js](http://d3js.org) Javascript library for interactive graphics. For examples of graphics created with Plotly see the [public gallery](https://plot.ly/feed/). Plotly was founded in 2012 and is therefore quite new, however, Plotly is becoming a great tool for creating and sharing graphics. In this chapter our aim is to get you started with using Plotly online with .csv or Excel files. In the second part of the chapter we will focus on using the `plotly` package in RStudio to generate and export graphs. 
+Plotly's great strength is that it produces attractive interactive graphics that can easily be shared with colleagues or made public. It also has a wide variety of graph types including contour and heat maps and is built with the very popular [D3.js](http://d3js.org) Javascript library for interactive graphics. For examples of graphics created with Plotly explore the [public gallery](https://chart-studio.plotly.com/feed/#/) on the main page. Plotly was founded in 2012 and has split into different product areas with free and priced offerings. We focus on the free tier of Plotly Chart Studio to help you get started. Our aim in this chapte is to get you started with using Plotly online with .csv or Excel files. In the second part of the chapter we will focus on using the `plotly` package in RStudio to generate and export graphs to Plotly Chart Studio online.
 
 ## Getting Started with Plotly
 
-We need to start out by creating an account using the Create Account Button. 
+We need to start out by creating an account using the Create Account Button.
 
-![](images/plotlyfigs/fig1_plotly.png)
+```{r plotlyfig1, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig1_plotly.png")
+```
 
-Next we will see an invitation to take a tour (which is worth doing) and Plotly helpfully points out that we can load files from Google Drive or Dropbox. We then select the `Workspace` option to begin work.
+When you have signed up and logged in you will see a button that says `+ Create` with a range of different options. Choose `Chart`.
 
 ## Importing Files
 
-When you first arrive you will see a Workspace with a Grid (Plotly's term for a table or worksheet). 
+We choose `+ Create` and `Chart` and will see an area to upload our data as a `Trace`, plotlys term for the data.
 
-![](images/plotlyfigs/fig2_workspace.png)
+```{r plotlyfig2, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig2_workspace.png")
+```
 
-In the workspace you will see an Import Icon that provides a range of options for importing data. Don't import anything yet! You can also copy data from a file and paste it into the Grid. 
+In this workspace area you will see an Import Icon that provides a range of options for importing data. 
+```{r fig3_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig3_plotly.jpeg")
+```
 
-At the time of writing, the reason not to use these options at the moment is that while the data may import fine first time, in other cases it will not. Using the options on this page you will receive no information if an import fails. We also encountered problems with saving data that had been pasted into the worksheet (even where it appeared to work). To avoid potential frustration head over to `Organize`. 
+You can also copy data from a file and paste it into the Grid or use other data sources.
 
-![](images/plotlyfigs/fig3_import.png)
+```{r fig4_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig4_plotly.jpeg")
+```
 
 From the Organize page select the New button and then Upload. Now select your local file. When you upload the file a status message will display and if all goes well then you will see a completed message. If not a red message will display informing you that there has been a problem (how you fix these problems is unclear).
 
-For this experiment we used two datasets from the [Open Source Patent Analytics Manual data repository](https://github.com/wipo-analytics/opensource-patent-analytics/tree/master/2_datasets). When using the Github repository click on the file of interest until you see a `View Raw` message. Then right click to download the data file from there. You can download them for your own use directly from the following links. 
 
-1. [WIPO trends](https://github.com/wipo-analytics/opensource-patent-analytics/raw/master/2_datasets/wipo/wipotrends_cleaned.csv) application trends by year and with % change.
-2. [Pizza patents by country and year](https://github.com/wipo-analytics/opensource-patent-analytics/raw/master/2_datasets/pizza_medium_clean/pcy.csv). This is a simple dataset containing counts of patent documents containing the word pizza from [WIPO Patentscope](https://patentscope.wipo.int/search/en/search.jsf) broken down by country and year.
+For this experiment we used two datasets from the [Open Source Patent Analytics Manual data repository](https://github.com/wipo-analytics/manual/tree/main/data). When using the Github repository click on the file of interest until you see a `View Raw` message. Then right click to download the data file from there using `Save As' and not forgetting to include the file type`.csv\`. You can download them for your own use directly from the following links.
 
-One important point to note is that Plotly is not a data processing tool. While there are some data tools, your data will generally need to be in a form that is suitable for plotting at the time of input. In part this reflects the use of APIs which allow for users of Python, R and Matlab to send their data to Plotly directly for sharing with others. This is one of the great strengths of Plotly and we will cover this below. However, we also experienced problems in loading and graphing datasets that were easy to work with in Tableau (as a benchmark). This suggests a need to invest time in understanding the formats that Plotly understands. 
+1.  [WIPO trends](https://raw.githubusercontent.com/wipo-analytics/manual/main/data/wipo/wipotrends_cleaned.csv) application trends by year and with % change.
+2.  [Pizza patents by country and year](https://raw.githubusercontent.com/wipo-analytics/manual/main/data/pcy.csv). This is a simple dataset containing counts of patent documents containing the word pizza from [WIPO Patentscope](https://patentscope.wipo.int/search/en/search.jsf) broken down by country and year.
 
-We experienced a different type of problem with the simple WIPO trends data where Plotly concatenated the first row (containing labels) and the first data row into one heading row. However, in most cases import seemed to be fine. To turn a row into a heading row try right clicking the row with the headings and right clicking on `use row as col headers`. Then right click again to remove the original row. 
+One important point to note is that Plotly is not a data processing tool. While there are some data tools, your data will generally need to be in a form that is suitable for plotting at the time of input. In part this reflects the use of APIs which allow for users of Python, R and Matlab to send their data to Plotly directly for sharing with others. This is one of the great strengths of Plotly and we will cover this below. However, we also experienced problems in loading and graphing datasets that were easy to work with in Tableau (as a benchmark). This suggests a need to invest time in understanding the formats that Plotly understands.
 
-## Creating a graphic
+## Creating a Graphic Online
 
-We will start with the simple WIPO trends data by opening up that Grid.
+Having Imported the data we should now see the dataset to the right and a `+Trace` button. We will use this to create our graph.
 
-![](images/plotlyfigs/fig5_grid.png)
+```{r fig5_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig5_plotly.jpeg")
+```
 
-Note here that in the Grid we have options to select the x or y axis for plotting. There is also an Options menu that we will come back to. 
+When we select the Trace we are given the option to choose the type of graphic that we want to see. Here we have chosen a simple line graph but go ahead and experiment.
 
-The Type of plot can be changed by selecting the drop down menu as we can see below. 
+```{r fig6_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig6_plotly.jpeg")
+```
 
-![](images/plotlyfigs/fig6_gtype.png)
+A range of the possible plots are shown below.
 
-Sticking with a line graph, when we create the plot we can add a title and then change the theme (in this case to Catherine). 
+```{r fig7_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig7_plotly.jpeg")
+```
 
-![](images/plotlyfigs/fig7_line.png)
+Next, we choose Year for the X Axis and we choose Applications for the Y axis.
 
-We could also add a fit line by selecting the `FIT DATA` menu icon. This will ask you to create a fit and then you have a range of preset functions or you can add your own. Here we have simply chosen the default Linear fit. 
+```{r fig8_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig8_plotly.jpeg")
+```
 
-![](images/plotlyfigs/fig8_fit.png)
+When we have selected the data we want to plot we might want to perform some basic analysis, such as adding a trend line. For that, choose `Analyze` as in the image below.
 
-We can then save the plot and use the export button to save the plot in a variety of formats and sizes. It is also very easy to add annotations using the Notes icon. Confusingly, the large blue Share button only seems to save the file and despite saving the plot we were not able to locate it again. While Plotly certainly looks nice, and appears to have attractive functions it is not intuitive and the difficulties involved in importing and sharing can be frustrating and time consuming. In short, time is needed to invest in and explore the potential of this tool. 
+```{r fig9_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig9_plotly.jpeg")
+```
 
-### Adding a Second Axis
+The `Analyse` menu will open up and we choose Curve fitting. 
 
-If we go back to our original WIPO trends data we have a percentage score for the year on year change in patent applications. We might want to show this on a plot with a second axis for the percentage. 
+```{r fig10_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig10_plotly.jpeg")
+```
 
-To do that in the Grid view select the button "choose as y" in the Growth-rate column to add a second item for the y axis.
+We then use the `Fit` button.
 
-![](images/plotlyfigs/fig9_secondy.png)
+```{r fig11_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig11_plotly.jpeg")
+```
 
-When we choose Line plot we will now see the two sets of data with the percentage trailing on the bottom. We now need to create a second y axis on the right and assign the percentage data to that. 
+Next we select the trace (column) that we want to fit the data to. 
 
-To do this select the Traces icon and a menu will pop up showing the data traces. The drop down menu under Traces will show Applications, so, select Growth Rate % from the drop down menu. Then where you see Lines/Markers select the dot. This will prevent the percentage scores displaying as a line. 
+```{r fig12_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig12_plotly.jpeg")
+```
+Here we will use a simple Linear model (a range of other models are available).
 
-![](images/plotlyfigs/fig11_addaxis.png)
+```{r fig13_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig13_plotly.jpeg")
+```
 
-Next, in the same panel under `Axes` select `New Axis/Subplot` and a new screen will pop up. We have some choices here but will simply choose to create a new axis on the right. 
+We now have a plot with a line graph and a trend line that should look something like this.
 
-![](images/plotlyfigs/fig11_addyaxis.png)
+```{r fig29_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig29_plotly.png")
+```
 
-The result will look something like this. 
+To finish of this simple plot we look for the grayed areas on the graph to add legends to. We will overwrite trace 0 as applications
 
-![](images/plotlyfigs/fig12_result1.png)
+```{r fig14_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig14_plotly.jpeg")
+```
 
-Our issue now is equalising the axes and changing the size of the points for the percentage scores. Finally we can add a title.
+We then overwite `Fit of trace 0` as Application Trend. Then head to the left of the plot area to name the title.
 
-Before we go any further let's note that we have a significant minus axis value of -3.6% in 2009 when patent applications declined. There is also a minus value in 2002. 
+```{r fig16_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig16_plotly.jpeg")
+```
 
-![](images/plotlyfigs/fig13_dip.png)
+At the end of this we need to save the graph using the Save button.
 
-If we wanted to retain these values we would probably want to turn off the second set of grid lines. We would also want to resize the points. 
+```{r fig19_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig19_plotly.jpeg")
+```
 
-To turn off the grid lines on the second y axis Click on the Axes icon in the main menu on the left. Then from the `All Axes` drop down under Axes select Y Axis 2. Then click the Lines submenu icon and turn Lines and Grid lines to OFF. Also turn the Zero line to OFF unless you want to retain it. 
+When we move to save we are offered the opportunity to save as public or as private. On the free account choose Public.
 
-![](images/plotlyfigs/fig13_turnoffgrid.png)
+```{r fig20_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig20_plotly.jpeg")
+```
 
-To resize the points we need to go back to the Traces main menu on the left and select Growth Rate from the list of Traces. Then choose the Style tab and change the marker size to something larger such as 8. 
+We can see above that the default name for a plot is unnamed plot. So give it a sensible name.
 
-![](images/plotlyfigs/fig13_resizepoint.png)
+You should now have a plot that looks like this.
 
-To finish off the graphic we will want to add some labels. We can simply type in the Axis labels and a title into the text boxes provided. By choosing the Legend icon we could turn the legend on or off. Note that while this graph could be seen as self explanatory it may not be for the reader. We can also simply drag the axes labels to a different position. 
+```{r fig28_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig28_plotly.png")
+```
 
-It is possible that we would want to remove the negative values from the plot (in that case the values would need to be explained in the accompanying text). To do that select `Axes`, then `Y Axis2` then in `Autorange` choose `Non-negative` to show only values greater than zero on the plot. 
+There are a couple of things that you can do from this point. You can export the plot by choosing the Export button in the image above. You then have some options for exporting the image.
 
-If we wished we could also apply a fit line by choosing the Fit Data icon. We will choose Linear.  
-![](images/plotlyfigs/fig13_final.png)
+```{r fig24_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig24_plotly.jpeg")
+```
 
-Finally, to finish off the plot we might want to add annotations using the NOTES icon. Simply click on the plus sign in the pop up menu for a new annotation and then select the arrow and text and move it into the position you want. 
+Another opyion is to head to your account in the top right and go to my files.
 
-![](images/plotlyfigs/fig13_final_annotated.png)
+```{r fig25_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig25_plotly.jpeg")
+```
 
-In this case we have added a couple of markers that may help to understand trends in activity. First, we have a dip in patent applications between 2001 and 2002. One possible explanation here is that this is a knock on effect of the collapse of the dot.com bubble where share prices reached a peak in 2000, declined rapidly and recovered before declining again into 2001. Patent data typically displays lag effects and it is reasonable to think that the decline in application activity from 2001 reflects these wider economic adjustments. Similarly, there is a significant dip in applications between 2008 and 2009 that it appears reasonable to assume reflects the knock on effects of the global economic crisis of 2007-2008. Note here that these are crude way markers to assist with interpreting the graphics. We could choose to add other timeline style events or layer graphics to help understand the potential or actual relationships between wider economic activity and trends in patent applications worldwide. 
+In the Workspace area, you have options to either edit or view the plot. We will choose the Viewer option.
 
-## Saving and Sharing 
+```{r fig26_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig26_plotly.jpeg")
+```
 
-To save the plot we simply click Save. However, it is here that one of Plotly's major strengths becomes apparent. As soon as we save the plot we can also invite others by email, we can create a public or private shareable link. For the collaborators, they must have a Plotly account already for this to work. 
+The viewer shows us the completed plot
 
-![](images/plotlyfigs/fig13_email.png)
+```{r fig27_plotly, echo=FALSE, message=FALSE, fig.align='center'}
+knitr::include_graphics("images/plotly/fig27_plotly.png")
+```
 
-The next option is to share a link. Note here that the default is to share a private link. To change that select the lock icon. The private link is particularly well suited for patent professionals. 
+The Viewer area includes access to the Data and in some cases may provide access to any Python or R code used to create the plot. On the top right we see icons the status of the graph `Public`. Selecting Public allows a graph to be shared in various ways. The download icon allows export of the image and downloads of the relevant data.
 
-![](images/plotlyfigs/fig13_privatelink.png)
+In this example we have focused on developing a very simple plot using `plotly`. In practice there are a wide range of possible plotting options with a growing number of tutorials provided at [Chart Studio Tutorials](https://plotly.com/chart-studio-help/tutorials/).
 
-You could also grab an embed code to embed the plot in a web page
-
-![](images/plotlyfigs/fig13_embed.png)
-
-Alternatively, surprise your friends and relatives by posting the plot on facebook or share with a wider audience on Twitter. 
-
-In this example we have focused on developing a very simple plot using `plotly`. In practice there are a wide range of possible plotting options with a growing number of tutorials provided [here](http://help.plot.ly/).
+One of the strengths of plotly Chart Studio is that it is an openly licensed library that can be used directly in both [R](https://plotly.com/r/getting-started-with-chart-studio/) and [Python](https://plotly.com/python/getting-started-with-chart-studio/).
 
 ## Working with Plotly in R
 
-We are following the instructions for setting up [Plotly in R](https://plot.ly/r/getting-started/). We will be using [RStudio](https://www.rstudio.com/) for this experiment. Download RStudio for your operating system [here](https://www.rstudio.com/products/rstudio/download/) and make sure that you also install R at the same time from the link on the RStudio page [here](https://cran.rstudio.com). For Python try these [installation instructions](https://plot.ly/python/getting-started/) to get started. 
+We are following the instructions for setting up [Plotly in R](https://plot.ly/r/getting-started/). We will be using [RStudio](https://www.rstudio.com/) for this experiment. Download RStudio for your operating system [here](https://www.rstudio.com/products/rstudio/download/) and make sure that you also install R at the same time from the link on the RStudio page [here](https://cran.rstudio.com). For Python try these [installation instructions](https://plot.ly/python/getting-started/) to get started.
 
-In RStudio first we need to install the `plotly` package. We will also install some other helpful packages for working with data in R. Either select the Packages tab in RStudio and type `plotly` and install, or type the following in the console and press Enter.  
+For R users interested in going into greater depth on Plotly in R we recommend Carson Sievert's book [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/) that is available as a free online book and in hardcover.
+
+In RStudio first we need to install the `plotly` package. We will also install some other helpful packages for working with data in R. Either select the Packages tab in RStudio and type `plotly` and install, or copy and paste the following in the console and press Enter.
 
 ```{r install, eval=FALSE}
+install.packages("ggplot2") # needed for plotly
 install.packages("plotly") # the main event
 install.packages("readr") # import csv files
 install.packages("dplyr") # wrangle data
@@ -145,16 +188,17 @@ install.packages("tidyr") # tidy data
 
 Then load the libraries.
 
-```{r load libraries, cache=TRUE, eval=FALSE}
+```{r load libraries, cache=TRUE, eval=FALSE, message=FALSE, error=FALSE}
+library(ggplot2)
 library(plotly)
 library(readr)
 library(dplyr)
 library(tidyr)
 ```
 
-We now need to set our credentials for the API. When logged in to `plotly` follow [this link](https://plot.ly/settings/api) to obtain your API key. Note also that you can obtain a streaming API token on the same page. Streaming will update a graphic from inside RStudio. 
+We now need to set our credentials for the API. When logged in to `plotly` follow [this link](https://chart-studio.plotly.com/settings/api) to obtain your API key. Note also that you can obtain a streaming API token on the same page. Using the streaming key will update a graphic from inside RStudio.
 
-When you have obtained your token use the following command to store your username and the API key in your environment.
+When you have obtained your token use the following command to store your username and the API key in your environment. Note that you should not use this method if you will be sharing work with others because it may expose your credentials. For a more secure method use the usethis package `usethis::edit_r_environ()` and save the credentials in your R environment file (restart R for the change to take effect). An even more secure approach for day to day working where you are sharing files (e.g. on GitHub) is to use the `credentials` package (recommended). For the moment we will simply save to our local environment.
 
 ```{r storeAPI, eval=FALSE}
 Sys.setenv("plotly_username" = "your_plotly_username")
@@ -165,47 +209,70 @@ Next we will load a dataset of WIPO Patentscope data containing sample data on p
 
 ```{r readr, eval=FALSE, cache=TRUE}
 library(readr)
+
 pcy <- read_csv("https://github.com/wipo-analytics/opensource-patent-analytics/raw/master/2_datasets/pizza_medium_clean/pcy.csv")
 ```
 
-```{r load_pcy, echo=FALSE, eval=TRUE}
+```{r load_pcy, echo=FALSE, eval=TRUE, cache=TRUE}
+
 load("data/pcy.rda")
 ```
 
-Because patent data generally contains a data cliff for more recent years we will filter out recent years using `filter()` from the `dplyr` package by specifying a year that is less than or equal to 2012. To take out the long tail of limited historic data we will specify greater than or equal to 1990. 
+Because patent data generally contains a data cliff for more recent years we will filter out recent years using `filter()` from the `dplyr` package by specifying a year that is less than or equal to 2012. To take out the long tail of limited historic data we will specify greater than or equal to 1990.
 
 ```{r pcyfilter, warning=FALSE, message=FALSE}
 library(dplyr)
+
 pcy <- filter(pcy, pubyear >= 1990, pubyear <= 2012)
 
-head(pcy)
+pcy %>% 
+  head() %>% 
+  knitr::kable()
 ```
 
-To create the plot in `plotly` we use the `plot_ly()` function. We will specify the dataset, the x and y axis and then the colour for the country data (known as a trace in `plotly` language). We will then add a title using the `%>%` pipe operator for "this" then "that". To specify the visual we want we specify the mode as "lines"" (try "markers" for a scatter plot).
+To create the plot in `plotly` we use the `plot_ly()` function. We will specify the dataset, the x and y axis and then the colour for the country data (known as a trace in `plotly` language). We will then add a title using the `%>%` pipe operator for "this" then "that". To specify the visual we want we specify the mode as "lines"" (try "markers" for a scatter plot). Note also that when specifying the column names to plot_ly we need to use the tilde `~` before the column name.
 
-```{r plot_s, eval=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
+```{r plot_s, eval=TRUE, warning=FALSE, message=FALSE, cache=TRUE}
 library(plotly)
-s <- plot_ly(pcy, x = pubyear, y = n, color = pubcountry, mode = "lines") %>%
+
+s <- plot_ly(pcy, x = ~pubyear, y = ~n, color = ~pubcountry, mode = "lines") %>%
   layout(title = "Patenscope Pizza Patent Trends")
+
 s
 ```
 
-![](images/plotlyfigs/fig16_plotlys.png)
+This will produce a graphic that is interactive when rendered to html using the Knit button in RStudio. This will allow a user to hover over the data points and also to zoom in and download a copy of the image. Note that there are of course multiple problems with this graph. One issue is that the colour scheme is indistinct because too many countries are displayed in the legend. Also we can see that the dominant country (the US) is compressing the trend for all other countries. We will address some of these issues below. The key point is that effective graphics take significant work. 
 
-Our data has more entries than there are colours in the default color palette. Plotly will record a warning on the number of colours but we can now clearly see a plot. If we have entered our credentials for the API (above) we can also push the graph online along with the data for further editing or to share with others. 
+
+If we have stored the API key following the instructions above we can easily post the graph to our online account from R. Note that plotly has different pricing tiers. On the free tier we need to set  `sharing = "public"` to share the image without running into an error message. 
 
 ```{r post, eval=FALSE, warning=FALSE, message=FALSE}
 library(plotly)
-plotly_POST(s)
+
+f <- api_create(s, sharing = "public")
+f
 ```
 
-This will open a browser window and ask you to sign up or login before being taken to the graph. 
+This will open a browser window with the graph on plotly.
 
-![](images/plotlyfigs/fig17_plotlys_post.png)
+One very nice feature of plotly is that a url is provided to the image that can be embedded. 
 
-As this makes clear, it is easy to generate a `plotly` graph in R but we will want to dig into the `plotly` package in a little more detail. 
+```{r eval=FALSE}
+#https://chart-studio.plotly.com/~poldham/631.embed
+url <- "https://chart-studio.plotly.com/~poldham/631.embed"
 
-To change colours it is helpful to note that `plotly` installs and then calls the `RColorBrewer` package (it will display in the Packages list). To see the colour palettes we first tick RColorBrewer in Packages (or `library(RColorBrewer)`) to load it. 
+knitr::include_graphics(path = "https://chart-studio.plotly.com/~poldham/631.embed")
+#![](`r url`)
+```
+
+
+
+
+
+
+As this makes clear, it is easy to generate a `plotly` graph in R but we will want to dig into the `plotly` package in a little more detail.
+
+To change colours it is helpful to note that `plotly` installs and then calls the `RColorBrewer` package (it will display in the Packages list). To see the colour palettes we first tick RColorBrewer in Packages (or `library(RColorBrewer)`) to load it.
 
 To view the available palettes you could simply use `View(brewer.pal.info)` or the following chunk which arranges the data by the number of colours.
 
@@ -214,115 +281,153 @@ library(RColorBrewer)
 library(dplyr)
 brewer.pal.info$names <- row.names(brewer.pal.info)
 select(brewer.pal.info, 4:1) %>% 
-  arrange(desc(maxcolors))
+  arrange(desc(maxcolors)) %>% 
+  head() %>% 
+  knitr::kable()
 ```
 
 This indicates that the maximum number of colours in a palette is 12. Let's try `Paired` for illustration. This has the advantage of being colour blind friendly.
 
-```{r plot_colour, eval= FALSE, message=FALSE, warning=FALSE}
+```{r plot_colour, eval=TRUE, message=FALSE, warning=FALSE, cache=FALSE}
 library(plotly)
 library(dplyr)
-s1 <- plot_ly(pcy, x = pubyear, y = n, color = pubcountry, colors = "Paired", mode = "lines") %>%
+s1 <- plot_ly(pcy, x = ~pubyear, y = ~n, color = ~pubcountry, colors = "Paired", mode = "lines") %>%
   layout(title = "Pizza Patent trends")
 s1
 ```
 
-![](images/plotlyfigs/fig18_plotlys.png)
+<!---![](images/plotlyfigs/fig18_plotlys.png)--->
 
-As we can see this will then produce a plot with the color palette, `plotly` will show a warning that the base palette ("Set2") has 8 colours but will then specify that it is displaying the palette that we requested. 
+As we can see this will then produce a plot with the color palette, `plotly` will show a warning that the base palette ("Set2") has 8 colours but will then specify that it is displaying the palette that we requested.
 
-In practice we would want to break this plot into subplots for two reasons. First, the data and value ranges vary widely between countries and second, it is better to ensure that colours are distinct. 
+In practice we would want to break this plot into subplots for two reasons. First, the data and value ranges vary widely between countries and second, it is better to ensure that colours are distinct.
 
-To do this we need to run some calculations on the data. We will use functions from `dplyr` and `tidyr` to quickly tally the data grouping by the publication code. Then we will add the data to discreet groups based on the scores using `mutate()` (to add a variable) and `ntile()` to divide the countries into groups based on the number of records (n) and add this to the new variable called group. Finally, we arrange the data in descending order based on the number of records. 
+To do this we need to run some calculations on the data. We will use functions from `dplyr` and `tidyr` to quickly tally the data grouping by the publication code. Then we will add the data to discreet groups based on the scores using `mutate()` (to add a variable) and `ntile()` to divide the countries into groups based on the number of records (n) and add this to the new variable called group. Finally, we arrange the data in descending order based on the number of records.
 
-```{r tally, message=FALSE, warning=FALSE, eval=FALSE}
+
+```{r tally, message=FALSE, warning=FALSE, eval=TRUE, cache=TRUE}
 library(dplyr)
 library(tidyr)
+
 total <- tally(group_by(pcy, pubcode)) %>%
   mutate(group = ntile(n, 3)) %>%
   rename(records = n) %>% 
   arrange(desc(records)) 
-total
+head(total) %>% 
+  knitr::kable()
 ```
 
-When we view total we now see that countries have been divided into 3 groups based on their number of records. Groups 1 and 2 are unlikely to provide a meaningful graph and group 1 in particular could be dropped. However, we could usefully display this information as a bar chart using `plot_ly` and selecting `type = "bar"`. 
+```{r savetotal, echo=FALSE, eval=FALSE}
+save(total, file = "data/total.rda")
+```
 
-```{r total_bar, eval=FALSE}
+```{r loadtotal, echo=FALSE, eval=TRUE}
+load("data/total.rda")
+```
+
+
+When we view total we now see that countries have been divided into 3 groups based on their number of records. Groups 1 and 2 are unlikely to provide a meaningful graph and group 1 in particular could be dropped. However, we could usefully display this information as a bar chart using `plot_ly` and selecting `type = "bar"`.
+
+```{r total_bar, eval=TRUE, cache=TRUE, message=FALSE}
 library(plotly)
 library(dplyr)
-total_bar <- plot_ly(total, x = pubcode , y = records, type = "bar")
+
+total_bar <- plot_ly(total, x = ~pubcode , y = ~records, type = "bar")  %>% 
+  layout(title = "total_bar")
+
 total_bar
 ```
 
-![](images/plotlyfigs/fig19_plotlybar.png)
+<!---![](images/plotlyfigs/fig19_plotlybar.png)--->
 
 Having divided our data into three groups it would now be useful to plot them separately. Here we face the problem that our original data in pcy displays values by year while total displays the total number of records and group. We need first to add the group identifiers to the pcy table. To do that we will modify total to drop the count of records in `records` using the `dplyr` `select()` function. Then we will use `left_join()` to join the `total` and `total_group` tables together. Note that the function will use the shared field "pubcode" for joining.
 
 ```{r total_group, eval=TRUE}
 library(dplyr)
-total_group <- select(total, pubcode, group) 
-total_group
+
+total_group <- total %>% 
+  select(pubcode, group) 
+
+total_group %>% 
+  head() %>% 
+  knitr::kable()
 ```
 
 Then we join the two tables and rename `n` to `records` for graphing.
 
-```{r join, eval=TRUE}
+```{r join, eval=TRUE, message=FALSE}
 library(dplyr)
+
 total_grouped <- left_join(pcy, total_group) %>% 
   rename(records = n)
-total_grouped
+
+total_grouped %>% 
+  head() %>% 
+  knitr::kable()
 ```
 
-The next step is to generate a set of three plots corresponding with our three groups. We will call them pizza3, pizza2 and pizza1 and use the full publication country name in `pubcountry` as the colour for the lines. 
+The next step is to generate a set of three plots corresponding with our three groups. We will call them pizza3, pizza2 and pizza1 and use the full publication country name in `pubcountry` as the colour for the lines.
 
 ```{r pizza123, eval=FALSE}
 library(plotly)
 library(dplyr)
+
 pizza3 <- filter(total_grouped, group == 3) %>%
-  plot_ly(x = pubyear, y = records, color = pubcountry, type = "lines", mode = "lines")
+  plot_ly(x = ~pubyear, y = ~records, color = ~pubcountry, type = "scatter", mode = "lines") %>% 
+  layout(title = "pizza3")
+
 pizza2 <- filter(total_grouped, group == 2) %>%
-  plot_ly(x = pubyear, y = records, color = pubcountry, type = "lines", mode = "lines")
+  plot_ly(x = ~pubyear, y = ~records, color = ~pubcountry, type = "scatter", mode = "lines")  %>% 
+  layout(title = "pizza2")
+
 pizza1 <- filter(total_grouped, group == 1) %>%
-  plot_ly(x = pubyear, y = records, color = pubcountry, type = "lines", markers = "lines")
+  plot_ly(x = ~pubyear, y = ~records, color = ~pubcountry, type = "scatter", mode = "markers")  %>% 
+  layout(title = "pizza1")
 ```
 
-We now have a total of four draft plots, total_bar and pizza 3 to 1 for our groups. Plotly will allow us to display plots side by side. Note that this can create quite a crunched display in RStudio and is best viewed by selecting the small `show in new window` button in the RStudio Viewer. 
-<!---add names to subplots--->
+We now have a total of four draft plots, total_bar and pizza 3 to 1 for our groups. Plotly will allow us to display plots side by side. Note that this can create quite a crunched display in RStudio and is best viewed by selecting the small `show in new window` button in the RStudio Viewer.
+
+Note that when creating these kinds of plots you will want to name each of the plots.
+
 ```{r sidebyside, eval=FALSE}
 library(plotly)
 sub <- subplot(total_bar, pizza3, pizza2, pizza1)
 sub
-plotly_POST(sub)
+api_create(sub, sharing = "public")
 ```
 
 ```{r printimage3, eval=FALSE, echo=FALSE}
-plotly::plotly_IMAGE(total_bar, out_file = "fig20_plotlybar.png")
+plotly::plotly_IMAGE(sub, out_file = "images/plotly/fig30_plotlysub.png")
+
+knitr::include_graphics("images/plotly/fig30_plotlysub.png")
 ```
 
-You will now see an image that looks a lot like this. 
+<!--- image needs individual plot names--->
+
+You will now see an image that looks a lot like this.
 
 ![](images/plotlyfigs/fig20_plotlymulti.png)
 
-The figure reveals no coherent trend for the countries in Group 1 on the right and it makes sense to drop this data. Group 2 is potentially more interesting but the low overall numbers and the spikes for data for Japan suggests very low activity and a lack of complete data. Furthermore, ideally we would want to allocate different colours to the different names in our trends panels (probably by allocating different palettes) which could take considerable time relative to the gains in terms of displaying low frequency data. We will let the bar chart do that work and finish with a simple two plot graphic to send to `plotly` online. 
+The figure reveals no coherent trend for the countries in Group 1 on the right and it makes sense to drop this data. Group 2 is potentially more interesting but the low overall numbers and the spikes for data for Japan suggests very low activity and a lack of complete data. Furthermore, ideally we would want to allocate different colours to the different names in our trends panels (probably by allocating different palettes) which could take considerable time relative to the gains in terms of displaying low frequency data. We will let the bar chart do that work and finish with a simple two plot graphic to send to `plotly` online.
 
 ```{r side by side1, eval=FALSE}
 library(plotly)
 sub1 <- subplot(total_bar, pizza3)
-plotly_POST(sub1)
+api_create(sub1, sharing = "public")
 ```
 
 ![](images/plotlyfigs/fig21_plotlymulti_online.png)
 
-It is then easy to edit the labels and make final adjustments online. 
+It is then easy to edit the labels and make final adjustments online.
 
 We can also share the graph via social media, download the data, or edit the graph. Note that the default setting for a graph sent via the API appears to be public (with no obvious way to change that).
 
-It is here that Plotly's potential importance as a tool for sharing data and graphics becomes apparent. It is a powerful tool. Recent updates to the R package and the introduction of dashboards demonstrates ongoing improvements to this new service. 
+It is here that Plotly's potential importance as a tool for sharing data and graphics becomes apparent. It is a powerful tool. Recent updates to the R package and the introduction of dashboards demonstrates ongoing improvements to this new service.
 
 ## Round Up
 
-In this chapter we have provided a brief introduction to Plotly to help you get started with using this tool for patent analytics. Plotly provides visually appealing and interactive graphics that can readily be shared with colleagues, pasted into websites and shared publicly. The availability of APIs is also a key feature of Plotly for those working in Python, R or other programmatic environments. 
+In this chapter we have provided a brief introduction to Plotly to help you get started with using this tool for patent analytics. Plotly provides visually appealing and interactive graphics that can readily be shared with colleagues, pasted into websites and shared publicly. The availability of APIs is also a key feature of Plotly for those working in Python, R or other programmatic environments.
 
-However, Plotly can also be confusing. For example, we found it hard to understand why particular datasets would not upload correctly (when they can easily be read in Tableau). We also found it hard to understand the format that the data needed to be in to plot correctly. So, Plotly can be somewhat frustrating although it has very considerable potential for sharing appealing graphics. The recent addition of [dashboards](https://plot.ly/dashboards/) is also a promising development. Finally, for R users, the `plotly` package now closely integrates with the very popular `ggplot2` package through the ggplotly() function which allows for the creation of interactive `ggplot2` graphics. 
+However, Plotly can also be confusing. For example, we found it hard to understand why particular datasets would not upload correctly (when they can easily be read in Tableau). We also found it hard to understand the format that the data needed to be in to plot correctly. So, Plotly can be somewhat frustrating although it has very considerable potential for sharing appealing graphics. The recent addition of [dashboards](https://plot.ly/dashboards/) is also a promising development. Finally, for R users, the `plotly` package now closely integrates with the very popular `ggplot2` package through the ggplotly() function which allows for the creation of interactive `ggplot2` graphics.
 
 In this chapter we have only touched on the potential of Plotly as a powerful free tool for creating interactive graphics. Other kinds of plots that are well worth exploring include Bubble maps, contour maps and heat maps. To experiment for yourself try the [Plotly tutorials](http://help.plot.ly/tutorials/).

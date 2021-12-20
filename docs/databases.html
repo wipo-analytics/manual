@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2016-01-01" />
+<meta name="date" content="2021-01-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
 <link rel="prev" href="datasets.html"/>
 <link rel="next" href="the-lens-1.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,12 +50,20 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -377,13 +385,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#introduction-5"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
 <li class="chapter" data-level="11.2" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#getting-started-with-plotly"><i class="fa fa-check"></i><b>11.2</b> Getting Started with Plotly</a></li>
 <li class="chapter" data-level="11.3" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#importing-files"><i class="fa fa-check"></i><b>11.3</b> Importing Files</a></li>
-<li class="chapter" data-level="11.4" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#creating-a-graphic"><i class="fa fa-check"></i><b>11.4</b> Creating a graphic</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#adding-a-second-axis"><i class="fa fa-check"></i><b>11.4.1</b> Adding a Second Axis</a></li>
-</ul></li>
-<li class="chapter" data-level="11.5" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#saving-and-sharing"><i class="fa fa-check"></i><b>11.5</b> Saving and Sharing</a></li>
-<li class="chapter" data-level="11.6" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#working-with-plotly-in-r"><i class="fa fa-check"></i><b>11.6</b> Working with Plotly in R</a></li>
-<li class="chapter" data-level="11.7" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#round-up-7"><i class="fa fa-check"></i><b>11.7</b> Round Up</a></li>
+<li class="chapter" data-level="11.4" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#creating-a-graphic-online"><i class="fa fa-check"></i><b>11.4</b> Creating a Graphic Online</a></li>
+<li class="chapter" data-level="11.5" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#working-with-plotly-in-r"><i class="fa fa-check"></i><b>11.5</b> Working with Plotly in R</a></li>
+<li class="chapter" data-level="11.6" data-path="patent-analytics-with-plotly.html"><a href="patent-analytics-with-plotly.html#round-up-7"><i class="fa fa-check"></i><b>11.6</b> Round Up</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="patent-infographics-with-r.html"><a href="patent-infographics-with-r.html"><i class="fa fa-check"></i><b>12</b> Patent Infographics with R</a>
 <ul>
@@ -496,15 +500,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.2</span> The Databases</h2>
 <div id="the-lens" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> <a href="https://www.lens.org/lens/">The Lens</a></h3>
-<p>Previously known as the Patent Lens this is a well designed site with quite a few visualisation options and access to sequence data. It is possible to search the title, abstract, description and claims of patent documents and create and share data in collections. In 2015 the ability to download up to 10,000 records at a time was added. When combined with interactive charts that allow the user to drill down into results set, this has transformed the Lens into a very useful and innovative database and visualization tool.</p>
-<p><img src="images/tools/Lens_2015-0517_14-19-26.png" /></p>
+<p>Originally known as the Patent Lens this is a very well designed site that provides combined access to data on hundreds of millions of scientific publications and worldwide patent collections Figure <a href="databases.html#fig:fig1lens">5.1</a>. Originally free for all users, the services are increasingly being split between non-commercial and commercial users in order to generate funds for the services.</p>
+<p>Compared with other service providers, the Lens is particularly strong in linking the scientific and patent literature through citations. The Lens also stands out for the number of records that can be downloaded (50,000) compared with other services, for its rapid visualisation tools, new application programming and bulk download services (paid) and genetic sequence data (free and paid).</p>
+<p>It is possible to search the title, abstract, description and claims of patent documents and create and share data in collections. As of 2021 it is possible to download 50,000 records at a time, including the titles, abstracts and claims of patent documents. As far as we are aware no other patent database offers this level of rapid access for patent analytics purposes.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig1lens"></span>
+<img src="images/lens2/fig1_lens_front.png" alt="The Lens Home Page" width="1608" />
+<p class="caption">
+Figure 5.1: The Lens Home Page
+</p>
+</div>
 </div>
 <div id="patentscope" class="section level3" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> <a href="https://patentscope.wipo.int/search/en/search.jsf">Patentscope</a></h3>
-<p>The WIPO Patentscope database provides access to Patent Cooperation Treaty data including downloads of a selection of fields (up to 10,000 records), a very useful <a href="https://patentscope.wipo.int/search/en/clir/clir.jsf?new=true">search expansion translation tool</a>, and <a href="https://www3.wipo.int/patentscope/translate/translate.jsf?interfaceLanguage=en">translation</a>.</p>
-<p><img src="images/tools/simplesearchresultspizza.png" /></p>
-<p>Obtaining <a href="https://patentscope.wipo.int/search/en/sequences.jsf">sequence data from Patentscope</a>. Note that this rapidly becomes gigabytes of data.</p>
-<p><img src="images/tools/pctseq.png" /></p>
+<p>The WIPO Patentscope database provides access to over 2.4 million Patent Cooperation Treaty applications and over 99 million patent documents. including downloads of a selection of fields (up to 10,000 records), a very useful <a href="https://patentscope.wipo.int/search/en/clir/clir.jsf?new=true">search expansion translation tool</a>, and <a href="https://www3.wipo.int/patentscope/translate/translate.jsf?interfaceLanguage=en">translation</a> (Figure <a href="databases.html#fig:patentscopefront">5.2</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:patentscopefront"></span>
+<img src="images/patentscope/patentscope_front.png" alt="The Patentscope Home Page" width="1575" />
+<p class="caption">
+Figure 5.2: The Patentscope Home Page
+</p>
+</div>
+<p>Search results for drone technology on Patentscope Figure <a href="databases.html#fig:fig2patentscope">5.3</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig2patentscope"></span>
+<img src="images/patentscope/fig2_patentscope.png" alt="Search Results from Patentscope" width="1575" />
+<p class="caption">
+Figure 5.3: Search Results from Patentscope
+</p>
+</div>
+<p>Obtaining <a href="https://patentscope.wipo.int/search/en/sequences.jsf">sequence data from Patentscope</a>. Note that this rapidly becomes gigabytes of data Figure <a href="databases.html#fig:fig3patentscope">5.4</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig3patentscope"></span>
+<img src="images/patentscope/fig3_patentscope.png" alt="Patentscope Sequence Listings with Bulk Download available over ftp" width="1530" />
+<p class="caption">
+Figure 5.4: Patentscope Sequence Listings with Bulk Download available over ftp
+</p>
+</div>
+<p>Perhaps less well known is <a href="https://wipopearl.wipo.int/en/linguistic">WIPO Pearl</a> , see Figure <a href="#fig:fig4wipopearl"><strong>??</strong></a>. This provides access to powerful human curated mappings of search terms across multiple languages and is particularly important for developing detailed searches in specific domains and for searching across jurisdictions.</p>
+<p><img src="images/patentscope/fig4_wipopearl.png" width="1530" style="display: block; margin: auto;" /></p>
+<p>In Figure <a href="#fig:fig4wipopearl"><strong>??</strong></a> we have searched for the term drone and exposed related terms within and across languages in patent data. In tFigure <a href="#fig:fig5wipopearl"><strong>??</strong></a> below we use concept match search focusing on airborne drones to reveal closely related concepts in patent data.</p>
+<p><img src="images/patentscope/fig5_wipopearl.png" width="1574" style="display: block; margin: auto;" /></p>
 </div>
 <div id="espacenet" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> <a href="http://worldwide.espacenet.com/?locale=en_EP">espacenet</a></h3>
