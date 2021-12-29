@@ -27,10 +27,21 @@ Three datasets are drawn from the [WIPO Patent Landscape Reports](http://www.wip
 1. `ewaste` presents the results of research for a [report](http://www.wipo.int/patentscope/en/programs/patent_landscapes/reports/ewaste.html) on patent activity for electronic waste recycling and its implications for developing countries. 
 2. `solar_cooking` presents the data supporting a [report](http://www.wipo.int/patentscope/en/programs/patent_landscapes/reports/solar_cooking.html) on technologies that use solar energy as the source for cooking and pasteurizing food. 
 3. `ritonavir` presents the data for a patent [report](http://www.wipo.int/patentscope/en/programs/patent_landscapes/reports/ritonavir.html) on patent activity for the HIV antiretroviral drug Ritonavir in the field of pharmaceuticals. The dataset illustrates specific activity around issues such as dosage and also the problem of 'evergreening' in patent activity. 
+4. [Artificial Intelligence](). The [WIPO Technology Trends 2019 report](https://www.wipo.int/tech_trends/en/artificial_intelligence/) focused on artificial intelligence. The raw data used for the report is not available for direct download but the data for individual figures is available in a set of [multi-sheet excel tables]() for those interested. In addition, WIPO offers an [Artificial Intelligence Index](https://www.wipo.int/tech_trends/en/artificial_intelligence/patentscope.html) page with links from the search terms used to generate the report data in WIPO Patentscope. For example, the [Machine Learning link](https://patentscope.wipo.int/search/en/result.jsf?query=AItechniqueMachineLearning&sortOption=Relevance) will generate a new dataset with results. Users who have signed up for a free Patentscope account can then refine the search and download basic data fields for up to 10,000 records. 
+5. [Assistive Technology](https://www.wipo.int/publications/en/details.jsp?id=4541). The [WIPO Technology Trends 2021 report](https://www.wipo.int/edocs/pubdocs/en/wipo_pub_1055_2021.pdf) focused on assistive technologies. The [report]((https://www.wipo.int/edocs/pubdocs/en/wipo_pub_1055_2021.pdf)) includes two datasets in Excel. 
+  - [Conventional Assistive Technology Dataset](https://www.wipo.int/edocs/pubdocs/en/wipo_pub_1055_2021-tech1.xlsx)
+  - [Emerging Assistive Technology Dataset](https://www.wipo.int/edocs/pubdocs/en/wipo_pub_1055_2021-tech2.xlsx)
+
+### Packaged Datasets
+
+We have created two packages in R that can be downloaded for use in R or Python.
+
+1. [Drones](https://github.com/wipo-analytics/drones)
+2. Women Inventors. Forthcoming in 2022. 
 
 ### Other datasets
 
-1. `wipo` is a single Excel sheet of data on trends in patent applications and growth rates from the [WIPO World Intellectual Property Indicators - 2014 Edition](http://www.wipo.int/ipstats/en/wipi/). The data is used for simple graphing in tools such as R and illustrates the need to skip rows when reading data into analytics tools.
+1. `wipo` is a single Excel sheet of data on trends in patent applications and growth rates from the [WIPO World Intellectual Property Indicators - 2014 Edition](http://www.wipo.int/ipstats/en/wipi/). The data is used for simple graphing in tools such as R and illustrates the need to skip rows when reading data into analytics tools. More recent data from WIPO annual indicators reports is available for individual reports on the [WIPO Indicators page](https://www.wipo.int/publications/en/series/index.jsp?id=37). For example, the [WIPO Indicators 2021 report](https://www.wipo.int/publications/en/details.jsp?id=4571&plang=EN) page includes a set of multi-sheet excel workbooks with the data used to generate the figures for the indicators set. 
 2. `WIPO_sequence_data`. This dataset contains a small sample of the sequence data from the year 2000 available free of charge from the [WIPO Patentscope database](https://patentscope.wipo.int/search/en/sequences.jsf). This dataset can be used to explore analysis of patent sequence data. 
 3. [Synthetic biology](https://github.com/poldham/opensource-patent-analytics/tree/master/2_datasets/synbio_patents). This is a sample of data from Thomson Innovation developed by Paul Oldham for research on patent activity involving synthetic biology. The data has been extensively cleaned in VantagePoint from Search Technology Inc. and is intended to illustrate the use of data from a commercial patent database. 
 

@@ -100,6 +100,7 @@ datasets
 the-datasets
 pizza-patent-datasets
 patent-landscape-reports-datasets
+packaged-datasets
 other-datasets
 round-up-2
 databases
