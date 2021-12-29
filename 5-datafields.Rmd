@@ -49,7 +49,10 @@ We will walk through each of these fields using a patent application for synthet
 
 Synthetic biology (and synthetic genomics) began to hit the international headlines with the news in 2010 that members of the J. Craig Venter Institute had successfully synthesised the genome of a Mycoides microbe and transplanted the genome into the empty cell of another Mycoides that then `booted up`. This led to considerable excitement about the creation of artificial life and is part of the story of the growing prominence of synthetic biology. For our purposes it is an interesting example for walking through standard patent data fields. 
 
-![](images/datafields/synthetic_genomes_nature_news.png)
+```{r natureim, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_nature_news.png")
+```
+
 
 ### [Original Front Page](http://worldwide.espacenet.com/publicationDetails/originalDocument?CC=WO&NR=2008024129A2&KC=A2&FT=D&ND=5&date=20080228&DB=EPODOC&locale=en_EP)
 
@@ -75,8 +78,9 @@ We will address other data fields below. For now note the applicant and inventor
 
 Here we can see the same information in the front page for the record in the [espacenet](http://worldwide.espacenet.com/?locale=en_EP) database. [espacenet](http://worldwide.espacenet.com/?locale=en_EP) is easily accessible and popular. Even when using commercial tools espacenet is often the fastest way to look up or check information. For a brief overview see these [videos](https://www.youtube.com/playlist?list=PLsZOGmKUMi55SmfBRlNCSq_ZmxLHz16fO) and the [interactive espacenet assistant](http://application.epo.org/wbt/espacenet/).
 
-![](images/datafields/synthetic_genomes_WO.png)
-
+```{r datafields, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_WO.png")
+```
 In this case we see data in the form that will typically come back from a patent database such as espacenet. Starting with the **dates**, we can see that the priority number field contains the priority (first filing) date 20051206 (as YYYYMMDD), linked to the priority document [US20050742542P](http://worldwide.espacenet.com/publicationDetails/biblio?DB=EPODOC&II=0&ND=3&adjacent=true&locale=en_EP&FT=D&date=20130930&CC=DK&NR=1968994T3&KC=T3), a provisional US application. This is followed by the application number [WO2006US46803](http://worldwide.espacenet.com/searchResults?submitted=true&locale=en_EP&DB=EPODOC&ST=advanced&TI=&AB=&PN=&AP=WO2006US46803&PR=&PD=&PA=&IN=&CPC=&IC=) and date and the publication number and date. The publication number, [WO2008024129A2](http://worldwide.espacenet.com/searchResults?submitted=true&locale=en_EP&DB=EPODOC&ST=advanced&TI=&AB=&PN=WO2008024129A2&AP=&PR=&PD=&PA=&IN=&CPC=&IC=), is normally the easiest to use when searching a patent database. 
 
 Other things to note are that the Applicant and Inventor fields include country code information (e.g US) using standard two letter country codes. While this information is not always available (notably for filings purely on the national level) this data is very useful in patent analytics for identifying cross country collaborations between inventors and applicants. However, be aware that for statistical use it is important to calculate the number of records that possess this country information or to use only those jurisdictions where this data is recorded.  
@@ -89,7 +93,9 @@ a) previous patent filings and prior art such as scientific literature.
 b) in the case of the United States, applicants include information on whether the research leading to the invention was government funded including the funding agency and relevant contract number.
 c) a summary followed by detailed background to the claimed invention. This will typically include examples which may be actual worked examples or paper (prophetic) examples.
 
-![](images/datafields/synthetic_genomes_description.png)
+```{r description, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_description.png")
+```
 
 Data provided in the description can be very useful where text mining approaches are applied. For example, the authors have previously text mined millions of documents for biological species names as in this [article](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078737). In other cases, it may be desirable to investigate the description for information on the [country of origin of materials and traditional knowledge](https://www.cbd.int/doc/meetings/cop/cop-10/information/cop-10-inf-44-en.pdf), or to explore the uses of particular extracts or chemical compounds.
 
@@ -117,7 +123,9 @@ Patent claims take a variety of forms and what may be permitted may vary accordi
 
 While this sounds like a lot of different types of claim in practice you do not encounter all of these all the time. In our experience (mainly working on biological issues), the claims tend to be for compositions of matter, including biotechnology above, and methods. That could vary depending on your field of interest. 
 
-![](images/datafields/synthetic_genomes_claims.png)
+```{r claims, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_claims.png")
+```
 
 In the case of the synthetic genomes patent application we can see that we are dealing with a method claim (claim 1) relating to the assembly of nucleic acid cassettes. The first claim is the most important (and often the most useful) of the claims because everything else that follows normally depends on that claim.
 
@@ -131,7 +139,9 @@ In the discussion above we noted that when a patent is filed for the first time 
 
 [Family Members](http://worldwide.espacenet.com/publicationDetails/inpadocPatentFamily?CC=WO&NR=2008024129A2&KC=A2&FT=D&ND=5&date=20080228&DB=EPODOC&locale=en_EP)
 
-![](images/datafields/synthetic_genomes_WO_family.png)
+```{r family, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_WO_family.png")
+```
 
 We can see here that the family of our international application on synthetic genomes contains **9 applications** (including the WO reference document). We can see that in some cases these 9 applications have led to more than one publication leading to a total of **15 family members**. Patent publication numbers are generally accompanied by two letter codes at the end of the numbers called kind codes (e.g. A2, B1, T1 etc.) These codes in technical terms tell us about the publication level but also about the type of document involved. 
 
@@ -162,7 +172,9 @@ The above approach will allow you to successfully count thousands or millions of
 
 Patent applicants can be said to be "standing on the shoulders of giants" to borrow from the work of the economist [Suzanne Scotchmer](http://socrates.berkeley.edu/~scotch/giants.pdf) on patents. For our purposes, judgements about novelty and inventive step during examination are based on assessments of the existing patent literature (what others have previously claimed) and what is called the Non-Patent Literature (NPL), including scientific publications and other materials constituting "prior art". The existence of prior art may mean that a patent application cannot proceed or that applicants will need to limit what they claim to the aspects of the invention that do not exist in the prior art. This information is recorded in the Cited documents field in databases such as espacenet. 
 
-![](images/datafields/synthetic_genomes_WO_cited.png)
+```{r cited, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_WO_cited.png")
+```
 
 In this case the cited documents include a 2003 US grant [US6521427B1](http://worldwide.espacenet.com/publicationDetails/biblio?DB=EPODOC&II=0&ND=7&adjacent=true&locale=en_EP&FT=D&date=20030218&CC=US&NR=6521427B1&KC=B1) to Egea Biosciences with a priority filing in 1997 related to oligonucleotide synthesis for "the assembly of genes and genomes of completely synthetic artificial organisms" using computer directed gene synthesis. In addition, cited documents include cited literature (awarded an XP code in espacenet) that in two cases originate from the inventors of the synthetic genomes application. 
 
@@ -183,7 +195,9 @@ When reviewing cited patent and non-patent literature note that a cited patent d
 
 Citing data is the opposite of cited data. One useful way to think of this is that cited data means back citations while citing data means forward citations. Citing data or forward citations are later patent applications that cite our reference document as follows. 
 
-![](images/datafields/synthetic_genomes_WO_citing.png)
+```{r citing, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_WO_citing.png")
+```
 
 In this case there are two citing documents at the time of writing. One is from UK applicant Discuva for bacterial engineering [WO2014072697A1](http://worldwide.espacenet.com/publicationDetails/biblio?DB=EPODOC&II=0&ND=8&adjacent=true&locale=en_EP&FT=D&date=20140515&CC=WO&NR=2014072697A1&KC=A1). A second is from Synthetic Genomics (a commercial arm of the J. Craig Venter Institute) for methods for cloning and manipulating genomes with some of the same inventors listed on the application [WO2011109031A1](http://worldwide.espacenet.com/publicationDetails/biblio?DB=EPODOC&II=2&ND=8&adjacent=true&locale=en_EP&FT=D&date=20110909&CC=WO&NR=2011109031A1&KC=A1). 
 
@@ -195,7 +209,9 @@ In broader terms, forward citing data can inform patent landscape analysis on th
 
 As discussed above, patent kind codes at the end of publication numbers provide an indication of the publication level and type of patent document. In cases where this involves specific kind codes (e.g. B) this is often an indicator of a patent grant. However, to gain additional insights we need to review the legal status data as below.
 
-![](images/datafields/synthetic_genomes_WO_legalstatus.png)
+```{r legalstatus, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_WO_legalstatus.png")
+```
 
 In this case the most obvious point about the data is that it informs us that the application is entering the national phase in a number of different countries. That is the applicants are pursuing the application in specific countries listed in the front page (above) under the Designated States field (all Contracting States to the PCT are listed by default). As such, the applicants are signalling their intention to pursue patent grants in these countries. In other case, the legal status data may indicate that an application has been rejected, that a granted patent has lapsed due to failure to pay fees or has expired. Additional information may be obtained through the interpretation of legal status codes with more information available by downloading the [Categorisation of recently used legal status codes](http://www.epo.org/searching/data/data/tables/regular.html) from the EPO website. 
 
@@ -205,11 +221,15 @@ When reviewing legal status data note that it may not be recent or complete. For
 
 Additional information on a patent document is typically available by consulting patent registers on the national or regional level. In the case of European level applications, more information is typically available through the EP Register button on the front page. If we select this for our WO document we will be taken to the EP Register entry for the European family member [EP1968994](https://register.epo.org/application?number=EP06851474&tab=main). As below. 
 
-![](images/datafields/synthetic_genomes_register1.png)
+```{r register1, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_register1.png")
+```
 
 From this information we can see that no opposition to the patent application was filed within the time limit. We then see that the most recent event is a lapse of a patent in Ireland (IE) along with the publication history. If we scroll down the page more information becomes available. 
 
-![](images/datafields/synthetic_genomes_register2.png)
+```{r register2, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/datafields/synthetic_genomes_register2.png")
+```
 
 In this case we gain access to information on the written communication history between applicants and the EPO along with details of the payment of patent renewal fees. Out of sight on this image is citation data including the DOIs of cited literature that will link directly to the article concerned where available. 
 
