@@ -99,102 +99,97 @@ As part of the shift to open data the USPTO has established an external [Patents
 
 ### [Google Patents](http://www.google.com/patents)
 
-![](images/tools/googlepatents_2015-0517_14-09-22.png)
+<!---updated 2021-12-29--->
+
+```{r googlepatents, echo=FALSE, fig.align='center', fig.cap="Google Patents"}
+knitr::include_graphics("images/databases/Google Patents 2021-12-29 09-35-39.png")
+```
 
 The [Google Patent Search API](https://developers.google.com/patent-search/terms) has been deprecated. Access through the Google Custom Search API with the API flag for patents [reported](http://stackoverflow.com/questions/15028166/python-module-for-searching-patent-databases-ie-uspto-or-epo) to be `&tbm=pts` with example code for using the API in Python.
 
-In the free version of the Google Custom Search API data retrieval is limited and the patent field headings are unclear (that is they use non-standard names). For free patent analytics, Google Custom Search is presently of very limited use.
+In the free version of the Google Custom Search API data retrieval is limited and the patent field headings are unclear (that is, they use non-standard names). For free patent analytics, Google Custom Search is presently of very limited use.
 
-### [Google Prior Art Finder](https://www.google.com/patents/related)
+### [USPTO Bulk Downloads](https://www.google.com/googlebooks/uspto.html)
 
-The Google Prior Art Finder is a relatively recent development that allows you to enter search terms or patent numbers and to view and export results.
+The [USPTO patent database interface](http://patft.uspto.gov) is archaic. However, a lot has been happening at the USPTO to make patent data more accessible in a range of formats to enable wider use. 
 
-![](images/tools/google_priorart1.png)
+For patent analytics we recommend the [PatentsView API](https://patentsview.org/apis/purpose) for regular lightweight use and the [PatentsView Data Download](https://patentsview.org/download/data-download-tables) for heavier duty users. The PatentsView Data Download is an excellent resource because it offers the complete US patent collection in data tables that can easily be joined or text mined. 
 
-The results include a Top Ten and are broken down into sections including Google Scholar, Patents etc.
+In addition to PatentsView the USPTO also offers a bulk download service for the raw html files from the USPTO Patent Gazette. 
 
-![](images/tools/google_priorart2.png)
+```{r usptobulk, echo=FALSE, fig.align='center', fig.cap="USPTO Bulk Patent Data"}
+knitr::include_graphics("images/databases/USPTO 2021-12-29 09-59-21.png")
+```
 
-The Export button will export the top ten results for each section in a .csv file.
+It is unclear what exactly you might want to do with this and it could take a lot of work to parse but we include it for the sake of completeness. One possible use would be to check legal status issues such as the payment of payment renewal fees. We suspect that this type of use will be more relevant to companies for whom up to date information is of critical importance. Regular users will probably prefer other sources of the same data even if it is less timely. 
 
-![](images/tools/google_priorart3.png)
-
-It is possible to load more results for a section (e.g. see More Patent Results at the bottom of the results) and then export them (e.g. 20 patent documents rather than 10). In a test we managed to export 140 patent results but this could rapidly become laborious. An additional issue is that the data will need transposing. At the time of writing we had not identified an API route to Prior Art Finder.
-
-### [Google USPTO Bulk download](https://www.google.com/googlebooks/uspto.html)
-
-The [USPTO patent databases](http://patft.uspto.gov) may be archaic but you can download the entire US collection from the [Google USPTO Bulk download service](https://www.google.com/googlebooks/uspto-patents.html).
-
-![](images/tools/USPTObulk.png)
-
-It is a fantastic service, and an example to patent offices everywhere on freeing up patent data. If you have a good broadband connection and the hard drive space, it is quite good fun to suddenly have access to millions of patent records. The authors used the service to text mine the collection for millions of biological species names as reported [here](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078737).
-
-![](images/tools/USPTOGrant.png)
-
-However, one important issue to note is that the XML delimiting individual documents is not always well demarcated. This means that any code that will work for one bulk set of files may fail on another set. While it is possible to address this, be prepared to spend time working on this and/or seek assistance from a professional programmer. For an insight into these issues see this [Stackoverflow discussion](http://stackoverflow.com/questions/25107557/parseing-xml-by-r-always-return-xml-declaration-error) on parsing the data in R.
 
 ### [Free Patents Online](http://www.freepatentsonline.com)
 
 Sign up for a free account for enhanced access and to save and download data. It has been around quite a while now and while the download options are limited we rather like it.
 
-![](images/tools/Freepatentsonline2015-03-26%2016-26-13.png)
+```{r freepatentsonline, echo=FALSE, fig.align='center', fig.cap="Free Patents Online"}
+knitr::include_graphics("images/databases/FPO 2021-12-29 10-01-37.png")
+```
 
-### [DEPATISnet](http://www.dpma.de/english/service/e-services/depatisnet/)
+### [DEPATISnet](https://www.dpma.de/english/search/depatisnet/index.html)
 
-We are not covering national databases. However, the patent database of the German Patent and Trademark Office struck us as potentially very useful. It allows for searches in English and German and has extensive coverage of international patent data, including the China, EP, US and PCT collections. The coverage details are [here](https://depatisnet.dpma.de/DepatisNet/depatisnet?action=datenbestand). Worth experimenting with.
+We are not covering national databases. However, the patent database of the German Patent and Trademark Office struck us as potentially very useful. It allows for searches in English and German and has extensive coverage of international patent data, including the China, EP, US and PCT collections. Worth experimenting with.
 
-![](images/tools/DEPATISnet_13-53-19.png)
+```{r depatisnet, echo=FALSE, fig.align='center', fig.cap="German Patent and Trademark Office Database"}
+knitr::include_graphics("images/databases/DEPATISnet 2021-12-29 10-03-19.png")
+```
 
-### [OECD Patent Databases](http://www.oecd.org/sti/inno/oecdpatentdatabases.htm)
+### [OECD Patent Databases & Resources](https://www.oecd.org/sti/inno/intellectual-property-statistics-and-analysis.htm)
 
-One that is more for patent statisticians. The OECD has invested a lot of effort into developing patent indicators and resources including citations, the Harmonised Applicants names database [HAN database](http://www.oecd.org/sti/inno/43846611.pdf), mapping through the [REGPAT database](http://www.oecd.org/sti/inno/40794372.pdf) among other resources that are available free of charge.
+One that is more for patent statisticians and particularly important for methodologies and understanding patent data. The OECD has invested a lot of effort in developing patent indicators and resources including citations, the Harmonised Applicants names database _HAN database_ and mapping through the _REGPAT database_ among other resources that are available free of charge. The OECD datasets are linked to PATSTAT and are accessible free of charge by filling out a [short form](https://forms.office.com/r/1tUjVJUdu6).
 
-![](images/tools/OECD_patent_databases.png)
+```{r oecd, echo=FALSE, fig.align='center', fig.cap="The OECD IP Portal"}
+knitr::include_graphics("images/databases/OECD 2021-12-29 10-10-35.png")
+```
 
-Along the same lines the US National Bureau of Economic Research [NBER US Patent Citations Data File](http://www.nber.org/patents/) is an important resource.
+Along the same lines the US National Bureau of Economic Research [NBER US Patent Citations Data File](http://www.nber.org/patents/) is an important resource. NBER patent data resources are accessible as part of the suite of data at [PatentsView](https://patentsview.org/download/data-download-tables), notably the NBER patent category and subcategory classification files. 
 
 ### [EPO World Patent Statistical Database](https://www.epo.org/searching-for-patents/business/patstat.html)
 
 The most important database for statistical use is the EPO World Patent Statistical Database (PATSTAT) and contains around 90 million records. PATSTAT is not free and costs 1250 Euro for a year (two editions) or 630 Euro for a single edition. The main barrier to using PATSTAT is the need to run and maintain a +200 Gigabyte database. However, there is also an online version of PATSTAT that is free for the first two months if you wish to try it by signing up for the trial (knowledge of SQL required).
 
-![](images/tools/patstat.png)
+```{r patstat, echo=FALSE, fig.align='center', fig.cap="EPO Patstat Portal"}
+knitr::include_graphics("images/databases/PATSTAT-2021-12-29 10-30-56.png")
+```
 
-For users seeking to load PATSTAT into a MySQL database Simone Mainardi provides the following [code on Github](https://github.com/simonemainardi/load_patstat).
+For users seeking to load PATSTAT into a MySQL database Simone Mainardi provides the following [code on Github](https://github.com/simonemainardi/load_patstat) while Gianluca Tarasconi also provides scripts through the [raw patent blog]( https://rawpatentdata.blogspot.com/search/label/patstat). Note that, as a result of the pandemic, members of the patent analytics community may not have posted the latest scripts. However, the PATSTAT team includes 
 
 ### Other data sources
 
-A number of companies provide access to patent data, typically with tiered access depending on your needs and budget. Examples include [Thomson Innovation](https://www.thomsoninnovation.com/login), [Questel Orbit](https://www.questel.com/index.php/en/), [STN](http://www.stn-international.de/index.php?id=123), and [PatBase](https://www.patbase.com/login.asp). We will not be focusing on these services but we will look at the use of data tools to work with data from services such as Thomson Innovation.
+A number of companies provide access to patent data, typically with tiered access depending on your needs and budget. Examples include [The Lens](https://www.lens.org/), [Derwent Innovation](https://clarivate.com/derwent/solutions/derwent-innovation/), [PatSnap](https://www.patsnap.com/), [Dimensions](https://www.patsnap.com/), [Questel Orbit](https://www.questel.com/business-intelligence-software/orbit-intelligence/), [STN](http://www.stn-international.de/index.php?id=123), and [PatBase](https://www.patbase.com/login.asp). We will not be focusing on these services but we will look at the use of data tools to work with data from services such as Derwent Innovation.
 
 For more information on free and commercial data providers try the excellent [Patent Information User Group](http://www.piug.org) and its list of [Patent Databases](http://wiki.piug.org/display/PIUG/Patent+Databases) from Tom Wolff and Robert Austin.
 
-![](images/tools/PIUG_Wiki_2015-0517_15-45-05.png)
+```{r piug, echo=FALSE, fig.align='center', fig.cap="Patent Information User Group"}
+knitr::include_graphics("images/databases/PIUG-2021-12-29 11-05-31.png")
+```
 
-Also worth mentioning is the Landon IP [Intellogist](http://www.intellogist.com/wiki/Main_Page) blog which maintains [Search System Reports](http://www.intellogist.com/wiki/Category:Intellogist_Reports)
 
-![](images/tools/Intellogist_2015-0517_16-03-52.png)
-
-\#\#Tools for Accessing Patent Data
+## Tools for Accessing Patent Data
 
 In closing this chapter we will highlight a couple of tools for accessing patent data, typically using APIs and Python. We will come back to this later and are working to try this approach in R.
 
 ### [Patent2Net](https://github.com/Patent2net/Patent2Net) in Python
 
-A Python tool to access and process the data from the European Patent Office OPS service.
+A Python based tool to access and process the data from the European Patent Office OPS service.
 
-![](images/tools/Patent2Net_GitHub_2015-0517_15-49-58.png)
-
+```{r patent2net, echo=FALSE, fig.align='center', fig.cap="Patent2Net"}
+knitr::include_graphics("images/databases/Patent2Net-2021-12-29 11-09-49.png")
+```
 ### [Python EPO OPS Client](https://github.com/55minutes/python-epo-ops-client) by Gsong
 
 A Python client for OPS access developed by Gsong and freely available on GitHub. Used in Patent2Net above.
 
-![](images/tools/python-epo-ops-client-GitHub_2015-0517_15-53-34.png)
+```{r pythonepo, echo=FALSE, fig.align='center', fig.cap="Python Client for the EPO OPS Service"}
+knitr::include_graphics("images/databases/python-epo-ops-client · PyPI 2021-12-29 11-14-42.png")
+```
 
-### [Fung Institute Patent Server](https://github.com/funginstitute/patentserver) for USPTO data in JSON
+## Round Up
 
-Researchers at the Fung Institute have also been active in developing open source resources for accessing and working with patent data. We highlight `patentserver` but it is worth checking out other resources in the repository such as [patentprocessor](https://github.com/funginstitute), a set of Python scripts for processing USPTO bulk download data. Note that development of these tools no longer appears to be active.
-
-![](images/tools/funginstitutepatentserver.png)
-
-\#\#Round Up
-
-One problem confronting patent analysts is access to data in a form that is suitable for more detailed analysis. Typically this involves hundreds or many thousands of records. Recent years have increasingly opened up patent data through the ability to download 1,000 or 10,000 records at a time. However, access to downloads of titles, abstracts and claims or descriptions and full text remains limited when this is what is needed. Patent offices such as the USPTO have taken a leading role in making bulk patent data available and this is very much to be welcomed for those working on patent analytics. However, it is reasonable to say that the present situation is one of improvements in access (through Patentscope, the Lens and the EPO OPS service) but not quite in the quantitities or with the data fields patent analysts would like.
+One problem that has confronted patent analysts for many years is access to data in a form that is suitable for more detailed analysis. In the six years between the creation of the first edition of this Manual and the second edition the situation has changed quite dramatically. On the one hand data providers such as the Lens allow users to download 50,000 records at a time. On the other hand the USPTO through [PatentsView](https://patentsview.org/download/data-download-tables) and the EPO through its [text analysis service](https://www.epo.org/searching-for-patents/data/bulk-data-sets/text-analytics.html) have made access to patent full texts quite straightforward for those who are prepared to invest some of their time in acquiring programming skills. As patent data becomes more readily available for analysis attention is inevitably turning to topics such as machine learning to work with data at scale, such as the open source [PatCit initiative](https://github.com/cverluise/PatCit) for patent citations. However, before addressing these more complex topics it is important to focus on the fundamentals of patent analytics. In the next two chapters we provide practical walkthroughs with two patent databases before turning to the use of analytics tools. 

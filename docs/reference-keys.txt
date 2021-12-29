@@ -9,6 +9,15 @@ fig:fig1espacenet
 fig:fig2espacenet
 fig:fig3latipat
 fig:fig4ops
+fig:googlepatents
+fig:usptobulk
+fig:freepatentsonline
+fig:depatisnet
+fig:oecd
+fig:patstat
+fig:piug
+fig:patent2net
+fig:pythonepo
 authorship
 preface
 acknowledgements
@@ -113,16 +122,16 @@ latipat
 epo-open-patent-services
 uspto-patents-view
 google-patents
-google-prior-art-finder
-google-uspto-bulk-download
+uspto-bulk-downloads
 free-patents-online
 depatisnet
-oecd-patent-databases
+oecd-patent-databases-resources
 epo-world-patent-statistical-database
 other-data-sources
+tools-for-accessing-patent-data
 patent2net-in-python
 python-epo-ops-client-by-gsong
-fung-institute-patent-server-for-uspto-data-in-json
+round-up-3
 patentscope-1
 introduction-2
 collections-to-search
@@ -131,7 +140,7 @@ results
 downloading-results
 cross-lingual-searching
 sequence-data
-round-up-3
+round-up-4
 the-lens-1
 introduction-3
 getting-started
@@ -139,7 +148,7 @@ additional-features
 visualisation
 working-with-texts
 patseq
-round-up-4
+round-up-5
 open-refine
 install-open-refine
 create-a-project
@@ -169,7 +178,7 @@ phonetic-fingerprint-metaphone-3-clustering
 levenshtein-edit-distance
 ppm
 preparing-for-export
-round-up-5
+round-up-6
 useful-resources
 tableau-public-2
 introduction-4
@@ -180,7 +189,7 @@ adding-new-data-sources
 creating-an-overview-dashboard
 saving-display-and-privacy-settings
 privacy-and-security
-round-up-6
+round-up-7
 gephi-1
 installing-gephi
 opening-gephi-and-installing-plugins
@@ -202,7 +211,7 @@ getting-started-with-plotly
 importing-files
 creating-a-graphic-online
 working-with-plotly-in-r
-round-up-7
+round-up-8
 patent-infographics-with-r
 getting-started-2
 load-a-.csv-file-using-readr
@@ -224,7 +233,7 @@ selecting-applicants-using-filter
 generating-ipc-tables
 phrases-tables
 creating-an-infographic-in-infogr.am
-round-up-8
+round-up-9
 scientific-literature-with-rplos
 introduction-6
 install-r-and-rstudio
@@ -260,5 +269,5 @@ snippets-using-hl.snippets
 fragment-size-using-hl.fragsize
 get-the-full-text-of-one-or-more-articles
 writing-a-corpus-to-disk
-round-up-9
+round-up-10
 resources-1

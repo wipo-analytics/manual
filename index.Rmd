@@ -1,6 +1,6 @@
 --- 
 title: "The WIPO Manual on Open Source Patent Analytics (2nd edition)"
-date: "2021"
+date: "2022"
 output: bookdown::gitbook
 site: bookdown::bookdown_site
 documentclass: book
