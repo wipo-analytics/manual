@@ -51,7 +51,7 @@ Perhaps less well known is [WIPO Pearl](https://wipopearl.wipo.int/en/linguistic
 knitr::include_graphics("images/databases/patentscope/fig4_wipopearl.png")
 ```
 
-In Figure \@ref(fig:fig4wipopearl) we have searched for the term drone and exposed related terms within and across languages in patent data. In tFigure \@ref(fig:fig5wipopearl) below we use concept match search focusing on airborne drones to reveal closely related concepts in patent data.
+In Figure \@ref(fig:fig4wipopearl) we have searched for the term drone and exposed related terms within and across languages in patent data. In Figure \@ref(fig:fig5wipopearl) below we use concept match search focusing on airborne drones to reveal closely related concepts in patent data.
 
 ```{r fig5wipopearl, echo=FALSE, fig.align='center', fig.cap="WIPO Pearl Patent Concept Map"}
 knitr::include_graphics("images/databases/patentscope/fig5_wipopearl.png")

@@ -4,12 +4,12 @@
 
 [Patentscope](https://patentscope.wipo.int/search/en/search.jsf) is the WIPO public access database. It includes coverage of the Patent Cooperation Treaty applications (administered by WIPO) and a [wide range of other countries](https://patentscope.wipo.int/search/en/help/data_coverage.jsf) including the European Patent Office, USPTO and Japan totalling 100 million patent documents including 4.2 million PCT applications.
 
-```{r psfront, echo=FALSE}
+```{r psfront, echo=FALSE, fig.align='center', fig.cap="patentscope Home Page"}
 knitr::include_graphics("images/databases/patentscope/patentscope_front.png")
 ```
 
 
-In this article we cover the basics of using Patentscope to search for and download up to 10,000 records. A detailed [User's Guide](https://www.wipo.int/export/sites/www/patentscope/en/docs/patentscope_user_guide.pdf) provides more details on specific features. A set of [video tutorials](https://patentscope.wipo.int/search/en/tutorial.jsf) are also available. Regular updates on new features are provided through the [News Archive](https://www.wipo.int/patentscope/en/news/). When compared with other free services Patentscope has the following main strengths.
+In this article we cover the basics of using Patentscope to search for and download up to 10,000 records. A detailed [User's Guide](https://www.wipo.int/export/sites/www/patentscope/en/docs/patentscope_user_guide.pdf) provides more details on specific features. A set of detailed [video tutorials](https://patentscope.wipo.int/search/en/help/tutorial.jsf) are also available. Regular updates on new features are provided through the [News Archive](https://www.wipo.int/patentscope/en/news/) as well as [periodic webinars](https://www.wipo.int/meetings/en/topic.jsp?group_id=312). When compared with other free services Patentscope has the following main strengths.
 
 1.  Full text search in the description and claims of PCT applications on the day of publication and patent applications from a wide range of other countries including the United States, Japan, China and the European Patent Office among others.
 2.  Download up to 10,000 records
@@ -33,88 +33,123 @@ If you would like to download patent or sequence data you will need to register 
 
 Perhaps the best place to start is with the collections we will be searching. Those can be accessed under the Options menu on the main menu and then the tab reading [office](https://patentscope.wipo.int/search/en/reg/registration.jsf).
 
-![](images/patentscope/collections.png)
-
+```{r pscollection, echo=FALSE, fig.align='center', fig.cap="Patent Collections in patentscope"}
+knitr::include_graphics("images/databases/patentscope/WIPO - Search International and National Patent Collections 2021-12-30 09-39-55.png")
+```
 We can see here that Patentscope provides access to the Patent Cooperation Treaty collection, regional collections such as the ARIPO and the European Patent Office and national collections such as the United States, Japan and Others. The ability to search and retrieve data from the LATIPAT collection will be particularly useful for researchers in Latin America and could be linked to analysis using the espacenet version of [LATIPAT](http://lp.espacenet.com). If you are only interested in particular collections, this is the place to change the settings.
 
 ## Simple Search
 
 We can select a range of different fields for search. In this case we have selected full text from the drop down menu for a simple search on the term pizza.
 
-![](images/patentscope/simplesearch.png)
 
-Note that Patentscope groups documents for the same application into a record or dossier and that we are seeing the document that is the key for the record. The other documents in the dossier for the record can be accessed by clicking the document number and selecting the Documents menu as in this [example](https://patentscope.wipo.int/search/en/detail.jsf?docId=WO2014047700&recNum=2&tab=PCTDocuments&maxRec=25177&office=&prevFilter=&sortOption=Relevance&queryString=ALLTXT%3A%28pizza%29).
+```{r psearch, echo=FALSE, fig.align='center', fig.cap="patentscope: Choose Search Fields"}
+knitr::include_graphics("images/databases/patentscope/WIPO - Search International and National Patent Collections 2021-12-30 09-43-13.png")
+```
 
-For more details on using simple search see the `Simple Search` [video tutorial](https://patentscope.wipo.int/search/en/tutorial.jsf). Videos are also available on the use of Field Combinations for constructing searches and Advanced Search.
+We then see a raw results set containing 40,923 records with the term pizza somewhere in the document. 
 
-## Results
+```{r psrawearch, echo=FALSE, fig.align='center', fig.cap="Raw Results of a Full Text Search"}
+knitr::include_graphics("images/databases/patentscope/WIPO - Search International and National Patent Collections 2021-12-30 09-48-50.png")
+```
+Note that in the menu bar immediately above the results there are a number of options. In particular, all patent offices are selected by default and the language is set to English. However, of particular relevance to use is the entry `Stemming = true` as we see below in Figure \@ref(fig:psstemming).
 
-When we arrive at the results page we can see that we have 24,614 results with our query displaying as searching `AllTXT` and all languages. We then have an RSS button to copy the feed over to an RSS feeder for updates.
+```{r psstemming, echo=FALSE, fig.align='center', fig.cap="Stemming Terms to their Root"}
+knitr::include_graphics("images/databases/patentscope/WIPO - Search International and National Patent Collections 2021-12-30 09-53-51.png")
+```
 
-![](images/patentscope/patentscopsesimple_pizza.png)
+As the pop-up tip explains, stemming reduces a term to its linguistic root. As such, it expands data capture by including related terms that you may not have initially thought of. Databases often set stemming to True by default and this can be useful for exploring the data and terms you had not considered. However, stemming can also be a source of unexpected and hard to identify noise. For that reason, it is frequently wise to make sure that you turn stemming off, or use "quote" marks around the search term "pizza" to force the database to use the literal term as entered. Figure \@ref(fig:pspizzanostem) shows the result of turning stemming off in patentscope. 
 
-There is also a query tree button that displays results by language and terms in the relevant sections of the document. We can see an example of this for a more complex query below.
+```{r pspizzanostem, echo=FALSE, fig.align='center', fig.cap="Pizza Search Results with Stemming Turned Off"}
+knitr::include_graphics("images/databases/patentscope/WIPO - Search International and National Patent Collections 2021-12-30 10-00-53.png")
+```
+As we can see in Figure \@ref(fig:pspizzanostem) the effect of removing stemming is to reduce the dataset to 32,790 documents removing 8,133 documents that were added by the stemming process. As this makes clear, depending on your search terms, the impact of stemming on the size of a dataset can be very significant. The important point is to be clear on whether you prefer to maximise data capture by using stemming or to focus on accuracy by requiring precise results for a term or set of terms. In practice, an iterative search strategy might involve:
 
-![](images/patentscope/query_tree.png)
+1. A general search with stemming turned on;
+2. Analysis of the results to identify additional search terms of interest and any noisy terms arising from the stemmed root;
+3. A precise search that may exclude particular terms or phrases.
 
-A video tutorial is also available for the [Search result list](https://patentscope.wipo.int/search/en/tutorial.jsf)
+The second issue to be aware of is that patent documents in a result set may be duplicates (re-publications) of the same document such as the publication of a patent application and a patent grant. Re-publications of the same document form part of a 'patent family'. A patent family can be defined in a wide variety of ways and patent families are discussed in detail in the [WIPO Patent Analytics Handbook](https://wipo-analytics.github.io/handbook/patents.html#families). The basic principle is that patent documents are related to each other where they share an earlier filing (which may or may not be published) as a parent. For statistical purposes as in the 2009 [OECD Patent Statistics Manual](https://www.oecd.org/sti/inno/oecdpatentstatisticsmanual.htm) the most important document is the priority document (the first document for a claimed invention to be filed anywhere in the world). These documents have no parent and form the basis of patent families for statistical purposes. The members of that family are all children of the priority or first original filing. 
+
+However, different database providers may use their own definitions of patent families (which may or may not be explained). In 2020 patentscope introduct the concept of the Patent Cooperation Treaty family as described in Figure \@ref(fig:psfamily) below. 
+
+```{r psfamily, echo=FALSE, fig.align='center', fig.cap="patentscope Patent Family"}
+knitr::include_graphics("images/databases/patentscope/patentscope-families-2021-12-30 11-21-19.png")
+```
+
+In Figure \@ref(fig:psstemming) for stemming we can see that we also have the option to refine the data to a single family member. Figure \@ref(fig:psrefined) shows the impact of removing stemming and reducing our pizza dataset to a single family member. 
+
+```{r psrefined, echo=FALSE, fig.align='center', fig.cap="Refined Dataset without Stemming and Reduced to One Member Per Family"}
+knitr::include_graphics("images/databases/patentscope/WIPO - Search International and National Patent Collections 2021-12-30 11-29-17.png")
+```
+
+We can see in Figure \@ref(fig:psrefined) that by removing stemming and reducing the results to one family member (a PCT document) our original 40,923 results have been reduced to 24,645.
+
+Another feature of patentscope that are worth exploring in the results set is the `Include NPL` menu option. NPL stands for Non Patent Literature and will expand the dataset to include information on scientific publications that are cited in patent documents. 
+
+The menu items on the far right above the result set allow us to save and RSS feed of the results, view a breakdown of results by document section (e.g title = 2499, abstract = claims = 3089 etc) to save our query (if logged in) and to change the document view as we see in Figure \@ref(fig:psview).
+
+```{r psview, echo=FALSE, fig.align='center', fig.cap="Side By Side Result and Document View"}
+knitr::include_graphics("images/databases/patentscope/WIPO - Search International and National Patent Collections 2021-12-30 12-01-24.png")
+```
+
+Side by side view is particularly useful for manually reviewing and taking notes on documents of interest.
+
+Many patent databases have a specialist interest in a particular topic. In the case of patentscope particular effort has gone into [Chemical Compounds Search](https://patentscope.wipo.int/search/en/chemc/chemc.jsf) which allows for searches for chemical structures. Finally, as discussed in [Chapter 7](https://wipo-analytics.github.io/manual/databases.html#:~:text=Lens%20Home%20Page-,7.1.2,-Patentscope) above the [WIPO Pearl](https://wipopearl.wipo.int/en/linguistic) tool allows for the identification of concepts to aid in search constructiion. 
 
 ## Downloading Results
 
-The two excel icons at the end of the menu allow a user to download either the short list (first icon) or the second list as a `.xls` file. To see these icons you must be logged in with a user account or they will not display.
+In order to download data from patentscope you must be logged in to your account (accounts are free). 
 
-![](images/patentscope/pizzaexporting.png)
+When logged in the results list will display a download button as we see in Figure \@ref(fig:psdownload) with an option to download 1,000 or 10,000 records at at time. 
 
-When we download these results we will receive an `.xls` sheet with up to 10,000 entries with a couple of header rows that show the query. Note that each record in the Excel sheet is hyperlinked to the corresponding record in Patentscope.
+```{r psdownload, echo=FALSE, fig.align='center', fig.cap="Download patentscope Results"}
+knitr::include_graphics("images/databases/patentscope/Monosnap 2021-12-30 13-12-35.png")
+```
 
-![](images/patentscope/results.png)
+The data will download as an Excel file with the 10,000 results. In Excel the data looks like this.
 
-We will go into the use of this data, including with Tableau Public and other tools, in some depth and there are a few things to note here. The first is that the hyperlinked publication number does not possess a kind code (A1, B1 etc.). This only matters in the sense that the number will retrieve multiple documents in other databases linked to the Patentscope number. A second point to note is that Patentscope data is `raw` in the sense that it is data as it comes from the data providers and is not processed. That means that there can be encoding issues that we will come back to later on in the discussions on data cleaning.
+```{r psdownloadres, echo=FALSE, fig.align='center', fig.cap="Download patentscope Results"}
+knitr::include_graphics("images/databases/patentscope/resultList2021-12-30 13-15-18.png")
+```
+When compared with other data providers this data is somewhat limited (presumably to limit the size of downloads). However, the hyperlinking of application numbers can be useful for viewing documents of interest. 
 
-What is very useful about Patentscope is that we can actually obtain quite a significant volume of data on a topic of interest. While this article has simply downloaded the first 10,000 results, to obtain the full result set it would be easy enough to limit the data by year and download the data as a series of sets that can be combined later (e.g. three sets).
-
-To do this we need to visit the Field Combination Page. Here we will start by putting our query in English All to gain the total number of results. Then we will restrict the data by the publication data field using `[]` and period between dates (as DD.MM.YYYY). An example is shown below.
-
-![](images/tools/wipo_settings.png)
-
-This will helpfully show the total results for the query (although it can take some time) and we can run and then download results for each year limited segment.
-
-![](images/tools/wipo_results.png)
-
-When working with multiple downloads it is a good idea to write down the total number of results and then the results for each date limited segment to ensure that the data adds up to what you would expect. Some experimentation may also be needed with the field settings using the Boolean AND/OR operators.
+We can observe that we have only downloaded 10,000 results for the purpose of illustration. To download larger sets it will be necessary to restrict the searches by data and download the data in chunks. When working with multiple downloads it is a good idea to write down the total number of results and then the results for each date limited segment to ensure that the data adds up to what you would expect. 
 
 ## Cross Lingual Searching
 
-One challenge in patent searching is the use of different expressions in different languages for the same query. Patentscope presents a very useful solution to this through cross-lingual searching. From the pull down menu select `Cross Lingual Expansion`, then enter the search terms and press go. The tool will now generate search terms in multiple languages.
+One challenge in patent searching is the use of different expressions in different languages for the same query. Patentscope presents a very useful solution to this through cross-lingual searching. From the pull down menu select [Cross Lingual Expansion](https://patentscope.wipo.int/search/en/clir/clir.jsf), then enter the search terms. You will be presented with options for automatic expansion of the search terms to other languages or supervised expansion. 
 
-![](images/patentscope/pizzacrosslingual.png)
+For example, entering the search term "synthetic biology" and automated expansion produced the fillowing query in english, french and german for searches of abstracts. 
 
-To go further with this tool use either the slider settings (precision vs. recall). For example, if we were to insert the search term "synthetic biology" and move recall to the top level (4), we would generate the following query.
+`EN_AB:("synthetic biology") OR FR_AB:("biologie synthétique" OR "biologie synthéthique") OR DE_AB:("synthetische Biologie")`
 
-`"FP:((EN_TI:("synthetic biology" OR "biologic synthetic") OR EN_AB:("synthetic biology" OR "biologic synthetic")) OR (DE_TI:("synthetische Biologie" OR "synthetischen biologischen" OR "biologische synthetische" OR "Biologische synthetische") OR DE_AB:("synthetische Biologie" OR "synthetischen biologischen" OR "biologische synthetische" OR "Biologische synthetische")) OR (ES_TI:("biológicas sintéticas") OR ES_AB:("biológicas sintéticas")) OR (FR_TI:("biologie synthétique" OR "biologie synthéthique") OR FR_AB:("biologie synthétique" OR "biologie synthéthique")) OR (JA_TI:("生物合成" OR "合成生体" OR "の生物学的合成") OR JA_AB:("生物合成" OR "合成生体" OR "の生物学的合成")) OR (ZH_TI:("合成生物") OR ZH_AB:("合成生物")))"`
-
-If supervised mode is selected from the `Expansion mode` drop down, it becomes possible to select technology areas for the generation of terminology. While we haven't worked through this in detail that could be very helpful for domain specific query generation. All in all, this is one of the most original and powerful tools that Patentscope has to offer. A detailed `.pdf` guide to using CLIR is available [here](https://patentscope.wipo.int/search/help/en/CLIR_DOC.pdf).
+For those interested in this tool a [video tutorial](https://patentscope.wipo.int/search/en/help/tutorial.jsf?videoId=9) is available along with a tutorial on the [supervised mode](https://patentscope.wipo.int/search/en/help/tutorial.jsf?videoId=10). The major advantage of Cross Lingual Search is that it will allow for the identification of the same and similar search terms in multiple languages. 
 
 ## Sequence Data
 
-A third major feature of Patentscope is access to DNA and amino acid sequence listings filed with PCT Applications. This data can be accessed and downloaded for individual records [here](https://patentscope.wipo.int/search/en/sequences.jsf).
+A third major feature of Patentscope is access to DNA and amino acid sequence listings filed with PCT Applications. This data can be accessed and downloaded for individual records [here](https://patentscope.wipo.int/search/en/sequences.jsf) as shown in Figure \@ref(fig:pssequence).
 
-![](images/patentscope/sequencesearching.png)
+```{r pssequence, echo=FALSE, fig.align='center', fig.cap="patentscope Sequence Data"}
+knitr::include_graphics("images/databases/patentscope/fig3_patentscope.png")
+```
 
-A sample record from the lists can be seen below as a plain text file. Note that some issues may arise with reconciling the plain text file with the WIPO publication number (WO etc.) and this merits careful attention if using this data.
+A sample record from the lists can be seen below as a plain text file in Figure \@ref(fig:pssequencetxt). Note that some issues may arise with reconciling the plain text file with the WIPO publication number (WO etc.) and this merits careful attention if using this data.
 
-![](images/patentscope/pctseq.png)
+```{r pssequencetxt, echo=FALSE, fig.align='center', fig.cap="patentscope Sequence Listing Example"}
+knitr::include_graphics("images/databases/patentscope/fig3_patentscope.png")
+```
 
-Registered account holders can also use the `ftp anonymous download` service from the same page. This provides access to the sequence data by year as can be seen below.
+For larger scale use it is also possible to use the the `ftp anonymous download` service from the same page. This provides access to the sequence data by year as can be seen Figure \@ref(fig:pssequenceft).
 
-![](images/patentscope/sequenceftp.png)
+```{r pssequenceft, echo=FALSE, fig.align='center', fig.cap="patentscope Sequence Listing Example"}
+knitr::include_graphics("images/databases/patentscope/publication 2021-12-30 14-03-36.png")
+```
 
 If using the anonymous ftp service note that the recent data is measured in gigabytes, so do not try to download this data over a weak WIFI connection, a gated connection or to your phone(!). Nevertheless, the open accessibility of this data is important. For other sequence data sources you may be interested in the European Bioinformatics Institute resources [here](http://www.ebi.ac.uk/patentdata) and for the US by document number [here](http://seqdata.uspto.gov/) and until March 2015 at the DNA Patent Database [here](https://dnapatents.georgetown.edu/). Also important is the Lens `Patseq` tool [here](https://www.lens.org/lens/bio/sequence).
 
 ## Round Up
 
-WIPO Patentscope is a powerful tool for gaining access to a significant amount of patent data on a topic of interest. The ability to download 10,000 or more records at a time cannot be beaten by other free tools. The `Cross Lingual Searching` tool appears to be unique and valuable. Free access to bulk download of sequence data is likely to keep bioinformaticians happy for quite a long time.
+WIPO patentscope is a useful tool for gaining access to a significant amount of patent data on a topic of interest. The ability to download 10,000 or more records at a time has been surpassed by other free databases but remains useful. The `Cross Lingual Searching` tool appears to be unique and very valuable as is [WIPO Pearl](https://wipopearl.wipo.int/en/linguistic) for concept mapping. Free access to bulk download of sequence data is likely to keep bioinformaticians happy for quite a long time. Perhaps the standout specialist use from patentscope is the Chemical Compound search that is likely to be particularly valuable for industrial chemists. 
 
-One way of thinking about the role of Patentscope in patent analytics is as a resource that can be combined with other data tools. For example, if we wanted to obtain the abstracts, descriptions or claims of PCT documents in Patentscope then we might use the Patenscope numbers to retrieve data from EPO Open Patent Services or Google Patents using R or Python or other tools. That is, in this case Patentscope overcomes the limitations of search results from other tools but allows for the targeted use of other tools to retrieve more information. The `Cross Lingual Searching` tool could also be particularly useful for trying to identify and later acquire patent documents from other jurisdictions where a company or organisation may be seeking to operate or to expand patent landscape analysis into jurisdictions with non-Roman alphabets.
-
-The main difficulties that arise from using Patentscope can stem from occasional noise in the data. Patenscope does not clean the data provided from the individual collections with the exception of checking for typological errors in priority numbers and IPC codes. In addition, all text is transformed into UTF-8. However, as is common when dealing with diverse data sources, the results are not always perfect. In addition, because Patentscope data is drawn from a wide range of languages users may need to update their font libraries if large numbers of unusual characters appear in the data (such as installing the Asian language pack for Windows). In practice, as is common with most patent data sources, this can mean significant time is required to clean up the data. Having said this, no other free database tool allows us to download as much data in table form for analysis. As we will see, it is possible to do a lot with Patentscope data.
+However, despite its evident strengths in terms of specialist tools the utility of patentscope for patent analytics is presently limited in terms of the size of data that can be downloaded, the availability of particular data fields and the standardisation of numbers for linking with other data sources. As such, the main usefulness of patentscope for patent analytics, with the notable exception of research on industrial chemistry, is in terms of specialist support tools to support patent analysis. 

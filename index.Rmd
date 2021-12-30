@@ -12,7 +12,7 @@ description: "A practical introduction to free and open source tools for patent 
 
 ## Authorship
 
-The 2nd edition of the Manual on Open Source Patent Analytics was written by Dr. Paul Oldham from the [Manchester Institute of Innovation Research at Manchester University](https://www.mioir.manchester.ac.uk/) and [One World Analytics](http://oneworldanalytics.com/) and Enric Escorsa (WIPO) with contributions from and under the coordination of Ms. Irene Kitsara ([WIPO](http://www.wipo.int/portal/en/index.html)).
+The 2nd edition of the Manual on Open Source Patent Analytics was written by Dr. Paul Oldham from the [Manchester Institute of Innovation Research at Manchester University](https://www.mioir.manchester.ac.uk/) and [One World Analytics](http://oneworldanalytics.com/) with Chapter contributions from Enric Escorsa (WIPO) and with contributions from and under the coordination of Ms. Irene Kitsara ([WIPO](http://www.wipo.int/portal/en/index.html)).
 
 # Preface
 
