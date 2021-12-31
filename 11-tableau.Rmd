@@ -16,43 +16,61 @@ This article will take you through the main features of Tableau Public and the t
 
 Tableau can be installed for your operating system by visiting the [Tableau Public website](https://public.tableau.com/s/) and entering your email address as in the image below. 
 
-![](images/tableau/providemail.png)
+```{r tableaufront, echo=FALSE, fig.align='center', fig.cap="Tableau Public Front Page"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 08.01.20.png")
+```
+While you are waiting for the app to download it is a good idea to select `Sign Up` to create a Tableau Public Account as displayed in Figure \@ref(fig:tableausign). This will allow you to load up your workbooks to the web and share them. We will deal with privacy issues in making workbooks public or private below but as its name suggests Tableau Public is not for sensitive commercial information. 
 
-While you are waiting for the app to download it is a good idea to select `Sign In` and then `Create one now for Free` to sign up for a Tableau Public Account that will allow you to load up your workbooks to the web and share them. We will deal with privacy issues in making workbooks public or private below but as its name suggests Tableau Public is not for sensitive commercial information. 
+```{r tableausign, echo=FALSE, fig.align='center', fig.cap="Sign Up for a Free Tableau Account"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 08.11.28.png")
+```
 
-![](images/tableau/signup.png)
+This will lead you to a profile page. It will be empty if this is a new account. Paul Oldham's account, which contains useful example workbooks that will help with learning Tableau, can be accessed [here](https://public.tableau.com/app/profile/poldham#!/?newProfile=&activeTab=0) and is displayed in Figure \@ref(fig:oldhamtableau).
 
-This will lead you to an empty profile page.
-
-![](images/tableau/profile.png)
+```{r oldhamtableau, echo=FALSE, fig.align='center', fig.cap="Paul Oldham's Tableau Public Account"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 08.21.12.png")
+```
 
 While you are there you might want to check out the [Gallery](https://public.tableau.com/s/gallery) of other Tableau Public workbooks to get some ideas on what it is possible to achieve with Tableau. You may want to view a [Tableau Workbook](https://public.tableau.com/profile/poldham#!/) for scientific literature that accompanied this [PLOS ONE article on synthetic biology](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0034368). While it is now a few years old it gives an idea of the possibilities of Tableau and the feel of an existing profile page.  
 
-![](images/tableau/gallery.png)
+
+```{r tableaugallery, echo=FALSE, fig.align='center', fig.cap="Tableau Public Gallery"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 08.24.08.png")
+```
+
 
 ##  Getting Started
 
 When you first open the application you will see a blank page. Before we load some data, note the helpful `How-to-Videos` on the right and the link to a `visualisation of the day`. There are also quite a lot of training videos [here](http://www.tableau.com/learn/training) and a very useful [community forum](http://community.tableau.com/community/forums). If you get stuck, or wonder how somebody produced a cool visualisation, this is the place to go. 
 
-![](images/tableau/open.png)
+```{r tableaustart, echo=FALSE, fig.align='center', fig.cap="Tableau Public Start Page"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 08.26.16.png")
+```
 
 To avoid staring at a blank page we now need to load some data. In Tableau Public this is limited to text or Excel files. To download the data as a single `.zip` file click [here](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza_medium_clean.zip?raw=true) or visit the [GitHub repository](https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza_medium_clean.zip). unzip the file and you will see a collection of `.csv` files. The excel file and codebook should be ignored as supplementary. 
 
-![](images/tableau/github.png)
+```{r tableaupizzadataset, echo=FALSE, fig.align='center', fig.cap="Access the Datasets"}
+knitr::include_graphics("images/tableau/2021/github.png")
+```
+As we can see above there are a number of files in this dataset. The `core` or reference file is `pizza.csv`. All other files are children of that file, such as applicants, inventors and international patent classification codes. That is, concatenated fields in pizza have been separated out and cleaned up. One file, `applicants_ipc` is a child file of `applicants` that will allow us to access IPC information for individual applicants. This may not make a lot of sense at the moment but don't worry it will shortly. 
 
-As we can see above there are a number of files in this dataset. The `core` or reference file is `pizza.csv`. All other files are aspects of that file, such as applicants, inventors and international patent classification codes. That is concatenated fields in pizza have been separated out and cleaned up. One file, `applicants_ipc` is a child file of `applicants` that will allow us to access IPC information for individual applicants. This may not make a lot of sense at the moment but don't worry it will shortly. 
+To get started we will select `Text file` then `pizza.csv` file for import as in Figure \@ref(fig:pizzaimport).
 
-To get started we will select the `pizza.csv` file:
+```{r pizzaimport, echo=FALSE, fig.align='center', fig.cap="Select the pizza csv file for import"}
+knitr::include_graphics("images/tableau/2021/importpizza_2021-12-31 08-58-28.png")
+```
+We will then see a new screen showing some of the data and the other files in the folder as in Figure \@ref(fig:timport2). At the bottom is a flag with `Go to Worksheet` or `Sheet 1`, so let's do that. 
 
-![](images/tableau/load_file.png)
+```{r timport2, echo=FALSE, fig.align='center', fig.cap="Data Source View in Tableau Public"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 09.04.28.png")
+```
 
-We will then see a new screen showing some of the data and the other files in the folder. At the bottom is a flag with `Go to Worksheet`, so let's do that. 
 
-![](images/tableau/pizza1.png)
+We will now see a screen that is divided in to `Tables` on the left, with `Measures` below. We can see that in the dimensions there are quite a large number of data fields. Note that Tableau will attempt to guess the type of data (for example numeric or date information is marked with `#`, geographic data is marked with a globe, text fields are marked with `Abc`). Note that Tableau does not always get this right and that it is possible to change a data type by selecting a field and right clicking as we can see below. 
 
-We will now see a screen that is divided in to `Dimensions` on the left, with `Measures` below. We can see that in the dimensions there are quite a large number of data fields. Note that Tableau will attempt to guess the type of data (for example numeric or date information is marked with `#`, geographic data is marked with a globe, text fields are marked with `Abc`). Note that Tableau does not always get this right and that it is possible to change a data type by selecting a field and right clicking as we can see below. 
-
-![](images/tableau/tableau_fields.png)
+```{r tableausign1, echo=FALSE, fig.align='center', fig.cap="Exploring Tableau Tables and Measures"}
+knitr::include_graphics("images/tableau/2021/Tableau Public - Book1 2021-12-31 09-10-04.png")
+```
 
 On the right hand side we can see a floating panel menu. This can be hidden as a menu bar by clicking the x. This panel displays the visualisation options that are available for the data field that we have selected. In this case two map options are available because Tableau has automatically recognised the country names as geographic information. Note that persuading Tableau to present the option that you want (for example visualising year on year data as a line graph) can involve changing the settings for the field until the option you want becomes available. 
 
@@ -70,9 +88,11 @@ One of the first things we normally want to do with patent data is to map trends
 
 To do that we simply drag the publication year in the dimensions to the columns field and the number of records from the measures field. Note that Tableau automatically counts the number of rows in a set to create this field. If working with data where accurate counts are important it is important to make sure that the data has been deduplicated on the relevant field before starting. While it does not apply in this case, another important tip is to always have a way of checking key counts in Tableau such as using quick pivot tables in Excel or Open Office. We do not need to worry about this now, but while Tableau is clever software it is still software: it will not always perform calculations as you expect them. For that reason a cross check of counts is a sensible if not vital part of a Tableau workflow.  
 
-Tableau will guess what we are after and draw a graph. 
+Tableau will guess what we are after and draw a graph as we can see in Figure \@ref(fig:tpubyear). To hide the visual options panel click on `Show Me`.
 
-![](images/tableau/publication_trend.png)
+```{r tpubyear, echo=FALSE, fig.align='center', fig.cap="Show Trend by Publication Year"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 09.12.32.png")
+```
 
 As we can see we now have a graph that plunges off a cliff as we approach the present and contains one null. Null values are typically rows or columns containing blank cells. If there is only 1 null value then the data can probably be left as is (in this case it was a blank row at the bottom of the dataset introduced during cleaning in R). However, it pays to inspect nulls by right clicking on the file in `Data` and selecting `View data`. If there are large numbers of nulls then you may need to go back and inspect the data and ensure that blank cells are filled with `NA` values. Let's go back to our graph. 
 
@@ -84,29 +104,40 @@ Next we right click the x (lower) axis and adjust the time frame to something mo
 
 We now have a good looking graph with a sensible axis. Note here that if we were graphing multiple trends on the same graph (family and family members) we might prefer a straightforward line graph for the sake of clarity. 
 
-![](images/tableau/publication_trend_fill.png)
+```{r tfilled, echo=FALSE, fig.align='center', fig.cap="Create A Filled Graph"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 09.42.08.png")
+```
 
 We will give this a name `Trends` and add a new worksheet by clicking the icon next to our existing sheet. 
 
 The next piece of information we would like is who the most active applicants are. This will also start to expose issues about the different actors who use the term `pizza` in the patent system and encourage us to think about ways to drill down into the data to get more accurate information on technologies we might be interested, such as, in this case, pizza boxes and [musical pizza boxes](http://www.google.co.uk/patents/US8720690) in particular. 
 
-It is at this point that the work we did in a previous article on separating individual applicant names into their own rows and cleaning them up using Open Refine, becomes important. In this dataset we have taken this a step further using VantagePoint to separate out individuals from organisations. This information is found in the `Applicants Organisations` field in the dataset. Lets just drop that onto the worksheet as a row and then add the number of records as a column (tip, simply drop it onto the sheet).
+It is at this point that the work we did in a previous Chapter on separating individual applicant names into their own rows and cleaning them up using Open Refine, becomes important. In this dataset we have taken this a step further using VantagePoint to separate out individuals from organisations. This information is found in the `Applicants Organisations` field in the dataset. Lets just drop that onto the worksheet as a row and then add the number of records as a column (tip, simply drop it onto the sheet).
+
+```{r tapplicants, echo=FALSE, fig.align='center', fig.cap="Drop Applicants Organisations and Pizza csv onto the sheet"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 10.08.15.png")
+```
 
 At first sight everything seems pretty good. But now we need to rank our applicants. To do that we select the small icon in the menu bar with a stacked bar pointing down. 
 
-![](images/tableau/sort_applicants.png)
-
+```{r tsort, echo=FALSE, fig.align='center', fig.cap="Sort a Field in Tableau Public"}
+knitr::include_graphics("images/tableau/2021/sort_applicants.png")
+```
 We now see, as we would in the Excel raw file, that there are a significant number of blank entries for applicants in the underlying data, followed by 85 records for Google and 77 for Microsoft. This is also a very good indicator that there may be multiple uses of the word pizza in the patent system unless these software companies have started selling pizzas online. 
 
-In reality this is ***a partial view of activity*** by the applicants because elsewhere in the data the names are concatenated together. This is normally more obvious than in the present dataset through the presence of multiple names separated by `;`(to see this scroll down to the first entry for Unilever).
+In reality this is ***a partial view of activity*** by the applicants because elsewhere in the data the names are concatenated together. This is normally more obvious than in the present dataset through the presence of multiple names separated by `;`(to see this scroll down to the first entry for Unilever about three quarters of the way down in Figure \@ref(fig:tableauorganisations)).
 
-![](images/tableau/applicants_original.png)
+```{r tableauorganisations, echo=FALSE, fig.align='center', fig.cap="Applicant Organisationss"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 10.21.32.png")
+```
 
 To understand why this is a partial view we will now import the `applicants.csv` file. The correct way to do this is to select the menu called `Data` then `New Data Source` and the file `applicants.csv`. 
 
-Next, drag `Applicants Orgs All` onto the Rows. Note that Tableau is interpreting these titles for us (the original is `applicants_orgs_all`). Then drag `Number of Records` from the dimensions onto the sheet or into the columns entry. Now choose the stacked bar icon as above to rank the applicants by the number of records. We will now see the following. 
+Next, drag `Applicants Orgs All` onto the Rows. Note that Tableau is interpreting these titles for us (the original is `applicants_orgs_all`). Then drag `pizza.csv (Count)` from the dimensions onto the sheet or into the columns entry. Now choose the stacked bar icon as above to rank the applicants by the number of records. We will now see the following in Figure \@ref(fig:tapporgsall). 
 
-![](images/tableau/applicants_organisations.png)
+```{r tapporgsall, echo=FALSE, fig.align='center', fig.cap="Applicants Orgs All from Applicants csv"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 10.26.24.png")
+```
 
 Note the difference between the original applicants field (where Google scored a total of 85 records) and our separated and cleaned field where Google now scores 191 records. In short, before the separation and cleaning exercises we were only seeing 44% of activity in our dataset by Google involving the term pizza. This still does not mean that they have entered the online pizza business... . What it does tell us is that patent analysis that does not separate or split the concatenated data and clean up name variants is missing over 60% of the story when viewed in terms of applicant activity. As this makes clear, the gains from separating or splitting and cleaning data are huge even where, as in this case, the original data appeared to be quite 'clean'. That appearance was deceptive. 
 
@@ -114,11 +145,14 @@ Now we have a clearer view of what is happening with our applicants we can make 
 
 We now have an applicants data table that looks, depending on your aesthetic sensibilities, like this. 
 
-![](images/tableau/applicants_cleaned.png)
-
+```{r tapps, echo=FALSE, fig.align='center', fig.cap="Applicants Rankings"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 10.29.30.png")
+```
 At this stage we might want to take a couple of actions. To make the labels more visible, drag the line between the names and the columns to the right. This will open up some space. Next, think about editing long names down to something short. For example, International Business Machines Corporation, who are also not famous for pizzas, is a little bit too long. Right click on the name and select `Edit alias` as in the image below. 
 
-![](images/tableau/edit_alias.png)
+```{r tappedit, echo=FALSE, fig.align='center', fig.cap="Edit and Alias in Tableau"}
+knitr::include_graphics("images/tableau/2021/Tableau Public - Book1 2021-12-31 10-30-29.png")
+```
 
 Now edit the name to IBM. As a tip note that where you discover you have missed a duplicate name in clean up (remember that we focus on good enough rather than perfect in data cleaning) it is also possible to highlight two rows, right click, look for a filing clip icon and group two entries onto a new name. However, the resulting named group must be used in all later analysis. It is also important to realise that data cleaning is not a Tableau strength, Tableau is about data analysis and exploration through visualisation. For data cleaning use a tool such as Open Refine. 
 
@@ -131,21 +165,27 @@ We will follow the same procedure that we used for applicants to add the remaini
 3. ipc_class.csv
 4. ipc_subclass.detail.csv
 
-To add the data sources either click the `Data` menu and `New Data Source` or (faster) the cylinder with a plus sign. Then select `Text file`, add each file and allow it to load. 
+To add the data sources either click the `Data` menu and `New Data Source` or (faster) the cylinder with a plus sign. Then select `Text file`, add each file and allow it to load as in Figure \@ref(fig:addfile). 
 
-![](images/tableau/add_data.png)
+```{r addfile, echo=FALSE, fig.align='center', fig.cap="Add More Files"}
+knitr::include_graphics("images/tableau/2021/Monosnap 2021-12-31 10-36-47.png")
+```
 
-If all goes well the `Data` panel will now contain the following files. 
+If all goes well the `Data` panel will now contain the following files as in Figure \@ref(fig:reviewddata). 
 
-![](images/tableau/data_panel.png)
+```{r reviewddata, echo=FALSE, fig.align='center', fig.cap="Check that the Files are Loaded in the Data Panel"}
+knitr::include_graphics("images/tableau/2021/data_panel.png")
+```
 
 Note here that the `applicants` data displays a blue tick. This is because it was the last data source that we used and is therefore active. The fields we see in Dimensions belong to that data source. Next click in the bottom menu to create a new worksheet and then click `inventors` in the `Data` field. The field names will now change slightly. It is important to keep an eye on the data source that you are using because it is quite easy to drop a field from one data source onto another. In some cases this is a good thing. But, if you receive a warning message you will be attempting to drop a data source on to another data source where there is no matching field. We will come back to this on data `blending`. 
 
 Next follow the same procedure for ranking applicants with inventors using the `Inventors All`. For anyone interested in seeing the dramatic impacts of concatenated fields try dropping the `Inventors Original` field onto the worksheet. 
 
-Using `Inventors All` you should now see the following ranked list of inventors. 
+Using `Inventors All` you should now see the following ranked list of inventors. To change the format to left align right click in the inventors panel > Format > Alignment > left align as in Figure \@ref(fig:tinventors). 
 
-![](images/tableau/inventors_ranked.png)
+```{r tinventors, echo=FALSE, fig.align='center', fig.cap="Ranked Inventors"}
+knitr::include_graphics("images/tableau/2021/UberLayoutPicker 2021-12-31 10-42-38.png")
+```
 
 Now repeat this exercise for the remaining data sources by first creating a sheet and then selecting the data source. As you move through this select the following dimensions to add to the sheet and then drop number of 
 
@@ -155,7 +195,7 @@ Do not rank this data, but instead drag the field `Applicants Orgs All` onto the
 
 Add a new sheet. Then click on `ipc_subclass_detail`. Note that if you click on the data source first, the dimensions panel will go orange. Don't panic. The reason is that Tableau thinks you are trying to blend data from the ipc_subclass_detail source with applicants_ipc. If you do this simply click on ipc_subclass-detail again. 
 
-2. ipc_subclass-detail. Drop the `Ipc Subclass Detail` dimension on to the sheet. Then drop the number of records onto the sheet. Then click on the first cell containing `6` as an artifact and exclude. Repeat for `7`. Then select the bar chart in the floating `Show Me` panel, then drag `Number of Records` onto the `Label` button. Now rank the column using the descending button in the upper menu as before. 
+2. ipc_subclass-detail. Drop the `Ipc Subclass Detail` dimension on to the sheet. Then drop the number of records onto the sheet. Then click on the first cell containing `6` as an artifact and exclude. Repeat for `7`. Then select the bar chart in the floating `Show Me` panel, then drag `ipc_subclass_details.csv` onto the `Label` button. Now rank the column using the descending button in the upper menu as before. 
 
 At this point, if we had not trimmed the leading white space the ranked list would display indentations and there would be duplicates of the same IPC code. For that reason it is important to trim leading white space before attempting to visualise data (and this applies to all our separated fields). 
 
@@ -163,27 +203,33 @@ At this point, if we had not trimmed the leading white space the ranked list wou
 
 You should now have five worksheets each of which displays aspects of our core `pizza` set. We have named the sheets as follows and suggest that you might want to do the same. Note that where there is more than one sheet containing similar but distinct information it will be helpful to give them distinct names (e.g. IPC Subclass and Applicants IPC Subclasses). We might even start using less technical labels by calling the IPC something clearer like Technology Area, to aid communication with non-IP specialists
 
-![](images/tableau/sheet_names.png)
+```{r tipc, echo=FALSE, fig.align='center', fig.cap="Add and Format the IPCs as Technology Areas"}
+knitr::include_graphics("images/tableau/2021/Screenshot 2021-12-31 at 10.49.12.png")
+```
 
 Let's get a quick overview of the data so far. Next to the add worksheet button in the worksheets bar is a second icon to create a dashboard. Click on that and we will now see a sheet called `Dashboard 1`. 
-
 Dashboards are perhaps Tableau's best known feature and are rightly very popular. We can fill our dashboard by dragging the worksheets from the `Dashboard` side menu. The order in which we do this can make life easier or more difficult to adjust later. Let's do it in the following steps
 
 1. Drag `Trends` onto the dashboard and it will now fill the view. 
 2. Drag `Organisations` onto the dashboard.
 
-![](images/tableau/dashboard1.png)
+That is rather messy, but all is not lost. On the left hand side look for `Size` and click the dropdown menu button. This reveals that Tableau can display dashboards in a range of sizes. Choose `Automatic` as in Figure \@ref(fig:tresize)
 
-That is rather messy, but all is not lost. Simply click in the top right corner of the organisations panel on the right to remove it (in the original worksheet click on it and select `Hide`). We now have an `Organisations` column that still looks crunched. 
+```{r tresize, echo=FALSE, fig.align='center', fig.cap="Choose Size and Automatic to Resize the Dashboard"}
+knitr::include_graphics("images/tableau/2021/Form 2021-12-31 10-55-15.png")
+```
 
 Now select the top of the organisations box and a small inverted triangle will appear. Click on that and then choose `Fit > Fit Width`. 
 
-![](images/tableau/dashboard_fitwidth.png)
+```{r tfitwidth, echo=FALSE, fig.align='center', fig.cap="Resize a column to fit"}
+knitr::include_graphics("images/tableau/2021/resize-2021-12-31 10-59-24.png")
+```
 
 The bars may now disappear. Click into the box on the line where the bars start and drag them back into view. At this point long names may start to be obscured. If desired, right click on a long name such as `Graphic Packaging International`, choose `Edit alias` and edit it down to something sensible such as `Graphic Packaging Int`.
 
 We now have two panels on the dashboard. Let's add two more. First drag technology areas below the line where Trends and Organisations finish. Grey shaded boxes will appear that show the placement, across the width is fine. This can take some time to get right, when the whole of the bottom area is highlighted let go of the mouse. If it goes somewhere strange either select the box and in the top right press `x` to remove it, or try moving it (in our experience it is often easier to remove it and try again). 
-Do not try to format this box yet. Instead, grab inventors and drag it into the space before the technology areas below. 
+
+Do not try to format this box yet. Instead, grab inventors and drag it into the space before the Technology Areas. 
 
 We now have four panels in the dashboard but they need some tidying up. First, in the two boxes we have just edited repeat the `Fit Width` exercise and then drag the line for the bars around until they are in view and satisfactory. Next, we have names such as `Applicants Orgs All` that are our internal reference names. Click on them in each of the three panels one at a time and select `Hide Field Labels for Rows`.
 
@@ -193,49 +239,63 @@ Before we do any editing, first experiment with the `Size` menu in the bottom ri
 
 To fix the long Technology areas labels we go back to the original sheet (tip: if you move the mouse to the top right in the panel an arrow with `Go to Sheet` will appear, it is very useful for large workbooks). Inside the original sheet, try dragging the line separating the text and bars so that the bars now cover some of the longer text. Then switch back to the dashboard. If you feel unhappy with the result then right click in the panel in the dashboard and then choose `Edit alias`. This is useful for simply making labels in the view more visible (it does not change the original data). 
 
-If all goes well you will now have a dashboard that looks more or less like this. Note that depending on the worksheet settings you may want to make the font size consistent (right click and choose Format, then font size). Note also that if you increase the font size (the default is 8 point) then you may need to edit some of the labels again. 
+If all goes well you will now have a dashboard that looks more or less like Figure \@ref(fig:tableaudash). Note that depending on the worksheet settings you may want to make the font size consistent (right click and choose Format, then font size). Note also that if you increase the font size (the default is 8 point) then you may need to edit some of the labels again. 
 
-![](images/tableau/dashboard_completed.png)
+```{r tableauddash, echo=FALSE, fig.align='center', fig.cap="A Completed Tableau Dashboard"}
+knitr::include_graphics("images/tableau/2021/Tableau Public - Book1 2021-12-31 11-22-45.png")
+```
 
 We have now done quite a lot of work and produced an Overview dashboard. It is time to save the workbook to the server before doing anything else. 
 
 ##  Saving, Display and Privacy Settings
 
-The only option for saving a Tableau Public workbook is to save it online. To save the file go to `File` and Save to Tableau Public. If you want to save the workbook as a new file (after previously saving) then choose Save As. 
+The only option for saving a Tableau Public workbook is to save it online. To save the file go to `File` and `Save to Tableau Public`. If you want to save the workbook as a new file (after previously saving) then choose `Save to Tableau Public As`. If you cannot see an option in the File menu it means that you have downloaded a trial of Tableau Desktop by accident rather than Tableau Public. All is not lost. Before pushing to Tableau public online you will need to right click each of the worksheets in `Data` and choose `Extract Data`  and press `OK`. Then go to `Server > Tableau Public > Save to Tableau Public`.   
 
-![](images/tableau/save_public.png)
+```{r tsave, echo=FALSE, fig.align='center', fig.cap="Save to Tableau Public"}
+knitr::include_graphics("images/tableau/2021/Tableau Public - Book1 2021-12-31 11-29-29.png")
+```
 
 You will then be asked to enter your username and password (Tableau does not remember the password) and the file will upload. Tableau will then compress the data. As of June 2015 it is possible to store 10GB of data overall and to have up to 10 million rows in a workbook (which is generally more than enough). 
 
-Tableau will then open a web browser at your profile page and it will look a lot like this. 
+Tableau will then open a web browser at your profile page and it will look a lot like Figure \@ref(fig:tonline). 
 
-![](images/tableau/profile_dashboard.png)
+```{r tonline, echo=FALSE, fig.align='center', fig.cap="Publish to Tableau Onl;ine"}
+knitr::include_graphics("images/tableau/2021/world_domination_2021-12-31 11-32-44.png")
+```
 
-Having read the message, click `Got it` on the right. Do you notice anything strange. Yes, we can only see the Dashboard and not any of the other sheets. To change this and any other details click on `edit details` near the title and some menus will open up as follows. 
 
-![](images/tableau/profile_viewtabs3.png)
+Do you notice anything strange? Yes, we can only see the Dashboard and not any of the other sheets. To change this and any other details click on the small pen icon next to  `Details` near the title and some menus will open up as follows. 
 
-To make sure the worksheets are visible select the check box marked `Show workbook sheets as tabs` and then `Save`. 
-![](images/tableau/profile_viewtabs3.png)
+```{r tdetails, echo=FALSE, fig.align='center', fig.cap="Edit Details in Tableau Public"}
+knitr::include_graphics("images/tableau/2021/details-Tableau Public 2021-12-31 11-35-40.png")
+```
 
-To access this demonstration workbook go [here](https://public.tableau.com/profile/wipo.open.source.patent.analytics.manual#!/vizhome/pizzapatents/Overview).
+To make sure the worksheets are visible go to the Settings icon on the top right and select `Show Sheets` as in Figure \@ref(fig:tshowsheets).
+
+```{r tshowsheets, echo=FALSE, fig.align='center', fig.cap="Show All Sheets"}
+knitr::include_graphics("images/tableau/2021/My Secret Plan for World Domination using Pizza Patents | Tableau Public 2021-12-31 11-40-23.png")
+```
+
+To access this demonstration workbook go [here](https://public.tableau.com/app/profile/poldham/viz/MySecretPlanforWorldDominationusingPizzaPatents/Dashboard1?publish=yes).
 
 ##  Privacy and Security
 
-As emphasised above, Tableau Public is by definition a place for publicly sharing workbooks and visualisations. It is not for sensitive data. In the past users, such as journalists, relied on what might be called 'security by obscurity' but the trend towards storing data on a Tableau public profile (the only option) makes that less of an option. If this a concern there are two actions that might potentially be considered that limit the visibility of a workbook and its wider use. Logically, the answer to any concerns about Tableau Public and sensitive information is ***not to include sensitive information in the first place***. The following are not recommendations but simply highlight the available options. 
+As emphasised above, Tableau Public is by definition a place for publicly sharing workbooks and visualisations. It is not for sensitive data. In the past users, such as journalists, relied on what might be called 'security by obscurity' but the trend towards storing data on a Tableau public profile (the only option) makes that less of an option. Logically, the answer to any concerns about Tableau Public and sensitive information is ***not to include sensitive information in the first place***. 
 
-1. In the discussion on the settings above, there is a check box to prevent users from downloading a workbook. You might want to select that option where a workbook contains information that you do not want to be seen other than what you choose to make visible. 
-2. It is possible to create a setting so that a workbook does not show up on a user's profile. This is hard to spot, and appears by hovering over the workbook in the Profile view. 
+In the latest edition of Tableau Public it is not possible to stop others from viewing the work that you have made visible. However, as Figure \@ref(fig:tshowsheets) demonstrates for the button menu called `Allow Access` you can restrict the ability of others to actually download and share a workbook. 
+Tableau public is fundamentally about sharing information with others through visualisation so **do not include confidential information in what you share**. Here it is briefly worth returning to the completed dashboard above and clicking the share button. 
 
-![](images/tableau/profile_visibility.png)
-
-As the message points out using this option does not prevent a workbook being found through search engines or seen by users. It just means it is not visible on the profile page.
-
-As such, Tableau public is fundamentally about sharing information with others through visualisation. That is, it is for information that you want others to see. Here it is briefly worth returning to the completed dashboard above and clicking the share button. 
-
-![](images/tableau/profile_sharing.png)
+```{r tshare, echo=FALSE, fig.align='center', fig.cap="Sharing A Tableau Public Workbook"}
+knitr::include_graphics("images/tableau/2021/share.png")
+```
 
 As we can see here, Tableau generates embed codes for use on websites or for emailing as a link along with twitter and facebook.
+
+Finally, note that you can also Edit the workbook online by selecting the Edit icon above your dashboard as in Figure \@ref(fig:tedit.png). When you have finished editing you press Publish to save the edits. 
+
+```{r tedit, echo=FALSE, fig.align='center', fig.cap="Edit a Tableau Workbook Online"}
+knitr::include_graphics("images/tableau/2021/Edit.png")
+```
 
 ##  Round Up
 
@@ -250,6 +310,6 @@ To take working with Tableau on pizza patents forward on your own here are some 
 
 If you get stuck, and it does take time to become familiar with Tableau's potential, perhaps try exploring this [workbook on synthetic biology](https://public.tableau.com/profile/poldham#!/) and the use of Tableau images in this article [PLOS ONE article](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0034368). As a tip, try clicking on the bars and then the titles to understand Actions. Downloading workbooks prepared by others can be a very good way of learning the tips and tricks of tableau visualisation and dashboarding. 
 
-If you would like to download the pizza workbook it is [here](https://public.tableau.com/profile/wipo.open.source.patent.analytics.manual#!/vizhome/pizzapatents/Overview).
+If you would like to download the pizza workbook it is [here](https://public.tableau.com/authoring/MySecretPlanforWorldDominationusingPizzaPatents/Dashboard1#1).
 
 However, one of the most important issues exposed by working with Tableau is that you must ensure that fields you want to visualise are `tidy`, that is not concatenated, and also that they are as clean as it is reasonable to make them. For researchers wishing to work up their own data we suggest the Open Refine article as a good starting point.  

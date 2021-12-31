@@ -522,27 +522,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="installing-tableau" class="section level2" number="11.2">
 <h2><span class="header-section-number">11.2</span> Installing Tableau</h2>
 <p>Tableau can be installed for your operating system by visiting the <a href="https://public.tableau.com/s/">Tableau Public website</a> and entering your email address as in the image below.</p>
-<p><img src="images/tableau/providemail.png" /></p>
-<p>While you are waiting for the app to download it is a good idea to select <code>Sign In</code> and then <code>Create one now for Free</code> to sign up for a Tableau Public Account that will allow you to load up your workbooks to the web and share them. We will deal with privacy issues in making workbooks public or private below but as its name suggests Tableau Public is not for sensitive commercial information.</p>
-<p><img src="images/tableau/signup.png" /></p>
-<p>This will lead you to an empty profile page.</p>
-<p><img src="images/tableau/profile.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tableaufront"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2008.01.20.png" alt="Tableau Public Front Page" width="1230" />
+<p class="caption">
+Figure 11.1: Tableau Public Front Page
+</p>
+</div>
+<p>While you are waiting for the app to download it is a good idea to select <code>Sign Up</code> to create a Tableau Public Account as displayed in Figure <a href="tableau-public-2.html#fig:tableausign">11.2</a>. This will allow you to load up your workbooks to the web and share them. We will deal with privacy issues in making workbooks public or private below but as its name suggests Tableau Public is not for sensitive commercial information.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tableausign"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2008.11.28.png" alt="Sign Up for a Free Tableau Account" width="1429" />
+<p class="caption">
+Figure 11.2: Sign Up for a Free Tableau Account
+</p>
+</div>
+<p>This will lead you to a profile page. It will be empty if this is a new account. Paul Oldham’s account, which contains useful example workbooks that will help with learning Tableau, can be accessed <a href="https://public.tableau.com/app/profile/poldham#!/?newProfile=&amp;activeTab=0">here</a> and is displayed in Figure <a href="tableau-public-2.html#fig:oldhamtableau">11.3</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:oldhamtableau"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2008.21.12.png" alt="Paul Oldham's Tableau Public Account" width="1383" />
+<p class="caption">
+Figure 11.3: Paul Oldham’s Tableau Public Account
+</p>
+</div>
 <p>While you are there you might want to check out the <a href="https://public.tableau.com/s/gallery">Gallery</a> of other Tableau Public workbooks to get some ideas on what it is possible to achieve with Tableau. You may want to view a <a href="https://public.tableau.com/profile/poldham#!/">Tableau Workbook</a> for scientific literature that accompanied this <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0034368">PLOS ONE article on synthetic biology</a>. While it is now a few years old it gives an idea of the possibilities of Tableau and the feel of an existing profile page.</p>
-<p><img src="images/tableau/gallery.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tableaugallery"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2008.24.08.png" alt="Tableau Public Gallery" width="1338" />
+<p class="caption">
+Figure 11.4: Tableau Public Gallery
+</p>
+</div>
 </div>
 <div id="getting-started-1" class="section level2" number="11.3">
 <h2><span class="header-section-number">11.3</span> Getting Started</h2>
 <p>When you first open the application you will see a blank page. Before we load some data, note the helpful <code>How-to-Videos</code> on the right and the link to a <code>visualisation of the day</code>. There are also quite a lot of training videos <a href="http://www.tableau.com/learn/training">here</a> and a very useful <a href="http://community.tableau.com/community/forums">community forum</a>. If you get stuck, or wonder how somebody produced a cool visualisation, this is the place to go.</p>
-<p><img src="images/tableau/open.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tableaustart"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2008.26.16.png" alt="Tableau Public Start Page" width="1346" />
+<p class="caption">
+Figure 11.5: Tableau Public Start Page
+</p>
+</div>
 <p>To avoid staring at a blank page we now need to load some data. In Tableau Public this is limited to text or Excel files. To download the data as a single <code>.zip</code> file click <a href="https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza_medium_clean.zip?raw=true">here</a> or visit the <a href="https://github.com/poldham/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza_medium_clean.zip">GitHub repository</a>. unzip the file and you will see a collection of <code>.csv</code> files. The excel file and codebook should be ignored as supplementary.</p>
-<p><img src="images/tableau/github.png" /></p>
-<p>As we can see above there are a number of files in this dataset. The <code>core</code> or reference file is <code>pizza.csv</code>. All other files are aspects of that file, such as applicants, inventors and international patent classification codes. That is concatenated fields in pizza have been separated out and cleaned up. One file, <code>applicants_ipc</code> is a child file of <code>applicants</code> that will allow us to access IPC information for individual applicants. This may not make a lot of sense at the moment but don’t worry it will shortly.</p>
-<p>To get started we will select the <code>pizza.csv</code> file:</p>
-<p><img src="images/tableau/load_file.png" /></p>
-<p>We will then see a new screen showing some of the data and the other files in the folder. At the bottom is a flag with <code>Go to Worksheet</code>, so let’s do that.</p>
-<p><img src="images/tableau/pizza1.png" /></p>
-<p>We will now see a screen that is divided in to <code>Dimensions</code> on the left, with <code>Measures</code> below. We can see that in the dimensions there are quite a large number of data fields. Note that Tableau will attempt to guess the type of data (for example numeric or date information is marked with <code>#</code>, geographic data is marked with a globe, text fields are marked with <code>Abc</code>). Note that Tableau does not always get this right and that it is possible to change a data type by selecting a field and right clicking as we can see below.</p>
-<p><img src="images/tableau/tableau_fields.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tableaupizzadataset"></span>
+<img src="images/tableau/2021/github.png" alt="Access the Datasets" width="504" />
+<p class="caption">
+Figure 11.6: Access the Datasets
+</p>
+</div>
+<p>As we can see above there are a number of files in this dataset. The <code>core</code> or reference file is <code>pizza.csv</code>. All other files are children of that file, such as applicants, inventors and international patent classification codes. That is, concatenated fields in pizza have been separated out and cleaned up. One file, <code>applicants_ipc</code> is a child file of <code>applicants</code> that will allow us to access IPC information for individual applicants. This may not make a lot of sense at the moment but don’t worry it will shortly.</p>
+<p>To get started we will select <code>Text file</code> then <code>pizza.csv</code> file for import as in Figure <a href="tableau-public-2.html#fig:pizzaimport">11.7</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pizzaimport"></span>
+<img src="images/tableau/2021/importpizza_2021-12-31%2008-58-28.png" alt="Select the pizza csv file for import" width="1232" />
+<p class="caption">
+Figure 11.7: Select the pizza csv file for import
+</p>
+</div>
+<p>We will then see a new screen showing some of the data and the other files in the folder as in Figure <a href="tableau-public-2.html#fig:timport2">11.8</a>. At the bottom is a flag with <code>Go to Worksheet</code> or <code>Sheet 1</code>, so let’s do that.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:timport2"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2009.04.28.png" alt="Data Source View in Tableau Public" width="1455" />
+<p class="caption">
+Figure 11.8: Data Source View in Tableau Public
+</p>
+</div>
+<p>We will now see a screen that is divided in to <code>Tables</code> on the left, with <code>Measures</code> below. We can see that in the dimensions there are quite a large number of data fields. Note that Tableau will attempt to guess the type of data (for example numeric or date information is marked with <code>#</code>, geographic data is marked with a globe, text fields are marked with <code>Abc</code>). Note that Tableau does not always get this right and that it is possible to change a data type by selecting a field and right clicking as we can see below.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tableausign1"></span>
+<img src="images/tableau/2021/Tableau%20Public%20-%20Book1%202021-12-31%2009-10-04.png" alt="Exploring Tableau Tables and Measures" width="1344" />
+<p class="caption">
+Figure 11.9: Exploring Tableau Tables and Measures
+</p>
+</div>
 <p>On the right hand side we can see a floating panel menu. This can be hidden as a menu bar by clicking the x. This panel displays the visualisation options that are available for the data field that we have selected. In this case two map options are available because Tableau has automatically recognised the country names as geographic information. Note that persuading Tableau to present the option that you want (for example visualising year on year data as a line graph) can involve changing the settings for the field until the option you want becomes available.</p>
 <p>At the bottom of the screen we will see a worksheet number <code>Sheet 1</code> and then options for adding three types of sheet:</p>
 <ol style="list-style-type: decimal">
@@ -556,31 +601,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.4</span> Publication Trends</h2>
 <p>One of the first things we normally want to do with patent data is to map trends, either in first filings, publications or family members. In the case of our pizza patents from Patentscope we have a single member of a dossier of files linked to a particular application. This data is fine for demonstration needs and we can easily map trends for this data.</p>
 <p>To do that we simply drag the publication year in the dimensions to the columns field and the number of records from the measures field. Note that Tableau automatically counts the number of rows in a set to create this field. If working with data where accurate counts are important it is important to make sure that the data has been deduplicated on the relevant field before starting. While it does not apply in this case, another important tip is to always have a way of checking key counts in Tableau such as using quick pivot tables in Excel or Open Office. We do not need to worry about this now, but while Tableau is clever software it is still software: it will not always perform calculations as you expect them. For that reason a cross check of counts is a sensible if not vital part of a Tableau workflow.</p>
-<p>Tableau will guess what we are after and draw a graph.</p>
-<p><img src="images/tableau/publication_trend.png" /></p>
+<p>Tableau will guess what we are after and draw a graph as we can see in Figure <a href="tableau-public-2.html#fig:tpubyear">11.10</a>. To hide the visual options panel click on <code>Show Me</code>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tpubyear"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2009.12.32.png" alt="Show Trend by Publication Year" width="1455" />
+<p class="caption">
+Figure 11.10: Show Trend by Publication Year
+</p>
+</div>
 <p>As we can see we now have a graph that plunges off a cliff as we approach the present and contains one null. Null values are typically rows or columns containing blank cells. If there is only 1 null value then the data can probably be left as is (in this case it was a blank row at the bottom of the dataset introduced during cleaning in R). However, it pays to inspect nulls by right clicking on the file in <code>Data</code> and selecting <code>View data</code>. If there are large numbers of nulls then you may need to go back and inspect the data and ensure that blank cells are filled with <code>NA</code> values. Let’s go back to our graph.</p>
 <p>What we see here is the <code>data cliff</code> that is common with patent data. That is, the cliff does not represent a radical decline in the use of the term <code>pizza</code>, it represents a radical decline in the availability of patent data the closer we move to the present day. The reason for this is that it generally, as a rough rule of thumb, takes about 24 months for an application to be published and can take longer for patent databases to catch up. As such, our <code>data cliff</code> reflects a lack of available data in recent years, not a lack of activity. Typically we need to pull back about 2 to 3 years to gain an impression of the trend.</p>
 <p>Before we go any further and adjust the axis we will change the graph to something more attractive. To do that we will select filled graph in the floating panel. Behind that panel is a small colour button that will allow us to select a colour we like. The reason that we do this before adjusting the axis is that when we change the graphic type Tableau will revert any changes made to the axis.</p>
 <p>Next we right click the x (lower) axis and adjust the time frame to something more sensible such as 1980 to 2013 by selecting the <code>fixed</code> option. As a very rough rule of thumb moving back two or three years from the present will take out the data cliff from the lack of published patent information. Note that if we were counting first filings (patent families) the decline would be earlier and much steeper. These lag effects, and ways to deal with them, have been investigated in detail by the <a href="http://www.oecd.org/sti/inno/intellectual-property-statistics-and-analysis.htm">OECD patent statistics team</a>, see in particular work on <a href="http://www.oecd.org/science/inno/39485567.pdf">nowcasting patent data</a>.</p>
 <p>We now have a good looking graph with a sensible axis. Note here that if we were graphing multiple trends on the same graph (family and family members) we might prefer a straightforward line graph for the sake of clarity.</p>
-<p><img src="images/tableau/publication_trend_fill.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tfilled"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2009.42.08.png" alt="Create A Filled Graph" width="1455" />
+<p class="caption">
+Figure 11.11: Create A Filled Graph
+</p>
+</div>
 <p>We will give this a name <code>Trends</code> and add a new worksheet by clicking the icon next to our existing sheet.</p>
 <p>The next piece of information we would like is who the most active applicants are. This will also start to expose issues about the different actors who use the term <code>pizza</code> in the patent system and encourage us to think about ways to drill down into the data to get more accurate information on technologies we might be interested, such as, in this case, pizza boxes and <a href="http://www.google.co.uk/patents/US8720690">musical pizza boxes</a> in particular.</p>
-<p>It is at this point that the work we did in a previous article on separating individual applicant names into their own rows and cleaning them up using Open Refine, becomes important. In this dataset we have taken this a step further using VantagePoint to separate out individuals from organisations. This information is found in the <code>Applicants Organisations</code> field in the dataset. Lets just drop that onto the worksheet as a row and then add the number of records as a column (tip, simply drop it onto the sheet).</p>
+<p>It is at this point that the work we did in a previous Chapter on separating individual applicant names into their own rows and cleaning them up using Open Refine, becomes important. In this dataset we have taken this a step further using VantagePoint to separate out individuals from organisations. This information is found in the <code>Applicants Organisations</code> field in the dataset. Lets just drop that onto the worksheet as a row and then add the number of records as a column (tip, simply drop it onto the sheet).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tapplicants"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2010.08.15.png" alt="Drop Applicants Organisations and Pizza csv onto the sheet" width="1455" />
+<p class="caption">
+Figure 11.12: Drop Applicants Organisations and Pizza csv onto the sheet
+</p>
+</div>
 <p>At first sight everything seems pretty good. But now we need to rank our applicants. To do that we select the small icon in the menu bar with a stacked bar pointing down.</p>
-<p><img src="images/tableau/sort_applicants.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tsort"></span>
+<img src="images/tableau/2021/sort_applicants.png" alt="Sort a Field in Tableau Public" width="1038" />
+<p class="caption">
+Figure 11.13: Sort a Field in Tableau Public
+</p>
+</div>
 <p>We now see, as we would in the Excel raw file, that there are a significant number of blank entries for applicants in the underlying data, followed by 85 records for Google and 77 for Microsoft. This is also a very good indicator that there may be multiple uses of the word pizza in the patent system unless these software companies have started selling pizzas online.</p>
-<p>In reality this is <strong><em>a partial view of activity</em></strong> by the applicants because elsewhere in the data the names are concatenated together. This is normally more obvious than in the present dataset through the presence of multiple names separated by <code>;</code>(to see this scroll down to the first entry for Unilever).</p>
-<p><img src="images/tableau/applicants_original.png" /></p>
+<p>In reality this is <strong><em>a partial view of activity</em></strong> by the applicants because elsewhere in the data the names are concatenated together. This is normally more obvious than in the present dataset through the presence of multiple names separated by <code>;</code>(to see this scroll down to the first entry for Unilever about three quarters of the way down in Figure <a href="tableau-public-2.html#fig:tableauorganisations">11.14</a>).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tableauorganisations"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2010.21.32.png" alt="Applicant Organisationss" width="1455" />
+<p class="caption">
+Figure 11.14: Applicant Organisationss
+</p>
+</div>
 <p>To understand why this is a partial view we will now import the <code>applicants.csv</code> file. The correct way to do this is to select the menu called <code>Data</code> then <code>New Data Source</code> and the file <code>applicants.csv</code>.</p>
-<p>Next, drag <code>Applicants Orgs All</code> onto the Rows. Note that Tableau is interpreting these titles for us (the original is <code>applicants_orgs_all</code>). Then drag <code>Number of Records</code> from the dimensions onto the sheet or into the columns entry. Now choose the stacked bar icon as above to rank the applicants by the number of records. We will now see the following.</p>
-<p><img src="images/tableau/applicants_organisations.png" /></p>
+<p>Next, drag <code>Applicants Orgs All</code> onto the Rows. Note that Tableau is interpreting these titles for us (the original is <code>applicants_orgs_all</code>). Then drag <code>pizza.csv (Count)</code> from the dimensions onto the sheet or into the columns entry. Now choose the stacked bar icon as above to rank the applicants by the number of records. We will now see the following in Figure <a href="tableau-public-2.html#fig:tapporgsall">11.15</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tapporgsall"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2010.26.24.png" alt="Applicants Orgs All from Applicants csv" width="1455" />
+<p class="caption">
+Figure 11.15: Applicants Orgs All from Applicants csv
+</p>
+</div>
 <p>Note the difference between the original applicants field (where Google scored a total of 85 records) and our separated and cleaned field where Google now scores 191 records. In short, before the separation and cleaning exercises we were only seeing 44% of activity in our dataset by Google involving the term pizza. This still does not mean that they have entered the online pizza business… . What it does tell us is that patent analysis that does not separate or split the concatenated data and clean up name variants is missing over 60% of the story when viewed in terms of applicant activity. As this makes clear, the gains from separating or splitting and cleaning data are huge even where, as in this case, the original data appeared to be quite ‘clean’. That appearance was deceptive.</p>
 <p>Now we have a clearer view of what is happening with our applicants we can make this more attractive. To do that first select the blue bar in the floating panel. The worksheet will now be presented as ranked bars. Next, drag the number of records from Measures onto the <code>Label</code> button next to <code>Color</code>. That looks pretty good. If we wanted to go a step further we could now turn to the dimensions panel and drag <code>Applicants Orgs All</code>, onto the <code>Color</code> button. The bars will now turn to different colours for each applicant. If this is too bright simply grab the green <code>Applicants Orgs All</code> box from under the buttons menu and move it towards dimensions to remove it. Finally, if we want to adjust the right alignment of the text to the left, then first right click on the name of a company, pick <code>Format</code> then alignment and left. While the default is right align, in practice left align creates more readable labels. To change the default do this with the first worksheet you create before creating any others.</p>
 <p>We now have an applicants data table that looks, depending on your aesthetic sensibilities, like this.</p>
-<p><img src="images/tableau/applicants_cleaned.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tapps"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2010.29.30.png" alt="Applicants Rankings" width="1455" />
+<p class="caption">
+Figure 11.16: Applicants Rankings
+</p>
+</div>
 <p>At this stage we might want to take a couple of actions. To make the labels more visible, drag the line between the names and the columns to the right. This will open up some space. Next, think about editing long names down to something short. For example, International Business Machines Corporation, who are also not famous for pizzas, is a little bit too long. Right click on the name and select <code>Edit alias</code> as in the image below.</p>
-<p><img src="images/tableau/edit_alias.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tappedit"></span>
+<img src="images/tableau/2021/Tableau%20Public%20-%20Book1%202021-12-31%2010-30-29.png" alt="Edit and Alias in Tableau" width="1343" />
+<p class="caption">
+Figure 11.17: Edit and Alias in Tableau
+</p>
+</div>
 <p>Now edit the name to IBM. As a tip note that where you discover you have missed a duplicate name in clean up (remember that we focus on good enough rather than perfect in data cleaning) it is also possible to highlight two rows, right click, look for a filing clip icon and group two entries onto a new name. However, the resulting named group must be used in all later analysis. It is also important to realise that data cleaning is not a Tableau strength, Tableau is about data analysis and exploration through visualisation. For data cleaning use a tool such as Open Refine.</p>
 </div>
 <div id="adding-new-data-sources" class="section level2" number="11.5">
@@ -592,14 +678,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>ipc_class.csv</li>
 <li>ipc_subclass.detail.csv</li>
 </ol>
-<p>To add the data sources either click the <code>Data</code> menu and <code>New Data Source</code> or (faster) the cylinder with a plus sign. Then select <code>Text file</code>, add each file and allow it to load.</p>
-<p><img src="images/tableau/add_data.png" /></p>
-<p>If all goes well the <code>Data</code> panel will now contain the following files.</p>
-<p><img src="images/tableau/data_panel.png" /></p>
+<p>To add the data sources either click the <code>Data</code> menu and <code>New Data Source</code> or (faster) the cylinder with a plus sign. Then select <code>Text file</code>, add each file and allow it to load as in Figure <a href="tableau-public-2.html#fig:addfile">11.18</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:addfile"></span>
+<img src="images/tableau/2021/Monosnap%202021-12-31%2010-36-47.png" alt="Add More Files" width="1341" />
+<p class="caption">
+Figure 11.18: Add More Files
+</p>
+</div>
+<p>If all goes well the <code>Data</code> panel will now contain the following files as in Figure <a href="tableau-public-2.html#fig:reviewddata">11.19</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:reviewddata"></span>
+<img src="images/tableau/2021/data_panel.png" alt="Check that the Files are Loaded in the Data Panel" width="176" />
+<p class="caption">
+Figure 11.19: Check that the Files are Loaded in the Data Panel
+</p>
+</div>
 <p>Note here that the <code>applicants</code> data displays a blue tick. This is because it was the last data source that we used and is therefore active. The fields we see in Dimensions belong to that data source. Next click in the bottom menu to create a new worksheet and then click <code>inventors</code> in the <code>Data</code> field. The field names will now change slightly. It is important to keep an eye on the data source that you are using because it is quite easy to drop a field from one data source onto another. In some cases this is a good thing. But, if you receive a warning message you will be attempting to drop a data source on to another data source where there is no matching field. We will come back to this on data <code>blending</code>.</p>
 <p>Next follow the same procedure for ranking applicants with inventors using the <code>Inventors All</code>. For anyone interested in seeing the dramatic impacts of concatenated fields try dropping the <code>Inventors Original</code> field onto the worksheet.</p>
-<p>Using <code>Inventors All</code> you should now see the following ranked list of inventors.</p>
-<p><img src="images/tableau/inventors_ranked.png" /></p>
+<p>Using <code>Inventors All</code> you should now see the following ranked list of inventors. To change the format to left align right click in the inventors panel &gt; Format &gt; Alignment &gt; left align as in Figure <a href="tableau-public-2.html#fig:tinventors">11.20</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tinventors"></span>
+<img src="images/tableau/2021/UberLayoutPicker%202021-12-31%2010-42-38.png" alt="Ranked Inventors" width="1345" />
+<p class="caption">
+Figure 11.20: Ranked Inventors
+</p>
+</div>
 <p>Now repeat this exercise for the remaining data sources by first creating a sheet and then selecting the data source. As you move through this select the following dimensions to add to the sheet and then drop number of</p>
 <ol style="list-style-type: decimal">
 <li>applicants_ipc. Drop <code>Ipc Subclass Detail</code> onto the sheet. Then drop number of records onto the sheet where the field says Abc. Note that a number <code>6</code> will appear in the first row. This is an artifact from the separation process. Select that cell, right click and then choose <code>Exclude</code>.</li>
@@ -607,60 +708,107 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Do not rank this data, but instead drag the field <code>Applicants Orgs All</code> onto the sheet so that it is the first row (tip, it is easiest to do this by dragging the field into the row bar before the IPC field). You will now see a list of company names followed by a list of IPCs. Congratulations, we now have an idea of who is patenting in a particular area of technology using the word pizza at the level of individual applicants.</p>
 <p>Add a new sheet. Then click on <code>ipc_subclass_detail</code>. Note that if you click on the data source first, the dimensions panel will go orange. Don’t panic. The reason is that Tableau thinks you are trying to blend data from the ipc_subclass_detail source with applicants_ipc. If you do this simply click on ipc_subclass-detail again.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>ipc_subclass-detail. Drop the <code>Ipc Subclass Detail</code> dimension on to the sheet. Then drop the number of records onto the sheet. Then click on the first cell containing <code>6</code> as an artifact and exclude. Repeat for <code>7</code>. Then select the bar chart in the floating <code>Show Me</code> panel, then drag <code>Number of Records</code> onto the <code>Label</code> button. Now rank the column using the descending button in the upper menu as before.</li>
+<li>ipc_subclass-detail. Drop the <code>Ipc Subclass Detail</code> dimension on to the sheet. Then drop the number of records onto the sheet. Then click on the first cell containing <code>6</code> as an artifact and exclude. Repeat for <code>7</code>. Then select the bar chart in the floating <code>Show Me</code> panel, then drag <code>ipc_subclass_details.csv</code> onto the <code>Label</code> button. Now rank the column using the descending button in the upper menu as before.</li>
 </ol>
 <p>At this point, if we had not trimmed the leading white space the ranked list would display indentations and there would be duplicates of the same IPC code. For that reason it is important to trim leading white space before attempting to visualise data (and this applies to all our separated fields).</p>
 </div>
 <div id="creating-an-overview-dashboard" class="section level2" number="11.6">
 <h2><span class="header-section-number">11.6</span> Creating an Overview Dashboard</h2>
 <p>You should now have five worksheets each of which displays aspects of our core <code>pizza</code> set. We have named the sheets as follows and suggest that you might want to do the same. Note that where there is more than one sheet containing similar but distinct information it will be helpful to give them distinct names (e.g. IPC Subclass and Applicants IPC Subclasses). We might even start using less technical labels by calling the IPC something clearer like Technology Area, to aid communication with non-IP specialists</p>
-<p><img src="images/tableau/sheet_names.png" /></p>
-<p>Let’s get a quick overview of the data so far. Next to the add worksheet button in the worksheets bar is a second icon to create a dashboard. Click on that and we will now see a sheet called <code>Dashboard 1</code>.</p>
-<p>Dashboards are perhaps Tableau’s best known feature and are rightly very popular. We can fill our dashboard by dragging the worksheets from the <code>Dashboard</code> side menu. The order in which we do this can make life easier or more difficult to adjust later. Let’s do it in the following steps</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tipc"></span>
+<img src="images/tableau/2021/Screenshot%202021-12-31%20at%2010.49.12.png" alt="Add and Format the IPCs as Technology Areas" width="1455" />
+<p class="caption">
+Figure 11.21: Add and Format the IPCs as Technology Areas
+</p>
+</div>
+<p>Let’s get a quick overview of the data so far. Next to the add worksheet button in the worksheets bar is a second icon to create a dashboard. Click on that and we will now see a sheet called <code>Dashboard 1</code>.
+Dashboards are perhaps Tableau’s best known feature and are rightly very popular. We can fill our dashboard by dragging the worksheets from the <code>Dashboard</code> side menu. The order in which we do this can make life easier or more difficult to adjust later. Let’s do it in the following steps</p>
 <ol style="list-style-type: decimal">
 <li>Drag <code>Trends</code> onto the dashboard and it will now fill the view.</li>
 <li>Drag <code>Organisations</code> onto the dashboard.</li>
 </ol>
-<p><img src="images/tableau/dashboard1.png" /></p>
-<p>That is rather messy, but all is not lost. Simply click in the top right corner of the organisations panel on the right to remove it (in the original worksheet click on it and select <code>Hide</code>). We now have an <code>Organisations</code> column that still looks crunched.</p>
+<p>That is rather messy, but all is not lost. On the left hand side look for <code>Size</code> and click the dropdown menu button. This reveals that Tableau can display dashboards in a range of sizes. Choose <code>Automatic</code> as in Figure <a href="tableau-public-2.html#fig:tresize">11.22</a></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tresize"></span>
+<img src="images/tableau/2021/Form%202021-12-31%2010-55-15.png" alt="Choose Size and Automatic to Resize the Dashboard" width="1342" />
+<p class="caption">
+Figure 11.22: Choose Size and Automatic to Resize the Dashboard
+</p>
+</div>
 <p>Now select the top of the organisations box and a small inverted triangle will appear. Click on that and then choose <code>Fit &gt; Fit Width</code>.</p>
-<p><img src="images/tableau/dashboard_fitwidth.png" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tfitwidth"></span>
+<img src="images/tableau/2021/resize-2021-12-31%2010-59-24.png" alt="Resize a column to fit" width="1341" />
+<p class="caption">
+Figure 11.23: Resize a column to fit
+</p>
+</div>
 <p>The bars may now disappear. Click into the box on the line where the bars start and drag them back into view. At this point long names may start to be obscured. If desired, right click on a long name such as <code>Graphic Packaging International</code>, choose <code>Edit alias</code> and edit it down to something sensible such as <code>Graphic Packaging Int</code>.</p>
-<p>We now have two panels on the dashboard. Let’s add two more. First drag technology areas below the line where Trends and Organisations finish. Grey shaded boxes will appear that show the placement, across the width is fine. This can take some time to get right, when the whole of the bottom area is highlighted let go of the mouse. If it goes somewhere strange either select the box and in the top right press <code>x</code> to remove it, or try moving it (in our experience it is often easier to remove it and try again).
-Do not try to format this box yet. Instead, grab inventors and drag it into the space before the technology areas below.</p>
+<p>We now have two panels on the dashboard. Let’s add two more. First drag technology areas below the line where Trends and Organisations finish. Grey shaded boxes will appear that show the placement, across the width is fine. This can take some time to get right, when the whole of the bottom area is highlighted let go of the mouse. If it goes somewhere strange either select the box and in the top right press <code>x</code> to remove it, or try moving it (in our experience it is often easier to remove it and try again).</p>
+<p>Do not try to format this box yet. Instead, grab inventors and drag it into the space before the Technology Areas.</p>
 <p>We now have four panels in the dashboard but they need some tidying up. First, in the two boxes we have just edited repeat the <code>Fit Width</code> exercise and then drag the line for the bars around until they are in view and satisfactory. Next, we have names such as <code>Applicants Orgs All</code> that are our internal reference names. Click on them in each of the three panels one at a time and select <code>Hide Field Labels for Rows</code>.</p>
 <p>Hmm… our Technology Areas panel is proving troublesome because even the edited version of the IPC is rather long.</p>
 <p>Before we do any editing, first experiment with the <code>Size</code> menu in the bottom right. The default dashboard size in Tableau Public is actually quite small. Change the settings until you have something that looks cleaner even if there are still some overlaps. Options such as <code>Desktop</code>, <code>Laptop</code> and <code>Large blog</code> are generally decent sizes but in part the decision depends on where you believe it will be displayed.</p>
 <p>To fix the long Technology areas labels we go back to the original sheet (tip: if you move the mouse to the top right in the panel an arrow with <code>Go to Sheet</code> will appear, it is very useful for large workbooks). Inside the original sheet, try dragging the line separating the text and bars so that the bars now cover some of the longer text. Then switch back to the dashboard. If you feel unhappy with the result then right click in the panel in the dashboard and then choose <code>Edit alias</code>. This is useful for simply making labels in the view more visible (it does not change the original data).</p>
-<p>If all goes well you will now have a dashboard that looks more or less like this. Note that depending on the worksheet settings you may want to make the font size consistent (right click and choose Format, then font size). Note also that if you increase the font size (the default is 8 point) then you may need to edit some of the labels again.</p>
-<p><img src="images/tableau/dashboard_completed.png" /></p>
+<p>If all goes well you will now have a dashboard that looks more or less like Figure <a href="#fig:tableaudash"><strong>??</strong></a>. Note that depending on the worksheet settings you may want to make the font size consistent (right click and choose Format, then font size). Note also that if you increase the font size (the default is 8 point) then you may need to edit some of the labels again.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tableauddash"></span>
+<img src="images/tableau/2021/Tableau%20Public%20-%20Book1%202021-12-31%2011-22-45.png" alt="A Completed Tableau Dashboard" width="1344" />
+<p class="caption">
+Figure 11.24: A Completed Tableau Dashboard
+</p>
+</div>
 <p>We have now done quite a lot of work and produced an Overview dashboard. It is time to save the workbook to the server before doing anything else.</p>
 </div>
 <div id="saving-display-and-privacy-settings" class="section level2" number="11.7">
 <h2><span class="header-section-number">11.7</span> Saving, Display and Privacy Settings</h2>
-<p>The only option for saving a Tableau Public workbook is to save it online. To save the file go to <code>File</code> and Save to Tableau Public. If you want to save the workbook as a new file (after previously saving) then choose Save As.</p>
-<p><img src="images/tableau/save_public.png" /></p>
+<p>The only option for saving a Tableau Public workbook is to save it online. To save the file go to <code>File</code> and <code>Save to Tableau Public</code>. If you want to save the workbook as a new file (after previously saving) then choose <code>Save to Tableau Public As</code>. If you cannot see an option in the File menu it means that you have downloaded a trial of Tableau Desktop by accident rather than Tableau Public. All is not lost. Before pushing to Tableau public online you will need to right click each of the worksheets in <code>Data</code> and choose <code>Extract Data</code> and press <code>OK</code>. Then go to <code>Server &gt; Tableau Public &gt; Save to Tableau Public</code>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tsave"></span>
+<img src="images/tableau/2021/Tableau%20Public%20-%20Book1%202021-12-31%2011-29-29.png" alt="Save to Tableau Public" width="1344" />
+<p class="caption">
+Figure 11.25: Save to Tableau Public
+</p>
+</div>
 <p>You will then be asked to enter your username and password (Tableau does not remember the password) and the file will upload. Tableau will then compress the data. As of June 2015 it is possible to store 10GB of data overall and to have up to 10 million rows in a workbook (which is generally more than enough).</p>
-<p>Tableau will then open a web browser at your profile page and it will look a lot like this.</p>
-<p><img src="images/tableau/profile_dashboard.png" /></p>
-<p>Having read the message, click <code>Got it</code> on the right. Do you notice anything strange. Yes, we can only see the Dashboard and not any of the other sheets. To change this and any other details click on <code>edit details</code> near the title and some menus will open up as follows.</p>
-<p><img src="images/tableau/profile_viewtabs3.png" /></p>
-<p>To make sure the worksheets are visible select the check box marked <code>Show workbook sheets as tabs</code> and then <code>Save</code>.
-<img src="images/tableau/profile_viewtabs3.png" /></p>
-<p>To access this demonstration workbook go <a href="https://public.tableau.com/profile/wipo.open.source.patent.analytics.manual#!/vizhome/pizzapatents/Overview">here</a>.</p>
+<p>Tableau will then open a web browser at your profile page and it will look a lot like Figure <a href="tableau-public-2.html#fig:tonline">11.26</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tonline"></span>
+<img src="images/tableau/2021/world_domination_2021-12-31%2011-32-44.png" alt="Publish to Tableau Onl;ine" width="1491" />
+<p class="caption">
+Figure 11.26: Publish to Tableau Onl;ine
+</p>
+</div>
+<p>Do you notice anything strange? Yes, we can only see the Dashboard and not any of the other sheets. To change this and any other details click on the small pen icon next to <code>Details</code> near the title and some menus will open up as follows.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tdetails"></span>
+<img src="images/tableau/2021/details-Tableau%20Public%202021-12-31%2011-35-40.png" alt="Edit Details in Tableau Public" width="1491" />
+<p class="caption">
+Figure 11.27: Edit Details in Tableau Public
+</p>
+</div>
+<p>To make sure the worksheets are visible go to the Settings icon on the top right and select <code>Show Sheets</code> as in Figure <a href="tableau-public-2.html#fig:tshowsheets">11.28</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tshowsheets"></span>
+<img src="images/tableau/2021/My%20Secret%20Plan%20for%20World%20Domination%20using%20Pizza%20Patents%20%7C%20Tableau%20Public%202021-12-31%2011-40-23.png" alt="Show All Sheets" width="1491" />
+<p class="caption">
+Figure 11.28: Show All Sheets
+</p>
+</div>
+<p>To access this demonstration workbook go <a href="https://public.tableau.com/app/profile/poldham/viz/MySecretPlanforWorldDominationusingPizzaPatents/Dashboard1?publish=yes">here</a>.</p>
 </div>
 <div id="privacy-and-security" class="section level2" number="11.8">
 <h2><span class="header-section-number">11.8</span> Privacy and Security</h2>
-<p>As emphasised above, Tableau Public is by definition a place for publicly sharing workbooks and visualisations. It is not for sensitive data. In the past users, such as journalists, relied on what might be called ‘security by obscurity’ but the trend towards storing data on a Tableau public profile (the only option) makes that less of an option. If this a concern there are two actions that might potentially be considered that limit the visibility of a workbook and its wider use. Logically, the answer to any concerns about Tableau Public and sensitive information is <strong><em>not to include sensitive information in the first place</em></strong>. The following are not recommendations but simply highlight the available options.</p>
-<ol style="list-style-type: decimal">
-<li>In the discussion on the settings above, there is a check box to prevent users from downloading a workbook. You might want to select that option where a workbook contains information that you do not want to be seen other than what you choose to make visible.</li>
-<li>It is possible to create a setting so that a workbook does not show up on a user’s profile. This is hard to spot, and appears by hovering over the workbook in the Profile view.</li>
-</ol>
-<p><img src="images/tableau/profile_visibility.png" /></p>
-<p>As the message points out using this option does not prevent a workbook being found through search engines or seen by users. It just means it is not visible on the profile page.</p>
-<p>As such, Tableau public is fundamentally about sharing information with others through visualisation. That is, it is for information that you want others to see. Here it is briefly worth returning to the completed dashboard above and clicking the share button.</p>
-<p><img src="images/tableau/profile_sharing.png" /></p>
+<p>As emphasised above, Tableau Public is by definition a place for publicly sharing workbooks and visualisations. It is not for sensitive data. In the past users, such as journalists, relied on what might be called ‘security by obscurity’ but the trend towards storing data on a Tableau public profile (the only option) makes that less of an option. Logically, the answer to any concerns about Tableau Public and sensitive information is <strong><em>not to include sensitive information in the first place</em></strong>.</p>
+<p>In the latest edition of Tableau Public it is not possible to stop others from viewing the work that you have made visible. However, as Figure <a href="tableau-public-2.html#fig:tshowsheets">11.28</a> demonstrates for the button menu called <code>Allow Access</code> you can restrict the ability of others to actually download and share a workbook.
+Tableau public is fundamentally about sharing information with others through visualisation so <strong>do not include confidential information in what you share</strong>. Here it is briefly worth returning to the completed dashboard above and clicking the share button.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tshare"></span>
+<img src="images/tableau/2021/share.png" alt="Sharing A Tableau Public Workbook" width="1491" />
+<p class="caption">
+Figure 11.29: Sharing A Tableau Public Workbook
+</p>
+</div>
 <p>As we can see here, Tableau generates embed codes for use on websites or for emailing as a link along with twitter and facebook.</p>
+<p>Finally, note that you can also Edit the workbook online by selecting the Edit icon above your dashboard as in Figure @ref(fig:tedit.png). When you have finished editing you press Publish to save the edits.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tedit"></span>
+<img src="images/tableau/2021/Edit.png" alt="Edit a Tableau Workbook Online" width="1491" />
+<p class="caption">
+Figure 11.30: Edit a Tableau Workbook Online
+</p>
+</div>
 </div>
 <div id="round-up-7" class="section level2" number="11.9">
 <h2><span class="header-section-number">11.9</span> Round Up</h2>
@@ -673,7 +821,7 @@ Do not try to format this box yet. Instead, grab inventors and drag it into the 
 <li>What kinds of stories does the pizza data tell us and how might we visualise them using the information provided on applicants and its subset Applicants IPCs?</li>
 </ol>
 <p>If you get stuck, and it does take time to become familiar with Tableau’s potential, perhaps try exploring this <a href="https://public.tableau.com/profile/poldham#!/">workbook on synthetic biology</a> and the use of Tableau images in this article <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0034368">PLOS ONE article</a>. As a tip, try clicking on the bars and then the titles to understand Actions. Downloading workbooks prepared by others can be a very good way of learning the tips and tricks of tableau visualisation and dashboarding.</p>
-<p>If you would like to download the pizza workbook it is <a href="https://public.tableau.com/profile/wipo.open.source.patent.analytics.manual#!/vizhome/pizzapatents/Overview">here</a>.</p>
+<p>If you would like to download the pizza workbook it is <a href="https://public.tableau.com/authoring/MySecretPlanforWorldDominationusingPizzaPatents/Dashboard1#1">here</a>.</p>
 <p>However, one of the most important issues exposed by working with Tableau is that you must ensure that fields you want to visualise are <code>tidy</code>, that is not concatenated, and also that they are as clean as it is reasonable to make them. For researchers wishing to work up their own data we suggest the Open Refine article as a good starting point.</p>
 
 </div>
