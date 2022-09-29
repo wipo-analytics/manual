@@ -1,5 +1,5 @@
 # The Patent Analytics Workflow
-
+<!--- last spell checked 2022-09-29--->
 When starting out in patent analytics it is tempting to think of patent analytics as involving three steps:
 
 - Searching a database
