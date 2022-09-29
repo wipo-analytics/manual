@@ -168,11 +168,9 @@ legal-status
 round-up-1
 datasets
 the-datasets
-pizza-patent-datasets
+core-dataset-1
+sample-datasets
 patent-landscape-reports-datasets
-packaged-datasets
-other-datasets
-round-up-2
 databases
 introduction-1
 the-databases
@@ -192,7 +190,7 @@ other-data-sources
 tools-for-accessing-patent-data
 patent2net-in-python
 python-epo-ops-client-by-gsong
-round-up-3
+round-up-2
 patentscope-1
 introduction-2
 collections-to-search
@@ -200,7 +198,7 @@ simple-search
 downloading-results
 cross-lingual-searching
 sequence-data
-round-up-4
+round-up-3
 the-lens-1
 introduction-3
 getting-started
@@ -209,7 +207,7 @@ exporting-patent-data
 going-further-with-citations
 working-with-texts
 patseq
-round-up-5
+round-up-4
 open-refine
 install-open-refine
 create-a-project
@@ -239,7 +237,7 @@ phonetic-fingerprint-metaphone-3-clustering
 levenshtein-edit-distance
 ppm
 preparing-for-export
-round-up-6
+round-up-5
 useful-resources
 tableau-public-2
 introduction-4
@@ -250,7 +248,7 @@ adding-new-data-sources
 creating-an-overview-dashboard
 saving-display-and-privacy-settings
 privacy-and-security
-round-up-7
+round-up-6
 gephi-1
 installing-gephi
 opening-gephi-and-installing-plugins
@@ -272,7 +270,7 @@ getting-started-with-plotly
 importing-files
 creating-a-graphic-online
 working-with-plotly-in-r
-round-up-8
+round-up-7
 patent-infographics-with-r
 getting-started-2
 load-a-.csv-file-using-readr
@@ -294,7 +292,7 @@ selecting-applicants-using-filter
 generating-ipc-tables
 phrases-tables
 creating-an-infographic-in-infogr.am
-round-up-9
+round-up-8
 scientific-literature-with-rplos
 introduction-6
 install-r-and-rstudio
@@ -330,5 +328,5 @@ snippets-using-hl.snippets
 fragment-size-using-hl.fragsize
 get-the-full-text-of-one-or-more-articles
 writing-a-corpus-to-disk
-round-up-10
+round-up-9
 resources-1
