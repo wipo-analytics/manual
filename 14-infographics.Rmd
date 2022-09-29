@@ -1,5 +1,5 @@
 # Patent Infographics with R
-
+<!--- last spell checked 2022-09-29--->
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(cache=TRUE, tidy=TRUE, fig.width=12, fig.height=8, fig.align = "center", echo=TRUE, warning=FALSE, message=FALSE)
 ```
@@ -618,7 +618,7 @@ We now have the data on technology areas that we need to understand our data. Th
 
 ### Phrases Tables
 
-We will be using data from words and phrases in the titles of patent documents for use in a word cloud in our infographic. It is possible to generate this type of data in R directly using the `tm` and `NLP` packages. Our pizza dataset already contains a title field broken down into phrases using Vantagepoint software and so we will use that. We will use the field `title_nlp_multiword_phrases` as phrases are generally more informative than individual words. Once again we will use our general `patent_count()` function although experimentation may be needed to identify the number of phrases that visualise well in a word cloud. 
+We will be using data from words and phrases in the titles of patent documents for use in a word cloud in our infographic. It is possible to generate this type of data in R directly using the `tm` and `NLP` packages. Our pizza dataset already contains a title field broken down into phrases using VantagePoint software and so we will use that. We will use the field `title_nlp_multiword_phrases` as phrases are generally more informative than individual words. Once again we will use our general `patent_count()` function although experimentation may be needed to identify the number of phrases that visualise well in a word cloud. 
 
 ```{r pizza_phrases}
 pizza_phrases <- patent_count(data = pizza_1990_2012, col = "title_nlp_multiword_phrases", count_col = "publication_number", n_results = 15, sep = ";")
