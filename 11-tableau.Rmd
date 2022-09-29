@@ -1,5 +1,5 @@
 # (PART) Visualizing Patent Data {-}
-
+<!--- last spell checked 2022-09-29--->
 # Tableau Public
 
 ##   Introduction
@@ -241,7 +241,7 @@ To fix the long Technology areas labels we go back to the original sheet (tip: i
 
 If all goes well you will now have a dashboard that looks more or less like Figure \@ref(fig:tableaudash). Note that depending on the worksheet settings you may want to make the font size consistent (right click and choose Format, then font size). Note also that if you increase the font size (the default is 8 point) then you may need to edit some of the labels again. 
 
-```{r tableauddash, echo=FALSE, fig.align='center', fig.cap="A Completed Tableau Dashboard"}
+```{r tableaudash, echo=FALSE, fig.align='center', fig.cap="A Completed Tableau Dashboard"}
 knitr::include_graphics("images/tableau/2021/Tableau Public - Book1 2021-12-31 11-22-45.png")
 ```
 
