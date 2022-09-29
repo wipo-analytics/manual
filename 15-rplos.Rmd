@@ -1,5 +1,5 @@
 # (PART) Using APIs {-}
-
+<!--- last spell checked 2022-09-29--->
 # Scientific Literature with Rplos
 
 ```{r opts, echo=FALSE}
@@ -8,7 +8,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ## Introduction
 
-In this chapter we look at the use of the [`rplos`](https://github.com/ropensci/rplos) package from [rOpenSci](https://ropensci.org) to access the scientific literature from the [Public Library of Science](https://www.plos.org) using the [PLOS Search API](http://api.plos.org/solr/faq/).
+In this chapter we look at the use of the [`rplos`](https://github.com/ropensci/rplos) package from [rOpenSci](https://ropensci.org) to access the scientific literature from the [Public Library of Science](https://www.plos.org) using the [PLOS Search API](http://api.plos.org/solr/faq/). The `rplos` package provides a straightforward introduction to the use of APIs in R and is a gentle entry point into a wide range of API packages for the scientific literature.
 
 The Public Library of Science (PLOS) is the main champion of open access peer reviewed scientific publications and has published somewhere in the region of 140,000 articles. These articles are a fantastic resource. PLOS includes the following titles. 
 
@@ -22,11 +22,9 @@ The Public Library of Science (PLOS) is the main champion of open access peer re
 - PLOS Clinical Trials ()
 - PLOS Collections (collections of articles)
 
-PLOS is important because it provides open access to the full text of peer reviewed research. For researchers interested in working with R, `rplos` and its bigger sister package, the [rOpenSci `fulltext` package](https://ropensci.org/tutorials/fulltext_tutorial.html) are very important tools for gaining access to research.
+PLOS is important because it provides open access to the full text of peer reviewed research. For researchers interested in working with R in order to access the scientific literature other important packages include [rcrossref](https://docs.ropensci.org/rcrossref/), [openalexR](https://github.com/massimoaria/openalexR) and [bibliometrix](https://www.bibliometrix.org/home/). In particular we recommend the new `openalexR` for accessing over 200 million publication records from [OpenAlex](https://openalex.org/) as the replacement for Microsoft Academic Graph. 
 
-This article is part of work in progress for the WIPO Manual on Open Source Patent Analytics. The Manual is intended to introduce open source analytics tools to patent researchers in developing countries and to be of wider use to the science and technology research community. An important part of patent research is being able to access and analyse the scientific literature. 
-
-This article makes no assumptions about knowledge of R or programming. `rplos` is a good place to start with learning how to access scientific literature in R using Application Programming Interfaces (APIs). Because `rplos` is well organised and the data is very clean it is also a good place to learn some of the basics of working with data in R. This provides a good basis for working with the ROpenSci [fulltext package](https://github.com/ropensci/fulltext). `fulltext` allows you to retrieve scientific literature from multiple data sources and we will deal with that next. 
+This chapter makes no assumptions about knowledge of R or programming. `rplos` is a good place to start with learning how to access scientific literature in R using Application Programming Interfaces (APIs). Because `rplos` is well organised and the data is very clean it is also a good place to learn some of the basics of working with data in R. This provides a good basis for working with the ROpenSci [fulltext package](https://github.com/ropensci/fulltext). `fulltext` allows you to retrieve scientific literature from multiple data sources and we will deal with that next. 
 
 We will also use this as an opportunity to introduce some of the popular packages for working with data in R, notably the family of packages for tidying and wrangling data developed by Hadley Wickham at RStudio (namely, `plyr`, `dplyr`, `stringr` and `tidyr`). We will only touch on these but we include then as everyday working packages that you will find useful in learning more about R.  
 
@@ -92,13 +90,13 @@ If you are new to R this will typically takes the form of a short piece of code 
 newobject <- function(yourdata, argument1, argument2, etc)
 ```
 
-A new object is likely to be a table or list containing data. the sign `<-` gets or passes the results of the function (such as seachplos) to the new object. To specify what we want we first include our data (`yourdata`) and then one or more arguments which control what we get, such as the number of records or the title etc. 
+A new object is likely to be a table or list containing data. the sign `<-` gets or passes the results of the function (such as searchplos) to the new object. To specify what we want we first include our data (`yourdata`) and then one or more arguments which control what we get, such as the number of records or the title etc. 
 
 ## Data Fields in rplos
 
 There are quite a number of fields that can be searched with `rplos` or used to refine a search. We will only use a few of them. To see the range of fields type `plosfields` into the console and press Enter. 
 
-```{r plosfields, eval=FALSE, tidy=TRUE}
+```{r plosfields, eval=FALSE, tidy=TRUE, cache=TRUE}
 plosfields
 ```
 
@@ -116,7 +114,7 @@ This will bring up the help page for that function with a description of the arg
 
 The examples are there to help you. In `rplos` they presently focus on the use of single search terms such as ecology. However, as we will see below, it is possible to use phrases in searching and to use multiple terms. There are quite a number of arguments (options) available for refining the results and we will include some of these in the examples.
 
-The author of this article is a big fan of pizza. So, in the first example we will carry out a simple search for the term pizza and then specify the results we want to see using the argument `fl =` (for fields) and the number of results that we want to see using `limit = 20`. In specifying the fields we will use `c()` to combine them together.
+The author of this chapter is a big fan of pizza. So, in the first example we will carry out a simple search for the term pizza and then specify the results we want to see using the argument `fl =` (for fields) and the number of results that we want to see using `limit = 20`. In specifying the fields we will use `c()` to combine them together.
 
 ```{r searchplos1, eval=FALSE, cache=TRUE, tidy.opts=list(width.cutoff = 40)}
 p <- searchplos(q = "pizza", fl = c("id","publication_date", "title", "abstract"), limit = 20)
@@ -173,9 +171,10 @@ Subsetting the data by its numeric position rather than its name makes life much
 
 Another useful tip for navigating the data in RStudio is using autocomplete. Try typing the following into the console.
 
-p$meta$ #type me in the console, do not cut and paste
+> p$meta$ 
+#type me in the console, do not cut and paste
 
-When we type the $ a popup will appear and display two entries as tables for `meta` and `data`. Click on meta, then add another $ sign at the end. It will now display three items in purple (for vectors). Select `numFound` and hey presto! As you work with RStudio you will notice that when you start to type a function name, lists of names will start to pop up. Type `search` into the console but do not press enter and wait a moment. A list with three items should pop up with search {base}, searchpaths {base}, and searchplos {rplos}. This is really helpful because it saves a lot of typing. As you become more familiar with R it also helpfully displays what a function does and a reminder of its arguments. The soft brackets around {base} indicate the package where the function can be found (this can be useful for discovering functions when you get stuck).
+When we type the $ a popup will appear and display two entries as tables for `numFound` and `start`. Select `numFound` and hey presto! As you work with RStudio you will notice that when you start to type a function name, lists of names will start to pop up. Type `search` into the console but do not press enter and wait a moment. A list with three items should pop up with search {base}, searchpaths {base}, and searchplos {rplos}. This is really helpful because it saves a lot of typing. As you become more familiar with R it also helpfully displays what a function does and a reminder of its arguments. The soft brackets around {base} indicate the package where the function can be found (this can be useful for discovering functions when you get stuck).
 
 Finally, you can also see the items in your project in the Environment pane. Click on the blue arrow for `p` in the Environment pane under Values and you will see the structure of the data in `p` and some of its content. 
 
@@ -201,7 +200,9 @@ This will show your current working directory. If you do not see the name of you
 setwd("/Users/pauloldham/Desktop/open_source_master/rplos")
 ```
 
-Ok, we now know where we are. So, let's save the file. 
+Ok, we now know where we are. Note that a much better option than using `setwd()` is to create a specific project in RStudio with `File > New Project`. This approach has the major advantage of storing all of your files with the same project meaning that they are preserved in the same place when you go back to a project. Another option is to use the [here package](https://github.com/r-lib/here).
+
+So, let's save the file. 
 
 ```{r write.csv, eval=FALSE, tidy=TRUE}
 write.csv(dat, "dat.csv", row.names = FALSE)
@@ -234,16 +235,16 @@ We have now retrieved some data containing pizza through the PLOS API using `rpl
 
 ## Limit by journal
 
-As we have seen above, PLOS contains 7 journals and in `rplos` the results for a search can be limited to specific journals such as PLOS ONE or PLOS Biology. Note that the short journal names appear to use the old format for PLOS consisting of mixed upper and lowercase characters (e.g. PLoSONE not PLOSONE). A nice easy way to find the short journal names is to use:
+As we have seen above, PLOS contains 13 journals and in `rplos` the results for a search can be limited to specific journals such as PLOS ONE or PLOS Biology. Note that the short journal names appear to use the old format for PLOS consisting of mixed upper and lowercase characters (e.g. PLoSONE not PLOSONE). A nice easy way to find the short journal names is to use:
 
 ```{r journalname, eval=FALSE, cache=TRUE, tidy=TRUE}
 journalnamekey()
 ```
 
-Here we will limit the search to PLOS ONE by adding `fq =` to the arguments and then the `cross_published_journal_key` argument. Note that the `fq=` argument takes the same options as `fl=`. But, `fq =` filters the results returned by PLOS to only those specified in `fq =`. 
+Here we will limit the search to PLOS ONE by adding `fq =` to the arguments and then the `journal_key` argument. Note that the `fq=` argument takes the same options as `fl=`. But, `fq =` filters the results returned by PLOS to only those specified in `fq =`. 
 
 ```{r pizza, eval=FALSE, cache=TRUE, tidy=FALSE}
-pizza <- searchplos(q = "pizza", fl = c("id", "publication_date", "title", "abstract"), fq = 'cross_published_journal_key:PLoSONE', start = 0, limit = 20)
+pizza <- searchplos(q = "pizza", fl = c("id", "publication_date", "title", "abstract"), fq = 'journal_key:PLoSONE', start = 0, limit = 20)
 head(pizza$data)
 ```
 
@@ -251,54 +252,54 @@ We have retrieved 20 records here using `limit = 20` (the default is 10). It is 
 
 ## Obtaining the full number of results
 
-One way to do this is to take our original number of results and then subset in to the data and create a new object containing the value for the number of records in `numFound`. Note that the number of records for a particular query below may well have gone up by the time that you read this article. 
+One way to do this is to take our original number of results and then subset in to the data and create a new object containing the value for the number of records in `numFound`. Note that the number of records for a particular query will have gone up by the time that you read this chapter. 
 
 ```{r numFoundvalue, eval=FALSE, cache=TRUE, tidy=TRUE}
 r <- pizza$meta$numFound
 ```
 
-To run a new search we can now insert `r` into the limit = value. This will be interpreted as the numeric value of `r` (210). 
+To run a new search we can now insert `r` into the limit = value. This will be interpreted as the numeric value of `r` (484 at the time of writing). 
 
 ```{r pizznumFound, eval=FALSE, cache=TRUE}
-pizza <- searchplos(q = "pizza", fl = c("id", "publication_date", "title", "abstract"), fq = 'cross_published_journal_key:PLoSONE', start = 0, limit = r)
+pizza <- searchplos(q = "pizza", fl = c("id", "publication_date", "title", "abstract"), fq = 'journal_key:PLoSONE', start = 0, limit = r)
 head(pizza$data)
 ```
 
 An alternative way of doing this is to make life a bit easier for ourselves by first running our query and setting the limit as `limit = 0`. This will only return the `meta` data. We then add the subset for number found to the end of the code as `$meta$numFound`. That will pull back the value directly. 
 
 ```{r numFoundquery, eval=FALSE, cache=TRUE, tidy=TRUE}
-r <- searchplos(q = "pizza", fq = 'cross_published_journal_key:PLoSONE', limit = 0)$meta$numFound
+r <- searchplos(q = "pizza", fq = 'journal_key:PLoSONE', limit = 0)$meta$numFound
 r
 ```
 
 We can then run the query again using the value of `r` in limit = :
 
 ```{r numFoundresult, eval=FALSE, cache=TRUE, tidy=FALSE}
-pizza <- searchplos(q = "pizza", fl = c("id", "publication_date", "title", "abstract"), fq = 'cross_published_journal_key:PLoSONE', start = 0, limit = r) 
+pizza <- searchplos(q = "pizza", fl = c("id", "publication_date", "title", "abstract"), fq = 'journal_key:PLoSONE', start = 0, limit = r) 
 head(pizza$data)
 ```
 
 ## Obtaining the number of records across PLOS Journals
 
-That has returned the full 210 results for PLOS ONE. We could attempt to make life even easier by first getting the results across all PLOS journals. We do this by removing the `fq =` argument limiting the data to PLOS ONE and saving the result in and object we will call `r1`. Note that the number of records will probably have gone up by the time you read this. 
+That has returned the full 484 results for PLOS ONE. We could attempt to make life even easier by first getting the results across all PLOS journals. We do this by removing the `fq =` argument limiting the data to PLOS ONE and saving the result in and object we will call `r1`. Note that the number of records will probably have gone up by the time you read this. 
 
 ```{r crossnumFound, eval=FALSE, cache=TRUE, tidy=TRUE}
 r1 <- searchplos("pizza", limit = 0)$meta$numFound
 r1
 ```
 
-This produces 298 results at the time of writing. What happens now if we run our original query using the value of `r1` (298 records) but limiting the results only to PLOS ONE?
+This produces 563 results at the time of writing. What happens now if we run our original query using the value of `r1` (563 records) but limiting the results only to PLOS ONE?
 
 ```{r crosslimit, eval=FALSE, cache=TRUE, tidy=FALSE}
-pizza <- searchplos(q = "pizza", fl = c("id", "publication_date", "title", "abstract"), fq = 'cross_published_journal_key:PLoSONE', start = 0, limit = r1)
+pizza <- searchplos(q = "pizza", fl = c("id", "publication_date", "title", "abstract"), fq = 'journal_key:PLoSONE', start = 0, limit = r1)
 pizza$meta$numFound
 ```
 
-The answer is that the 210 results in PLOS ONE are returned from the total of 244 across the PLOS journals. Why? The reason this works is that `searchplos()` initially pulls back all of the data from the PLOS API and then applies our entry in `fq =` as a filter. So, in reality the full 244 records are fetched and then filtered down to the 210 from PLOS ONE. In this case, this makes our lives easier because we can use the results across PLOS journals and then restrict the data. 
+The answer is that the 484 results in PLOS ONE are returned from the total of 563 across the PLOS journals. Why? The reason this works is that `searchplos()` initially pulls back all of the data from the PLOS API and then applies our entry in `fq =` as a filter. So, in reality the full 563 records are fetched and then filtered down to the 484 from PLOS ONE. In this case, this makes our lives easier because we can use the results across PLOS journals and then restrict the data. 
 
 ## Writing the results and using a codebook
 
-We now have a total of 210 results for pizza. We can simply write the results to a .csv file.
+We now have a total of 484 results for pizza. We can simply write the results to a .csv file.
 
 ```{r write.csvx, eval=FALSE, eval=FALSE, tidy=TRUE}
 write.csv(pizza, "plosone_pizza.csv", row.names = FALSE)
@@ -320,23 +321,23 @@ We can set the proximity of terms using tilde `~` and a value. For example, `~15
 searchplos(q = 'everything:"synthetic biology"~15', fl = "title", fq = "doc_type:full")
 ```
 
-Note that while synthetic and biology appear inside quotes (suggesting they are a phrase to be searched) in reality the API will treat this as synthetic AND biology. That is, the query will look first for documents that contain the words synthetic AND biology and then for those cases where the words appear within 15 words of each other. In this case we get 1,684 results across PLOS (everything) and full texts (`fq = "doc_type:full`) as we can see from this code. 
+Note that while synthetic and biology appear inside quotes (suggesting they are a phrase to be searched) in reality the API will treat this as synthetic AND biology. That is, the query will look first for documents that contain the words synthetic AND biology and then for those cases where the words appear within 15 words of each other. In this case we get 2928 results across PLOS (everything) and full texts (`fq = "doc_type:full`) as we can see from this code. 
 
 ```{r proximitynum, eval=FALSE, cache=TRUE, tidy=TRUE}
 searchplos(q = 'everything:"synthetic biology"~15', fl = "title", fq = "doc_type:full")$meta$numFound
 ```
 
-We can narrow the search horizon to ~1 to capture those cases where the terms appear next to each other (within 1 word either to the left or the right) which produces 1001 results.
+We can narrow the search horizon to ~1 to capture those cases where the terms appear next to each other (within 1 word either to the left or the right) which produces 2120 results at the time of writing.
 
 ```{r proximity1, eval=FALSE, cache=TRUE, tidy=TRUE}
 searchplos(q = 'everything:"synthetic biology"~1', fl = "title", fq = "doc_type:full")$meta$numFound
 ```
 
-This is actually about 10 records higher than the total returned on an exact match for the phrase suggesting that there could be cases of "biology synthetic" or other issues (such as punctuation) or API performance that account for the variance. As noted in the `searchplos()` documentation: 
+This is actually higher than the total returned on an exact match for the phrase suggesting that there could be cases of "biology synthetic" or other issues (such as punctuation) or API performance that account for the variance. As noted in the `searchplos()` documentation: 
 
 "Don't be surprised if queries you perform in a scripting language, like using rplos in R, give different results than when searching for articles on the PLOS website. I am not sure what exact defaults they use on their website." 
 
-As a result, it is a good idea to try different approaches. Even if it is not possible to get to the bottom of any variance it is very useful to note it down in your codebook to highlight the issue to others who may try and repeat your work. 
+This is actually quite a common issue when using both a public interface and an API, the results vary depending on factors on the data provider end that are hidden from our view. As a result, it is a good idea to try different approaches. Even if it is not possible to get to the bottom of any variance it is very useful to note it down in your project codebook to highlight the issue to others who may try and repeat your work. 
 
 It is also important to emphasise that when using `rplos()` it is possible to return a fragment of the text with the highlighted terms using `highplos()` and the `hl.fragsize` argument to set the horizon for the fragment of text around the search. This is particularly useful for text mining. 
 
@@ -384,7 +385,7 @@ r2 <- plos_records(q = s)
 r2
 ```
 
-You should now see a number around 1151 (at the time of writing). Yay! 
+You should now see a number around 2106 (at the time of writing). Yay! 
 
 Now we can use `r2` in the limit to return all of the records. We will write this in the standard way and then display a simpler way using pipes `%>%` below. Note that we use `s` as our search terms (see `q = s`) and we have used `r2` for the limit (limit = r2). Because we are calling a chunk of data this can take around a minute to run. 
 
@@ -397,7 +398,7 @@ results <- setNames(results, s) #add query terms to the relevant results in the 
 results <- ldply(results, "[[", 2) #extract the data into a single data.frame
 ```
 
-We can make life simpler by using pipes `%>%` to simplify the code. The advantage of using pipes is that we do not have to keep creating and overwriting temporary objects (see above for `results`). The code is also much easier to read and faster. To learn more about using pipes see this article from [Sean Anderson](http://seananderson.ca/2014/09/13/dplyr-intro.html). Again the query might be a bit slow as the data is fetched back.
+We can make life simpler by using pipes `%>%` to simplify the code. The advantage of using pipes is that we do not have to keep creating and overwriting temporary objects (see above for `results`). The code is also much easier to read and faster. To learn more about using pipes see this article from [Sean Anderson](http://seananderson.ca/2014/09/13/dplyr-intro.html) or read Hadley Wickham and Garret Grolemund's excellent free online [R for Data Science](https://r4ds.had.co.nz/). Again the query might be a bit slow as the data is fetched back.
 
 ```{r pipedemo, eval=FALSE, cache=TRUE, tidy=FALSE}
 library(plyr)
@@ -408,9 +409,9 @@ results <- lapply(s, function(x) searchplos(x, fl = c('id', 'author', 'publicati
 results
 ```
 
-Pipes are a relatively recent innovation in R (see the `magrittr`, `dplyr` and `tidyr` packages) and most code you will see will be written in the traditional way. However, pipes make R code faster and much easier to follow. While you will need to be familiar with regular R code to follow most existing work, pipes are becoming increasingly popular because the code is simpler and has a clearer logic (e.g. do this then that).
+At the time when this chapter was originally written pipes were a relatively recent innovation in R (see the `magrittr`, `dplyr` and `tidyr` packages). However, pipes make R code faster and much easier to follow and their use is now very common (including the introduction of a base R pipe `|>` that works in a similar but not identical way. While you will need to be familiar with regular R code pipes are very popular because the code is simpler and has a clearer logic (e.g. do this then that).
 
-We now have our data consisting of 1,405 records in a single data frame that we can view.
+We now have our data consisting of over 3,598 records (at the time of writing) in a single data frame that we can view.
 
 ```{r view, eval=FALSE, tidy=TRUE}
 View(results)
@@ -490,16 +491,16 @@ test <- select(results, 1:8)
 length(test)
 ```
 
-We could also drop columns by position using the following (to remove column 5 and 6). This approach is useful when there are lots of columns to deal with. 
+We could also drop columns by position using the following (to remove column 5 and 6). This approach is useful when there are lots of columns to deal with but be aware that things can easily go wrong when selecting by position.
 
 ```{r select1, cache=TRUE, eval=FALSE, tidy=TRUE}
 test <- select(results, 1:4, 7:9)
 ```
 
-An easier approach in this case is to explicitly drop columns using `-` and keep the others. 
+An easier and better approach is to explicitly drop columns using `-` and keep the others. 
 
 ```{r select2, cache=TRUE, eval=FALSE, tidy=TRUE}
-test <- select(results, - month, - day)
+test <- select(results, -month, -day)
 ```
 
 Select is also very useful for reordering columns. Let's imagine that we wanted to move the `id` column to the first column. We can simply put `id` as the first entry in `select()` and then the total columns to reorder.
@@ -523,70 +524,80 @@ When we use `View(results)` we will see that the most recent data is at the top.
 
 ## Dealing with Duplicates
 
-How you deal with duplicates depends on what you are trying to achieve. If you are attempting to develop data on trends then duplicates will result in overcounting unless you take steps to count only distinct records. Duplicates of the same data will also distort text mining of the frequencies of terms. So, from that perspective duplicates are bad. On the other hand. If we are interested in the use of terms over time within an emerging area of science and technology, then we might well want to look in detail at the use of particular terms. For example, synthetic genomics is an alternative term for synthetic biology favoured by the J. Craig Venter group. We could look at whether this term is more widely used. Do synthetic biologists also use terms such as engineering biology, genome engineering or the fashionable new genome editing technique? In these cases duplicate records using terms are good because shifts in language can be mapped over time. This suggests a need for a strategy that uses different data tables to answer different questions. 
+How you deal with duplicates depends on what you are trying to achieve. If you are attempting to develop data on trends then duplicates will result in over counting unless you take steps to count only distinct records. Duplicates of the same data will also distort text mining of the frequencies of terms. So, from that perspective duplicates are bad. On the other hand. If we are interested in the use of terms over time within an emerging area of science and technology, then we might well want to look in detail at the use of particular terms. For example, synthetic genomics is an alternative term for synthetic biology favoured by the J. Craig Venter group. We could look at whether this term is more widely used. Do synthetic biologists also use terms such as engineering biology, genome engineering or the fashionable new genome editing technique? In these cases duplicate records using terms are good because shifts in language can be mapped over time. This suggests a need for a strategy that uses different data tables to answer different questions. 
 
 As we have already seen, it is very easy in R to create new objects (typically data.frames), take some kind of action, and write the data to a file. In thinking about duplicates we would probably first want to find out what we are dealing with by identifying unique records. There are multiple ways to do this, here are two:
 
-```{r unique, eval=FALSE, cache=TRUE, tidy=TRUE}
-unique(results$id) #displays unique DOIs (base R)
+```{r unique, eval=FALSE, cache=FALSE}
+unique(results$id) # displays unique DOIs as a very long list (base R)
 ```
 
-```{r distinct, eval=FALSE, cache=TRUE, tidy=TRUE}
-n_distinct(results$id) #displays the count of distinct DOIs (dplyr)
+```{r distinct, eval=FALSE, cache=FALSE}
+n_distinct(results$id) # displays the count of distinct DOIs (dplyr)
 ```
 
-This tells us there are 1,098 unique DOIs meaning there were 307 duplicates at the time of writing. 
+My personal preferred way of doing this is to use `count()`, because it gives us back a vector of the unique results that we can assign to a vector for later use (rather than a single value). Using `sort = TRUE` we can also identify the duplicated unique identifiers. Using count() in this way is a very powerful time saving trick.
+
+```{r eval=FALSE}
+results %>% 
+  count(id, sort = TRUE)
+```
+
+This tells us there are 2,251 unique DOIs meaning there were 1,247 duplicates at the time of writing. 
 
 Next we have two main options. 
 
 1. We can spread the duplicate results across the table
 2. We can identify and delete the duplicates.  
 
-### Spreading data using `spread()` from `tidyr`
+### Pivoting data using `pivot_wider()` from `tidyr`
 
-Rather than simply deleting our duplicate DOIs, we could create new columns for each search term and its associated DOI. This will be useful because it will tell us which terms are associated with which records over time. This is easy to do with `spread()` by providing a `key` and a `value` in the arguments. In this case, we want to use `search_terms` as the `key` (column names) to spread across the table and the DOIs in the `id` column as the `value` for the rows.
+Rather than simply deleting our duplicate DOIs, we could create new columns for each search term and its associated DOI. This will be useful because it will tell us which terms are associated with which records over time. This is easy to do with `pivot_wider()` by providing a column where the names of new columns will be taken from the value that will fill these columns in the arguments. In this case, we want to use `.id` containing our search_terms as the `names_from` (to become new column names) to spread across the table and the DOIs in the `id` column as the `value_from` for the rows. This will then identify the search terms. Note that a warning will be generated in cases where there are duplicated ids. On this case we are happy with that and will ignore the warning.  However, in other cases you will want to address the duplication using the approach suggested in the warning message. As such, expect to experiment. 
 
-```{r spread, cache=TRUE, eval=FALSE, tidy=TRUE}
-spread_results <- spread(results, search_terms, id)
+```{r pivot_wider, cache=TRUE, eval=FALSE}
+wide_results <- results %>% 
+  pivot_wider(names_from = .id, values_from = id)
 ```
 
-This creates a column for each search term with the relevant DOIs as the values. Note that the default is to drop the original column (in this case `search_terms`) when creating the new columns. Things will go badly wrong if you try to keep the existing column because R will be simultaneously trying to spread the data, thus reducing the size of the table, and keep the table in the same size. So, we will leave the default to drop the column as is. 
+This creates a column for each search term with the relevant DOIs as the values. Note that the default is to drop the original column (in this case `.id`) when creating the new columns. 
 
-We now have a data.frame with 1098 rows and the search terms identified in each column. If we briefly inspect `spread_results` on the terms at the end we can detect a potentially interesting pattern where some documents are only using terms such as synthetic genome or synthetic genomics while others are using only synthetic biology or a mix of terms. 
+We now have a data.frame with 2,251 rows that corresponds with the unique ids and the search terms that appear in those documents. This is what we want. If we inspected the results on the terms we would detect a potentially interesting pattern where some documents are only using terms such as synthetic genome or synthetic genomics while others are using only synthetic biology or a mix of terms. 
 
-We have now reduced our data to unique records while preserving our search terms as reference points. The limitation of this approach is that by spreading the DOIs across 4 columns we no longer have a tidy single column of DOIs. 
+We have now reduced our data to unique records while preserving our search terms as reference points. The limitation of this approach is that by spreading the DOIs across 4 columns we no longer have a tidy single column of DOIs. Note that you can use the `pivot_longer()` function to convert the data back to long form as needed. 
 
 ### Deleting Duplicates
 
-As an alternative, or complement, to spread we can use a logical TRUE/FALSE test to filter our dataset. There are a number of functions that perform logical tests in R (see also `which()`, `%in%`, `within()`). In this case the most appropriate choice is probably `duplicated()`. `duplicated()` will mark duplicate records as TRUE and non-duplicated records as FALSE. We will add a column to our data using the trusty `$` when creating the new column. 
+As an alternative, or complement, to pivoting we can use a logical TRUE/FALSE test to filter our dataset. There are a number of functions that perform logical tests in R (see also `which()`, `%in%`, `within()`). In this case the most appropriate choice is probably `duplicated()`. `duplicated()` will mark duplicate records as TRUE and non-duplicated records as FALSE. We will add a column to our data using the trusty `$` when creating the new column. 
 
 ```{r duplicated, cache=TRUE, eval=FALSE, tidy=TRUE}
-results$duplicate <- duplicated(results$id)
+results <- results %>% 
+  mutate(duplicated = duplicated(id))
 ```
 
 If we use View(results) a new column will have been added to results. Records that are not duplicates are marked FALSE while records that are duplicates are marked TRUE. We now want to filter that table down to the results that are not duplicated (are FALSE) from our logical test. We will use `filter()` from `dplyr` (see above). While `select()` works exclusively with columns `filter()` works with rows and allows us to easily filter the data on the values contained in a row.
 
 ```{r filter, cache=TRUE, eval=FALSE, tidy=FALSE}
-unique_results <- filter(results, duplicate == FALSE) %>%
-  select(- search_terms) 
-#drop search_terms column
+unique_results <- results %>% 
+  filter(duplicated == FALSE) %>%
+  select(-.id) 
+# drop  the column containing search_terms
 ```
 
 Here we have asked `filter()` to show us only those values in the duplicate column that exactly match with FALSE. We now have a data from with 1097 unique results with the DOIs in one column.
 
-The creation of logical TRUE/FALSE vectors is very useful in creating conditions to filter data. In this case however, in the process note that we will lose information from the `search_terms` column which will become incomplete. To avoid potential confusion later on we drop the `search_terms` column using `select(- search_terms)` in the code above. If we wanted to keep the terms we would use the spread method above. 
+The creation of logical TRUE/FALSE vectors is very useful in creating conditions to filter data. In this case however, in the process note that we will lose information from the `.id` column which will become incomplete. To avoid potential confusion later on we drop the `.id` column using `select(-.id)` in the code above. If we wanted to keep the terms we would use the spread method above. 
 
-We now have three data.frames, `results`, `spread_results`, and `unique_results`. 
+We now have three data.frames, `results`, `wide_results`, and `unique_results`. 
 
 `results` is our core or reference set. If we planned to do a significant amount of work with this data we would save a copy of `results` to .csv and label it as `raw` with notes in our codebook on its origins and the actions taken to generate it. It can be a good idea to `.zip` a raw file so that it is more difficult to access by accident. 
 
-Going forward we would use the `spread_results` and `unique_results` for further work. 
+Going forward we would use the `wide_results` and `unique_results` for further work. 
 
-As we did earlier, use either write.csv(x, "x.csv", row.names = FALSE) or the simpler and faster `write_csv()`. R can write multiple files in a blink. This will write all three files to the rplos project folder (use `getwd()` and `setwd()` if you want to do something different).
+As we did earlier, use either write.csv(x, "x.csv", row.names = FALSE) or the simpler and faster `write_csv()`. R can write multiple files in a blink. This will write all three files to the rplos project folder (use `getwd()` and `setwd()` if you want to do something different, although remember to use R projects or the `here` package instead).
 
 ```{r write, eval=FALSE, tidy=TRUE}
 write_csv(results, "results.csv")
-write_csv(spread_results, "spread_results.csv")
+write_csv(wide_results, "wide_results.csv")
 write_csv(unique_results, "unique_results.csv")
 ```
 
@@ -625,87 +636,21 @@ oldham <- plosauthor(q = "Paul Oldham", fl = c("author", "id"), fq = "doc_type:f
 We now have a two records with the author and id (DOI) data. The next thing we want to do is to separate the author names out. We can do this using `separate()`. Note that `separate()` will need to know the number of names involved before hand. In the oldham data case there are three authors of each article. We will deal with how to calculate the number of author names shortly.
 
 ```{r separateauthor, eval=FALSE, cache=TRUE, tidy=TRUE}
-oldham <- separate(oldham, author, 1:3, sep = ";", remove = FALSE)
+oldham <- oldham %>% 
+  separate(., author, c("author1", "author2", "author3"), sep = ",", remove = FALSE)
 ```
 
-We now have some other choices. We could simply keep only the first author name. To do that, in this particular case, we could use `select()` and the numeric position of the columns that we want to remove. 
+This will give us each author in a separate column. However, in many cases we will want to compile information on the publications by authors on a set of papers to do that we would use `separate_rows()`
 
 ```{r firstauthor, eval=FALSE, cache=TRUE, tidy=TRUE}
-first_author <- select(oldham, - 7, - 8)
+author_rows <- oldham %>% 
+  separate_rows(author, sep = ",") %>% 
+  mutate(author = str_trim(author, side = "both"))
 ```
 
-As an alternative, we could place each author name on its own row so that we can focus in on a specific author later. For that we can use `gather()` from `tidyr` and the column position numbers (not their names in this case) of the columns we want to gather. 
+When separating rows note that it is important to trim white space afterwards. If white space is present at the front or end of the string it will not count correctly. 
 
-```{r gatherauthor, eval=FALSE, cache=TRUE, tidy=TRUE}
-authors <- gather(oldham, number, authors, 5:7)
-```
-
-As above `gather()` requires a key and value field. In this case we have used the number as our key and authors as our value. We have then specified that we want to gather columns 6 to 8 into the new column authors. 
-
-That was easy because we are dealing with a small number of results with a uniform number of authors. However, our `results` data is more complicated than this because we have multiple author names for each article and the number of authors for the articles could vary considerably. 
-
-We will need to organise the data and to run some simple calculations to make this work. This will take six steps. The full working code is below. 
-
-1. We calculate the number of columns in our dataset. We do this because the number may vary depending on what fields we retrieve from `rplos`. We will use `ncols()` to make the calculation.
-2. We use a short function from `stringr` to calculate the number of authors based on the author name separator ";" (+1 to capture the final names in the sequence). This gives us the maximum number of authors across the dataset that we need to split the data into (in this case 83 as the value of n). Copy and paste the function below into the console to access it.  
-
-```{r author_count, eval=FALSE, cache=TRUE, tidy=TRUE}
-author_count <- function(data, col = "", sep = "[^[:alnum:]]+") {
-  library(stringr)
-  authcount <- str_count(data[[col]], pattern = sep)
-  n <- as.integer(max(authcount)+1)
-  print(n)
-} 
-```
-
-3. We use `select()` from `dplyr` to move our target column to the first column. This simply makes it easier to specify column positions in `separate()` and `gather()` later on. 
-4. We use the value of `n` to separate the author names into multiple columns
-5. We then gather them back in using the value of `n`.
-6. Splitting on a separator such as `;` normally generates invisible leading and trailing white space. This will prevent author names from ranking correctly (e.g. in Excel or Tableau). The `str_trim()` function from `stringr` provides an easy way of removing the white space (specify side as right, left or both). 
-
-Copy and paste the code below and then hit Enter. 
-
-```{r splitauthors, eval=FALSE, tidy=TRUE}
-#---calculations---
-colno <- ncol(unique_results) #calculate number of columns
-n <- author_count(unique_results, "author", ";") # See function above. Calculate n as an integer to meet requirement for separate()
-#---select, separate and gather---
-full_authors <- select(unique_results, author, 1:colno) #bring author to the front
-full_authors <- separate(full_authors, author, 1:n, sep = ";", remove = TRUE, convert = FALSE, extra = "merge", fill = "right") #separate
-full_authors <- gather(full_authors, value, authors, 1:n, na.rm = TRUE) #gather
-#---trim authors----
-full_authors$authors <- str_trim(full_authors$authors, side = "both") #trim leading and trailing whitespace
-```
-
-We can simplify this with pipes to bring together the actions on the new full_authors object. 
-
-```{r splitauthorspipe, eval=FALSE, tidy=TRUE}
-#---calculations---
-colno <- ncol(unique_results)
-n <- author_count(unique_results, "author", ";")
-#---select, separate, gather---
-full_authors <- select(unique_results, author, 1:colno) %>%
-  separate(author, 1:n, sep = ";", remove = TRUE, convert = FALSE, extra = "merge", fill = "right") %>%
-  gather(value, authors, 1:n, na.rm = TRUE)
-#---trim authors----
-full_authors$authors <- str_trim(full_authors$authors, side = "both")
-```
-
-In running this code we will remove the original author column (column 1) by specifying `remove = TRUE` in `separate()`. `gather()` will place the new `authors` column at the end. So, make sure you scroll to the final column when viewing the results. We could also drop unwanted columns. 
-
-We now have a complete list of individual author names that could be used to look up individual authors, to clean up author names for statistical use and for author network mapping. As a brief example, if we wanted to look up contributions by Jean Peccoud who leads the [PLOS SynBio blog](http://blogs.plos.org/synbio/) we might use the following based on this useful [Stack Overflow answer](http://stackoverflow.com/questions/22850026/filtering-row-which-contains-a-certain-string-using-dplyr). See ?grepl for more info. 
-
-```{r filtergrep, eval=FALSE, cache=TRUE, tidy=TRUE}
-Peccoud <- filter(full_authors, grepl("Peccoud", authors))
-```
-
-We will not go into depth on these topics, but generating this type of author list is an important step in enabling wider analytics and visualisation. While the code used to get to this list of authors may appear quite involved, once the basics are understood it can be used over and over again. 
-
-Let's write that data to a .csv file to explore later. 
-
-```{r writeauthors, eval=FALSE, tidy=TRUE}
-write_csv(full_authors, "full_authors.csv")
-```
+We can now easily count up the authors using count as above. This is particularly useful when dealing with larger datasets (although name disambiguation becomes an issue to avoid counting double John Smiths). For the moment,
 
 ## Title search using `plostitle()`
 
@@ -749,13 +694,13 @@ abstract_df <- ldply(abstract, "[", 1:2) %>%
 To search by subject area use `plossubject`. The default return is 10 results of the total results. So, try starting with a search such as this to get an idea of how many results there are. In this case the query has been limited to PLOS ONE and full text articles. 
 
 ```{r sa, cache=TRUE, eval=FALSE, tidy=TRUE}
-sa <- plossubject(q = '"synthetic+biology"', fq = list("cross_published_journal_key:PLoSONE", "doc_type:full"))$meta$numFound
+sa <- plossubject(q = '"synthetic+biology"', fq = list("journal_key:PLoSONE", "doc_type:full"))$meta$numFound
 ```
 
 At the time of writing this returns 739 results. We will simply pull back 10 results. To pull back all of the results replace 10 with `sa` above or type the number into `limit =`. 
 
 ```{r sa1, eval=FALSE, tidy=TRUE}
-plossubject(q = '"synthetic+biology"', fl = "id", fq = list("cross_published_journal_key:PLoSONE", "doc_type:full"), limit = 10)
+plossubject(q = '"synthetic+biology"', fl = "id", fq = list("journal_key:PLoSONE", "doc_type:full"), limit = 10)
 ```
 
 As noted in the documentation, the results we return from the API and the results on the website are not necessarily the same because the settings used by PLOS on the website are not clear. 
@@ -909,7 +854,7 @@ In the meantime, if you would like to learn more about R try the resources below
 
 1. [rOpenSci](https://ropensci.org/)
 2. [Winston Chang's R Cookbook](http://www.cookbook-r.com/)
-3. [RStudio Online Learning](https://www.rstudio.com/resources/training/online-learning/)
+3. [RStudio Online Learning](https://www.rstudio.com/resources/training/)
 4. [r-bloggers.com](http://www.r-bloggers.com/)
 5. [Datacamp](https://www.datacamp.com/)
 6. Swirl (developed by the [free Coursea R Programming course](https://www.coursera.org/course/rprog) team at John Hopkins University. If you would like to get started with Swirl run the code chunk below to install the package and load the library. 
