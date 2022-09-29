@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Patent Infographics with R | The WIPO Manual on Open Source Patent Analytics (2nd edition)</title>
   <meta name="description" content="A practical introduction to free and open source tools for patent analytics." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Patent Infographics with R | The WIPO Manual on Open Source Patent Analytics (2nd edition)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical introduction to free and open source tools for patent analytics." />
   <meta name="github-repo" content="wipo-analytics/manual_bookdown" />
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="patent-analytics-with-plotly.html"/>
 <link rel="next" href="scientific-literature-with-rplos.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -472,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.19" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#arranging-the-data"><i class="fa fa-check"></i><b>15.19</b> Arranging the Data</a></li>
 <li class="chapter" data-level="15.20" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#dealing-with-duplicates"><i class="fa fa-check"></i><b>15.20</b> Dealing with Duplicates</a>
 <ul>
-<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#spreading-data-using-spread-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Spreading data using <code>spread()</code> from <code>tidyr</code></a></li>
+<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#pivoting-data-using-pivot_wider-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Pivoting data using <code>pivot_wider()</code> from <code>tidyr</code></a></li>
 <li class="chapter" data-level="15.20.2" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#deleting-duplicates"><i class="fa fa-check"></i><b>15.20.2</b> Deleting Duplicates</a></li>
 </ul></li>
 <li class="chapter" data-level="15.21" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#restricting-searches-by-section"><i class="fa fa-check"></i><b>15.21</b> Restricting searches by section</a></li>
@@ -510,8 +509,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="patent-infographics-with-r" class="section level1" number="14">
-<h1><span class="header-section-number">Chapter 14</span> Patent Infographics with R</h1>
+<div id="patent-infographics-with-r" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Patent Infographics with R<a href="patent-infographics-with-r.html#patent-infographics-with-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!--- last spell checked 2022-09-29--->
 <p>In this chapter we will use RStudio to prepare patent data for visualisation in an infographic using online software tools.</p>
 <p>Infographics are a popular way of presenting data in a way that is easy for a reader to understand without reading a long report. Infographics are well suited to presenting summaries of data with simple messages about key findings. A good infographic can encourage the audience to read a detailed report and is a tool for engagement with audiences during presentations of the findings of patent research.</p>
 <p>Some patent offices have already been creating infographics as part of their reports to policy makers and other clients. The Instituto Nacional de Propiedade Industrial (INPI) in Brazil produces regular two page <a href="http://www.inpi.gov.br/menu-servicos/informacao/radares-tecnologicos">Technology Radar</a> (Radar Tecnologico) consisting of charts and maps that briefly summarise more detailed research on subjects such as <a href="http://www.inpi.gov.br/menu-servicos/arquivos-cedin/n08_radar_tecnologico_nano_residuos_versao_resumida_ingles_atualizada_20160122.pdf">Nanotechnology in Waste Management</a>. <a href="http://www.wipo.int/patentscope/en/programs/patent_landscapes/">WIPO Patent Landscape Reports</a>, which go into depth on patent activity for a particular area, are accompanied by one page infographics that have proved very popular such as the infographic accompanying a recent report on <a href="http://www.wipo.int/export/sites/www/patentscope/en/programs/patent_landscapes/reports/documents/assistivedevices_infographic.pdf">assistive devices</a>.</p>
@@ -522,37 +522,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>In part 1 we focus on using RStudio to prepare patent data for visualisation in infographics software using the <code>dplyr</code>, <code>tidyr</code> and <code>stringr</code> packages. This involves dealing with common problems with patent data such as concatenated fields, white space and creating counts of data fields.</li>
 <li>In part 2 we produce an infographic from the data using <a href="https://infogr.am/app/#/library">infogr.am</a>.</li>
 </ol>
-<div id="getting-started-2" class="section level2" number="14.1">
-<h2><span class="header-section-number">14.1</span> Getting Started</h2>
+<div id="getting-started-2" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Getting Started<a href="patent-infographics-with-r.html#getting-started-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To start with we need to ensure that RStudio and R for your operating system are installed by following the instructions on the RStudio website <a href="https://www.rstudio.com/products/rstudio/download/">here</a>. Do not forget to follow the link to also <a href="https://cran.rstudio.com">install R for your operating system</a>.</p>
 <p>When working in RStudio it is good practice to work with projects. This will keep all of the files for a project in the same folder. To create a project go to File, New Project and create a project. Call the project something like infographic. Any file you create and save for the project will now be listed under the Files tab in RStudio.</p>
 <p>R works using packages (libraries) and there are around 7,490 of them for a whole range of purposes. We will use just a few of them. To install a package we use the following. Copy and paste the code into the Console and press enter.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="patent-infographics-with-r.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>) <span class="co"># the group of packages you will need</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="patent-infographics-with-r.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>) <span class="co"># the group of packages you will need</span></span></code></pre></div>
 <p>Packages can also be installed by selecting the Packages tab and typing the name of the package.</p>
 <p>To load the packages (libraries) use the following or check the tick box in the Packages pane.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="patent-infographics-with-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) </span>
-<span id="cb28-2"><a href="patent-infographics-with-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) </span>
-<span id="cb28-3"><a href="patent-infographics-with-r.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) </span>
-<span id="cb28-4"><a href="patent-infographics-with-r.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb28-5"><a href="patent-infographics-with-r.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="patent-infographics-with-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) </span>
+<span id="cb24-2"><a href="patent-infographics-with-r.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) </span>
+<span id="cb24-3"><a href="patent-infographics-with-r.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) </span>
+<span id="cb24-4"><a href="patent-infographics-with-r.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb24-5"><a href="patent-infographics-with-r.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 <p>We are now ready to go.</p>
 </div>
-<div id="load-a-.csv-file-using-readr" class="section level2" number="14.2">
-<h2><span class="header-section-number">14.2</span> Load a .csv file using <code>readr</code></h2>
+<div id="load-a-.csv-file-using-readr" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Load a .csv file using <code>readr</code><a href="patent-infographics-with-r.html#load-a-.csv-file-using-readr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We will work with the <code>pizza_medium_clean</code> dataset in the online <a href="https://github.com/wipo-analytics/opensource-patent-analytics/tree/master/2_datasets">Github Manual repository</a>. If manually downloading a file remember to click on the file name and select <code>Raw</code> to download the actual file.</p>
 <p>We can use the easy to use <code>read_csv()</code> function from the <code>readr</code> package to quickly read in our pizza data directly from the Github repository. Note the <code>raw</code> at the beginning of the filename.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="patent-infographics-with-r.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb29-2"><a href="patent-infographics-with-r.html#cb29-2" aria-hidden="true" tabindex="-1"></a>pizza <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://github.com/wipo-analytics/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza.csv?raw=true&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="patent-infographics-with-r.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb25-2"><a href="patent-infographics-with-r.html#cb25-2" aria-hidden="true" tabindex="-1"></a>pizza <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://github.com/wipo-analytics/opensource-patent-analytics/blob/master/2_datasets/pizza_medium_clean/pizza.csv?raw=true&quot;</span>)</span></code></pre></div>
 <p><code>readr</code> will display a warning for the file arising from its efforts to parse publication dates on import. We will ignore this as we will not be using this field.</p>
 <p>As an alternative to importing directly from Github download the file and in RStudio use <code>File &gt; Import Dataset &gt; From .csv</code>. If you experience problems with direct import of a file the File &gt; Import Dataset approach will give you a range of easy to use controls for figuring this out (e.g. where .csv is actually a tab separated file).</p>
 </div>
-<div id="viewing-data" class="section level2" number="14.3">
-<h2><span class="header-section-number">14.3</span> Viewing Data</h2>
+<div id="viewing-data" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Viewing Data<a href="patent-infographics-with-r.html#viewing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can view data in a variety of ways.</p>
 <ol style="list-style-type: decimal">
 <li>In the console:</li>
 </ol>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="patent-infographics-with-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a>pizza</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="patent-infographics-with-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a>pizza</span></code></pre></div>
 <pre><code>## # A tibble: 9,996 × 31
 ##    applicants_cleaned    applicants_clean… applicants_orga… applicants_original 
 ##    &lt;chr&gt;                 &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt;               
@@ -577,44 +577,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>In Environment click on the blue arrow to see in the environment. Keep clicking to open a new window with the data.</p></li>
 <li><p>Use the <code>View()</code> command (for data.frames and tables)</p></li>
 </ol>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="patent-infographics-with-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(pizza)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="patent-infographics-with-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(pizza)</span></code></pre></div>
 <p>If possible use the View() command or environment. The difficulty with the console is that large amounts of data will simply stream past.</p>
 </div>
-<div id="identifying-types-of-object" class="section level2" number="14.4">
-<h2><span class="header-section-number">14.4</span> Identifying Types of Object</h2>
+<div id="identifying-types-of-object" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Identifying Types of Object<a href="patent-infographics-with-r.html#identifying-types-of-object" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We often want to know what type of object we are working with and more details about the object so we know what to do later. Here are some of the most common commands for obtaining information about objects.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="patent-infographics-with-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(pizza) <span class="do">## type of object</span></span>
-<span id="cb33-2"><a href="patent-infographics-with-r.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pizza) <span class="do">## names of variables</span></span>
-<span id="cb33-3"><a href="patent-infographics-with-r.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pizza) <span class="do">## structure of object</span></span>
-<span id="cb33-4"><a href="patent-infographics-with-r.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pizza) <span class="do">## dimensions of the object</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="patent-infographics-with-r.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(pizza) <span class="do">## type of object</span></span>
+<span id="cb29-2"><a href="patent-infographics-with-r.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pizza) <span class="do">## names of variables</span></span>
+<span id="cb29-3"><a href="patent-infographics-with-r.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pizza) <span class="do">## structure of object</span></span>
+<span id="cb29-4"><a href="patent-infographics-with-r.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pizza) <span class="do">## dimensions of the object</span></span></code></pre></div>
 <p>The most useful command in this list is <code>str()</code> because this allows us to access the structure of the object and see its type.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="patent-infographics-with-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pizza, <span class="at">max.level =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="patent-infographics-with-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pizza, <span class="at">max.level =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><code>str()</code> is particularly useful because we can see the names of the fields (vectors) and their type. Most patent data is a character vector with dates forming integers.</p>
 </div>
-<div id="working-with-data" class="section level2" number="14.5">
-<h2><span class="header-section-number">14.5</span> Working with Data</h2>
+<div id="working-with-data" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> Working with Data<a href="patent-infographics-with-r.html#working-with-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We will often want to select aspects of our data to focus on a specific set of columns or to create a graph. We might also want to add information, notably numeric counts.</p>
 <p>The <code>dplyr</code> package provides a set of very handy functions for selecting, adding and counting data. The <code>tidyr</code> and <code>stringr</code> packages are sister packages that contain a range of other useful functions for working with our data. We have covered some of these in other chapters on graphing using R but will go through them quickly and then pull them together into a function that we can use across our dataset.</p>
-<div id="select" class="section level3" number="14.5.1">
-<h3><span class="header-section-number">14.5.1</span> Select</h3>
+<div id="select" class="section level3 hasAnchor" number="14.5.1">
+<h3><span class="header-section-number">14.5.1</span> Select<a href="patent-infographics-with-r.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this case we will start by using the <code>select()</code> function to limit the data to specific columns. We can do this using their names or their numeric position (best for large number of columns e.g. 1:31). In <code>dplyr</code>, unlike most R packages, existing character columns do not require <code>""</code>.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="patent-infographics-with-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb35-2"><a href="patent-infographics-with-r.html#cb35-2" aria-hidden="true" tabindex="-1"></a>pizza_number <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza, publication_number, publication_year)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="patent-infographics-with-r.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb31-2"><a href="patent-infographics-with-r.html#cb31-2" aria-hidden="true" tabindex="-1"></a>pizza_number <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza, publication_number, publication_year)</span></code></pre></div>
 <p>We now have a new data.frame that contains two columns. One with the year and one with the publication number. Note that we have created a new object called pizza_number using <code>&lt;-</code> and that after <code>select()</code> we have named our original data and the columns we want. A fundamental feature of select is that it will drop columns that we do not name. So it is best to create a new object using <code>&lt;-</code> if you want to keep your original data for later work.</p>
 </div>
-<div id="adding-data-with-mutate" class="section level3" number="14.5.2">
-<h3><span class="header-section-number">14.5.2</span> Adding data with <code>mutate()</code></h3>
+<div id="adding-data-with-mutate" class="section level3 hasAnchor" number="14.5.2">
+<h3><span class="header-section-number">14.5.2</span> Adding data with <code>mutate()</code><a href="patent-infographics-with-r.html#adding-data-with-mutate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>mutate()</code> is a <code>dplyr</code> function that allows us to add data based on existing data in our data frame, for example to perform a calculation. In the case of patent data we normally lack a numeric field to use for counts. We can however assign a value to our publication field by using sum() and the number 1 as follows.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="patent-infographics-with-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb36-2"><a href="patent-infographics-with-r.html#cb36-2" aria-hidden="true" tabindex="-1"></a>pizza_number <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pizza_number, <span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="patent-infographics-with-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb32-2"><a href="patent-infographics-with-r.html#cb32-2" aria-hidden="true" tabindex="-1"></a>pizza_number <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pizza_number, <span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>))</span></code></pre></div>
 <p>When we view <code>pizza_number</code> we now have a value of 1 in the column <code>n</code> for each publication number. Note that in patent data a priority, application, publication or family number may occur multiple times and we would want to reduce the dataset to distinct records. For that we would use <code>n_distinct(pizza_number$publication_number)</code> from <code>dplyr</code> or <code>unique(pizza_number$publication_number)</code> from base R. Because the publication numbers are unique we can proceed.</p>
 </div>
-<div id="counting-data-using-count" class="section level3" number="14.5.3">
-<h3><span class="header-section-number">14.5.3</span> Counting data using <code>count()</code></h3>
+<div id="counting-data-using-count" class="section level3 hasAnchor" number="14.5.3">
+<h3><span class="header-section-number">14.5.3</span> Counting data using <code>count()</code><a href="patent-infographics-with-r.html#counting-data-using-count" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>At the moment, we have multiple instances of the same year (where a patent publication occurs in that year). We now want to calculate how many of our documents were published in each year. To do that we will use the <code>dplyr</code> function <code>count()</code>. We will use the publication_year and add <code>wt =</code> (for weight) with <code>n</code> as the value to count.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="patent-infographics-with-r.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb37-2"><a href="patent-infographics-with-r.html#cb37-2" aria-hidden="true" tabindex="-1"></a>pizza_total <span class="ot">&lt;-</span> <span class="fu">count</span>(pizza_number, publication_year, <span class="at">wt =</span> n) </span>
-<span id="cb37-3"><a href="patent-infographics-with-r.html#cb37-3" aria-hidden="true" tabindex="-1"></a>pizza_total</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="patent-infographics-with-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb33-2"><a href="patent-infographics-with-r.html#cb33-2" aria-hidden="true" tabindex="-1"></a>pizza_total <span class="ot">&lt;-</span> <span class="fu">count</span>(pizza_number, publication_year, <span class="at">wt =</span> n) </span>
+<span id="cb33-3"><a href="patent-infographics-with-r.html#cb33-3" aria-hidden="true" tabindex="-1"></a>pizza_total</span></code></pre></div>
 <pre><code>## # A tibble: 58 × 2
 ##    publication_year     n
 ##               &lt;dbl&gt; &lt;dbl&gt;
@@ -631,18 +631,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 48 more rows</code></pre>
 <p>When we now examine pizza_total, we will see the publication year and a summed value for the records in that year.</p>
 <p>This raises the question of how we know that R has calculated the count correctly. We already know that there are 9996 records in the pizza dataset. To check our count is correct we can simply use sum and select the column we want to sum using <code>$</code>.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="patent-infographics-with-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pizza_total<span class="sc">$</span>n)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="patent-infographics-with-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pizza_total<span class="sc">$</span>n)</span></code></pre></div>
 <pre><code>## [1] 9996</code></pre>
 <p>So, all is good and we can move on. The <code>$</code> sign is one of the main ways of subsetting to tell R that we want to work with a specific column (the others are “[” and “[[”).</p>
 </div>
-<div id="rename-a-field-with-rename" class="section level3" number="14.5.4">
-<h3><span class="header-section-number">14.5.4</span> Rename a field with <code>rename()</code></h3>
+<div id="rename-a-field-with-rename" class="section level3 hasAnchor" number="14.5.4">
+<h3><span class="header-section-number">14.5.4</span> Rename a field with <code>rename()</code><a href="patent-infographics-with-r.html#rename-a-field-with-rename" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Next we will use <code>rename()</code> from <code>dplyr</code> to rename the fields. Note that understanding which field require quote marks can take some effort. In this case renaming the character vector publication_year as “pubyear” requires quotes while renaming the numeric vector “n” does not.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="patent-infographics-with-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb41-2"><a href="patent-infographics-with-r.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="patent-infographics-with-r.html#cb41-3" aria-hidden="true" tabindex="-1"></a>pizza_total <span class="ot">&lt;-</span> <span class="fu">rename</span>(pizza_total, <span class="at">pubyear =</span> publication_year, <span class="at">publications =</span> n)</span>
-<span id="cb41-4"><a href="patent-infographics-with-r.html#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="patent-infographics-with-r.html#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pizza_total)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="patent-infographics-with-r.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb37-2"><a href="patent-infographics-with-r.html#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="patent-infographics-with-r.html#cb37-3" aria-hidden="true" tabindex="-1"></a>pizza_total <span class="ot">&lt;-</span> <span class="fu">rename</span>(pizza_total, <span class="at">pubyear =</span> publication_year, <span class="at">publications =</span> n)</span>
+<span id="cb37-4"><a href="patent-infographics-with-r.html#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="patent-infographics-with-r.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pizza_total)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 2
 ##   pubyear publications
 ##     &lt;dbl&gt;        &lt;dbl&gt;
@@ -653,11 +653,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5    1959            1
 ## 6    1962            1</code></pre>
 </div>
-<div id="make-a-quickplot-with-qplot" class="section level3" number="14.5.5">
-<h3><span class="header-section-number">14.5.5</span> Make a quickplot with <code>qplot()</code></h3>
+<div id="make-a-quickplot-with-qplot" class="section level3 hasAnchor" number="14.5.5">
+<h3><span class="header-section-number">14.5.5</span> Make a quickplot with <code>qplot()</code><a href="patent-infographics-with-r.html#make-a-quickplot-with-qplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Using the <code>qplot()</code> function in <code>ggplot2</code> we can now draw a quick line graph. Note that qplot() is unusual in R because the data (pizza_total) appears after the coordinates. We will specify that we want a line using <code>geom =</code> (if geom is left out it will be a scatter plot). This will give us an idea of what our plot might look like in our infographic and actions we might want to take on the data.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="patent-infographics-with-r.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb43-2"><a href="patent-infographics-with-r.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> pubyear, <span class="at">y =</span> publications, <span class="at">data =</span> pizza_total, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="patent-infographics-with-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb39-2"><a href="patent-infographics-with-r.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> pubyear, <span class="at">y =</span> publications, <span class="at">data =</span> pizza_total, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
 <p><img src="manual_bookdown_files/figure-html/qplot-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <!---![](images_foot/infogram/fig1_infographic.png)--->
 <p>The plot reveals a data cliff in recent years. This normally reflects a lack of data for the last 2-3 years as recent documents feed through the system en route to publication.</p>
@@ -665,16 +665,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We also have long tail of data with limited data from 1940 until the late 1970s. Depending on our purposes with the analysis we might want to keep this data (for historical analysis) or to focus in on a more recent period.</p>
 <p>We will limit our data to specific values using the <code>dplyr</code> function <code>filter()</code>.</p>
 </div>
-<div id="filter-data-using-filter" class="section level3" number="14.5.6">
-<h3><span class="header-section-number">14.5.6</span> Filter data using <code>filter()</code></h3>
+<div id="filter-data-using-filter" class="section level3 hasAnchor" number="14.5.6">
+<h3><span class="header-section-number">14.5.6</span> Filter data using <code>filter()</code><a href="patent-infographics-with-r.html#filter-data-using-filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In contrast with <code>select()</code> which works with columns, <code>filter()</code> in <code>dplyr</code> works with rows. In this case we need to filter on the values in the pubyear column. To remove the data prior to 1990 we will use the greater than or equal to operator <code>&gt;=</code> on the pubyear column and we will use the less than or equal to <code>&lt;=</code> operator on the values after 2012.</p>
 <p>One strength of <code>filter()</code> in <code>dplyr</code> is that it is easy to filter on multiple values in the same expression (unlike the very similar filter function in base R). The use of <code>filter()</code> will also remove the 30 records where the year is recorded as NA (Not Available). We will write this file to disk using the simple <code>write_csv()</code> from <code>readr</code>. To use <code>write_csv()</code> we first name our data (<code>pizza_total</code>) and then provide a file name with a .csv extension. In this case and other examples below we have used a descriptive file name bearing in mind that Windows systems have limitations on the length and type of characters that can be used in file names.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="patent-infographics-with-r.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb44-2"><a href="patent-infographics-with-r.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb44-3"><a href="patent-infographics-with-r.html#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="patent-infographics-with-r.html#cb44-4" aria-hidden="true" tabindex="-1"></a>pizza_total <span class="ot">&lt;-</span> <span class="fu">filter</span>(pizza_total, pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>)</span>
-<span id="cb44-5"><a href="patent-infographics-with-r.html#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-6"><a href="patent-infographics-with-r.html#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pizza_total)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="patent-infographics-with-r.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb40-2"><a href="patent-infographics-with-r.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb40-3"><a href="patent-infographics-with-r.html#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="patent-infographics-with-r.html#cb40-4" aria-hidden="true" tabindex="-1"></a>pizza_total <span class="ot">&lt;-</span> <span class="fu">filter</span>(pizza_total, pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>)</span>
+<span id="cb40-5"><a href="patent-infographics-with-r.html#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="patent-infographics-with-r.html#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pizza_total)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 2
 ##   pubyear publications
 ##     &lt;dbl&gt;        &lt;dbl&gt;
@@ -688,21 +688,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To see our .csv file we can head over to the Files tab and, assuming that we have created a project, the file will now appear in the list of project files. Clicking on the file name will display the raw unformatted data in RStudio.</p>
 </div>
 </div>
-<div id="simplify-code-with-pipes" class="section level2" number="14.6">
-<h2><span class="header-section-number">14.6</span> Simplify code with pipes <code>%&gt;%</code></h2>
+<div id="simplify-code-with-pipes" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> Simplify code with pipes <code>%&gt;%</code><a href="patent-infographics-with-r.html#simplify-code-with-pipes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>So far we have handled the code one line at a time. But, one of the great strengths of using a programming language is that we can run multiple lines of code together. There are two basic ways that we can do this.</p>
 <p>We will create a new temporary object <code>df</code> to demonstrate this.</p>
 <ol style="list-style-type: decimal">
 <li>The standard way</li>
 </ol>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="patent-infographics-with-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb46-2"><a href="patent-infographics-with-r.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb46-3"><a href="patent-infographics-with-r.html#cb46-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza, publication_number, publication_year)</span>
-<span id="cb46-4"><a href="patent-infographics-with-r.html#cb46-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mutate</span>(df, <span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>))</span>
-<span id="cb46-5"><a href="patent-infographics-with-r.html#cb46-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">count</span>(df, publication_year, <span class="at">wt =</span> n)</span>
-<span id="cb46-6"><a href="patent-infographics-with-r.html#cb46-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">rename</span>(df, <span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year, <span class="at">publications =</span> n)</span>
-<span id="cb46-7"><a href="patent-infographics-with-r.html#cb46-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(df, pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>) </span>
-<span id="cb46-8"><a href="patent-infographics-with-r.html#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> pubyear, <span class="at">y =</span> publications, <span class="at">data =</span> df, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="patent-infographics-with-r.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb42-2"><a href="patent-infographics-with-r.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb42-3"><a href="patent-infographics-with-r.html#cb42-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza, publication_number, publication_year)</span>
+<span id="cb42-4"><a href="patent-infographics-with-r.html#cb42-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mutate</span>(df, <span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>))</span>
+<span id="cb42-5"><a href="patent-infographics-with-r.html#cb42-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">count</span>(df, publication_year, <span class="at">wt =</span> n)</span>
+<span id="cb42-6"><a href="patent-infographics-with-r.html#cb42-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">rename</span>(df, <span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year, <span class="at">publications =</span> n)</span>
+<span id="cb42-7"><a href="patent-infographics-with-r.html#cb42-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(df, pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>) </span>
+<span id="cb42-8"><a href="patent-infographics-with-r.html#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> pubyear, <span class="at">y =</span> publications, <span class="at">data =</span> df, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
 <p>The code we have just created is six lines long. If we select all of this code and run it in one go it will produce our graph.</p>
 <p>One feature of this code is that each time we run a function on the object total we name it at the start of each function (e.g. mutate(df…)) and then we overwrite the object.</p>
 <p>We can save quite a lot of typing and reduce the complexity of the code using the pipe operator introduced by the the <code>magrittr</code> package and then adopted in Hadley Wickham’s data wrangling and tidying packages.</p>
@@ -710,30 +710,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Using pipes <code>%&gt;%</code></li>
 </ol>
 <p>Pipes are now a very popular way of writing R code because they simplify writing R code and speed it up. The most popular pipe is <code>%&gt;%</code> which means “this” then “that”. In this case we are going to create a new temporary object <code>df1</code> by first applying select to pizza, then mutate, count, rename and filter. Note that we only name our dataset once (in <code>select()</code>) and we do not need to keep overwriting the object.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="patent-infographics-with-r.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb47-2"><a href="patent-infographics-with-r.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb47-3"><a href="patent-infographics-with-r.html#cb47-3" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> </span>
-<span id="cb47-4"><a href="patent-infographics-with-r.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pizza, publication_number, publication_year) <span class="sc">%&gt;%</span></span>
-<span id="cb47-5"><a href="patent-infographics-with-r.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb47-6"><a href="patent-infographics-with-r.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_year, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
-<span id="cb47-7"><a href="patent-infographics-with-r.html#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year, <span class="at">publications =</span> n) <span class="sc">%&gt;%</span></span>
-<span id="cb47-8"><a href="patent-infographics-with-r.html#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-9"><a href="patent-infographics-with-r.html#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qplot</span>(<span class="at">x =</span> pubyear, <span class="at">y =</span> publications, <span class="at">data =</span> ., <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span>
-<span id="cb47-10"><a href="patent-infographics-with-r.html#cb47-10" aria-hidden="true" tabindex="-1"></a>df1</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="patent-infographics-with-r.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb43-2"><a href="patent-infographics-with-r.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb43-3"><a href="patent-infographics-with-r.html#cb43-3" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> </span>
+<span id="cb43-4"><a href="patent-infographics-with-r.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pizza, publication_number, publication_year) <span class="sc">%&gt;%</span></span>
+<span id="cb43-5"><a href="patent-infographics-with-r.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="patent-infographics-with-r.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_year, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb43-7"><a href="patent-infographics-with-r.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year, <span class="at">publications =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb43-8"><a href="patent-infographics-with-r.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-9"><a href="patent-infographics-with-r.html#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qplot</span>(<span class="at">x =</span> pubyear, <span class="at">y =</span> publications, <span class="at">data =</span> ., <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span>
+<span id="cb43-10"><a href="patent-infographics-with-r.html#cb43-10" aria-hidden="true" tabindex="-1"></a>df1</span></code></pre></div>
 <p><img src="manual_bookdown_files/figure-html/piped-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <!---![](images_foot/infogram/fig2_infographic_qplot.png)--->
 <p>In the standard code we typed <code>df</code> nine times to arrive at the same result. Using pipes we typed df1 once. Of greater importance is that the use of pipes simplifies the structure of R code by introducing a basic “this” then “that” logic which makes it easier to understand.</p>
 <p>One point to note about this code is that <code>qplot()</code> requires us to name our data (in this case <code>df1</code>). However, <code>df1</code> is actually the final output of the code and does not exist as an input object before the final line is run. So, if we attempt to use <code>data = df1</code> in <code>qplot()</code> we will receive an error message. The way around this is to use <code>.</code> in place of our data object. That way <code>qplot()</code> will know we want to graph the outputs of the earlier code. Finally, we need to add an explicit call to <code>print()</code> to display the graph (without this the code will work but we will not see the graph).</p>
 <p>If we now inspect the structure of the df1 object (using <code>str(df1)</code>) in the console, it will be a list. The reason for this is that it is an object with mixed components, including a data.frame with our data plus additional data setting out the contents of the plot. As there is no direct link between R and our infographics software this will create problems for us later because the infographics software won’t know how to interpret the list object. So, it is generally a good idea to use a straight data.frame by excluding the call to <code>qplot</code> and adding it later when needed as follows.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="patent-infographics-with-r.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb48-2"><a href="patent-infographics-with-r.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb48-3"><a href="patent-infographics-with-r.html#cb48-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> </span>
-<span id="cb48-4"><a href="patent-infographics-with-r.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pizza, publication_number, publication_year) <span class="sc">%&gt;%</span></span>
-<span id="cb48-5"><a href="patent-infographics-with-r.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb48-6"><a href="patent-infographics-with-r.html#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_year, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
-<span id="cb48-7"><a href="patent-infographics-with-r.html#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year, <span class="at">publications =</span> n) <span class="sc">%&gt;%</span></span>
-<span id="cb48-8"><a href="patent-infographics-with-r.html#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>)</span>
-<span id="cb48-9"><a href="patent-infographics-with-r.html#cb48-9" aria-hidden="true" tabindex="-1"></a>df2</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="patent-infographics-with-r.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb44-2"><a href="patent-infographics-with-r.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb44-3"><a href="patent-infographics-with-r.html#cb44-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> </span>
+<span id="cb44-4"><a href="patent-infographics-with-r.html#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(pizza, publication_number, publication_year) <span class="sc">%&gt;%</span></span>
+<span id="cb44-5"><a href="patent-infographics-with-r.html#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-6"><a href="patent-infographics-with-r.html#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_year, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb44-7"><a href="patent-infographics-with-r.html#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year, <span class="at">publications =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb44-8"><a href="patent-infographics-with-r.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>)</span>
+<span id="cb44-9"><a href="patent-infographics-with-r.html#cb44-9" aria-hidden="true" tabindex="-1"></a>df2</span></code></pre></div>
 <pre><code>## # A tibble: 23 × 2
 ##    pubyear publications
 ##      &lt;dbl&gt;        &lt;dbl&gt;
@@ -749,12 +749,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10    1999          290
 ## # … with 13 more rows</code></pre>
 <p>Note that in this case the only change is that we need to explicitly include the reference to the df2 data frame as the data argument in the call to <code>qplot()</code>.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="patent-infographics-with-r.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb50-2"><a href="patent-infographics-with-r.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> pubyear, <span class="at">y =</span> publications, <span class="at">data =</span> df2, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="patent-infographics-with-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb46-2"><a href="patent-infographics-with-r.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="at">x =</span> pubyear, <span class="at">y =</span> publications, <span class="at">data =</span> df2, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
 <p><img src="manual_bookdown_files/figure-html/df2_qplot-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
-<div id="harmonising-data" class="section level2" number="14.7">
-<h2><span class="header-section-number">14.7</span> Harmonising data</h2>
+<div id="harmonising-data" class="section level2 hasAnchor" number="14.7">
+<h2><span class="header-section-number">14.7</span> Harmonising data<a href="patent-infographics-with-r.html#harmonising-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One challenge with creating multiple tables from a baseline dataset is keeping track of subdatasets. At the moment we have two basic objects we will be working with:</p>
 <ol style="list-style-type: decimal">
 <li><code>pizza</code> - our raw dataset</li>
@@ -772,12 +772,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>We need to make sure that any data that we generate from our raw dataset matches the period for the <code>pizza_total</code> dataset. If we do not do this there is a risk that we will generate subdatasets with counts for the raw pizza dataset.</p>
 <p>To handle this we will use <code>filter()</code> to create a new baseline dataset with an unambiguous name.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="patent-infographics-with-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb51-2"><a href="patent-infographics-with-r.html#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="patent-infographics-with-r.html#cb51-3" aria-hidden="true" tabindex="-1"></a>pizza_1990_2012 <span class="ot">&lt;-</span> <span class="fu">rename</span>(pizza, <span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year) <span class="sc">%&gt;%</span></span>
-<span id="cb51-4"><a href="patent-infographics-with-r.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>)</span>
-<span id="cb51-5"><a href="patent-infographics-with-r.html#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-6"><a href="patent-infographics-with-r.html#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pizza_1990_2012)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="patent-infographics-with-r.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb47-2"><a href="patent-infographics-with-r.html#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="patent-infographics-with-r.html#cb47-3" aria-hidden="true" tabindex="-1"></a>pizza_1990_2012 <span class="ot">&lt;-</span> <span class="fu">rename</span>(pizza, <span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year) <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href="patent-infographics-with-r.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>)</span>
+<span id="cb47-5"><a href="patent-infographics-with-r.html#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="patent-infographics-with-r.html#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pizza_1990_2012)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 31
 ##   applicants_cleaned         applicants_clean… applicants_orga… applicants_orig…
 ##   &lt;chr&gt;                      &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt;           
@@ -797,16 +797,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this case we start with a call to <code>rename()</code> to make this consistent with our pizza_total table and then use a pipe to filter the data on the year. Note here that when filtering raw data on a set of values it is important to inspect it first to check that the field is clean (e.g. not concatenated). If for some reason your data is concatenated (which happens quite a lot with patent data) then lookup <code>?tidyr::separate_rows</code>.</p>
 <p>We are now in a position to create our country trends table.</p>
 </div>
-<div id="country-trends-using-spread-and-pivot_wider" class="section level2" number="14.8">
-<h2><span class="header-section-number">14.8</span> Country Trends using <code>spread()</code> and <code>pivot_wider()</code></h2>
+<div id="country-trends-using-spread-and-pivot_wider" class="section level2 hasAnchor" number="14.8">
+<h2><span class="header-section-number">14.8</span> Country Trends using <code>spread()</code> and <code>pivot_wider()</code><a href="patent-infographics-with-r.html#country-trends-using-spread-and-pivot_wider" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are two basic data formats: long and wide. Our pizza dataset is in long format because each column is a variable (e.g. <code>publication_country</code>) and each row in <code>publication_country</code> contains a country name. This is the most common and useful data format.</p>
 <p>However, in some cases, such as <code>infogr.am</code> our visualisation software will expect the data to be in wide format. In this case each country name would become a variable (column name) with the years forming the rows and the number of records per year the observations. The key to this is the <code>tidyr()</code> function <code>spread()</code> and the more recent replacement <code>pivot_wider()</code>.</p>
 <p>As above we will start off by using <code>select()</code> to create a table with the fields that we want. We will then use <code>mutate()</code> to add a numeric field and then count up that data. To illustrate the process run this code (we will not create an object).</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="patent-infographics-with-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb53-2"><a href="patent-infographics-with-r.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(pizza_1990_2012, publication_country_name, publication_number, pubyear) <span class="sc">%&gt;%</span></span>
-<span id="cb53-3"><a href="patent-infographics-with-r.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb53-4"><a href="patent-infographics-with-r.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_country_name, pubyear, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span> </span>
-<span id="cb53-5"><a href="patent-infographics-with-r.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="patent-infographics-with-r.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb49-2"><a href="patent-infographics-with-r.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(pizza_1990_2012, publication_country_name, publication_number, pubyear) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="patent-infographics-with-r.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-4"><a href="patent-infographics-with-r.html#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_country_name, pubyear, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-5"><a href="patent-infographics-with-r.html#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 223 × 3
 ##    publication_country_name pubyear     n
 ##    &lt;chr&gt;                      &lt;dbl&gt; &lt;dbl&gt;
@@ -823,13 +823,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 213 more rows</code></pre>
 <p>When we run this code we will see the results in long format. We now want to take our <code>publication_country_name</code> column and spread it to form columns with <code>n</code> as the values.</p>
 <p>In using spread note that it takes a data argument (<code>pizza_1990_2012</code>), a key (<code>publication_country_name</code>), and value column (<code>n</code>) (created from <code>count()</code>). We are using pipes so the data only needs to be named in the first line. For additional arguments see <code>?spread()</code>.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="patent-infographics-with-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb55-2"><a href="patent-infographics-with-r.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb55-3"><a href="patent-infographics-with-r.html#cb55-3" aria-hidden="true" tabindex="-1"></a>country_totals <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza_1990_2012, publication_country_name, publication_number, pubyear) <span class="sc">%&gt;%</span></span>
-<span id="cb55-4"><a href="patent-infographics-with-r.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-5"><a href="patent-infographics-with-r.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_country_name, pubyear, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
-<span id="cb55-6"><a href="patent-infographics-with-r.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(publication_country_name, n)</span>
-<span id="cb55-7"><a href="patent-infographics-with-r.html#cb55-7" aria-hidden="true" tabindex="-1"></a>country_totals</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="patent-infographics-with-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb51-2"><a href="patent-infographics-with-r.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb51-3"><a href="patent-infographics-with-r.html#cb51-3" aria-hidden="true" tabindex="-1"></a>country_totals <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza_1990_2012, publication_country_name, publication_number, pubyear) <span class="sc">%&gt;%</span></span>
+<span id="cb51-4"><a href="patent-infographics-with-r.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb51-5"><a href="patent-infographics-with-r.html#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_country_name, pubyear, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb51-6"><a href="patent-infographics-with-r.html#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(publication_country_name, n)</span>
+<span id="cb51-7"><a href="patent-infographics-with-r.html#cb51-7" aria-hidden="true" tabindex="-1"></a>country_totals</span></code></pre></div>
 <pre><code>## # A tibble: 23 × 17
 ##    pubyear Canada China `Eurasian Patent … `European Paten… Germany Israel Japan
 ##      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -849,15 +849,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   United States of America &lt;dbl&gt;</code></pre>
 <p>One problem with spread is that it can be difficult to remember the order of the arguments. In response to this the more recent and preferred approach is to use <code>pivot_wider()</code> which replaces spread (see also <code>pivot_longer()</code>. <code>pivot_wider()</code> takes two main arguments <code>names_from =</code> and <code>values_from</code>. This is a lot easier to remember with some practice. It is also more likely to be familiar if you have a background in Excel where pivot table.</p>
 <p>We can achieve the same thing in a more transparent way with <code>pivot_wider()</code> as we see below.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="patent-infographics-with-r.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb57-2"><a href="patent-infographics-with-r.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb57-3"><a href="patent-infographics-with-r.html#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-4"><a href="patent-infographics-with-r.html#cb57-4" aria-hidden="true" tabindex="-1"></a>country_totals <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza_1990_2012, publication_country_name, publication_number, pubyear) <span class="sc">%&gt;%</span></span>
-<span id="cb57-5"><a href="patent-infographics-with-r.html#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb57-6"><a href="patent-infographics-with-r.html#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_country_name, pubyear, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
-<span id="cb57-7"><a href="patent-infographics-with-r.html#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> publication_country_name, <span class="at">values_from =</span> n) </span>
-<span id="cb57-8"><a href="patent-infographics-with-r.html#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-9"><a href="patent-infographics-with-r.html#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(country_totals)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="patent-infographics-with-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb53-2"><a href="patent-infographics-with-r.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb53-3"><a href="patent-infographics-with-r.html#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="patent-infographics-with-r.html#cb53-4" aria-hidden="true" tabindex="-1"></a>country_totals <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza_1990_2012, publication_country_name, publication_number, pubyear) <span class="sc">%&gt;%</span></span>
+<span id="cb53-5"><a href="patent-infographics-with-r.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-6"><a href="patent-infographics-with-r.html#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_country_name, pubyear, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb53-7"><a href="patent-infographics-with-r.html#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> publication_country_name, <span class="at">values_from =</span> n) </span>
+<span id="cb53-8"><a href="patent-infographics-with-r.html#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="patent-infographics-with-r.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(country_totals)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 17
 ##   pubyear Canada China `Eurasian Patent … `European Patent… Germany Israel Japan
 ##     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;              &lt;dbl&gt;             &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -873,13 +873,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   United States of America &lt;dbl&gt;</code></pre>
 <p>We now have data in wide format.</p>
 <p>In some cases, such as infogr.am, visualisation software may expect the country names to be the name of rows and the column names to be years . We can modify our call to <code>pivot_wider()</code> by replacing the <code>publication_country_name</code> with <code>pubyear</code>. Then we will write the data to disk for use in our infographic.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="patent-infographics-with-r.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb59-2"><a href="patent-infographics-with-r.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb59-3"><a href="patent-infographics-with-r.html#cb59-3" aria-hidden="true" tabindex="-1"></a>country_totals <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza_1990_2012, publication_country_name, publication_number, pubyear) <span class="sc">%&gt;%</span></span>
-<span id="cb59-4"><a href="patent-infographics-with-r.html#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-5"><a href="patent-infographics-with-r.html#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_country_name, pubyear, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-6"><a href="patent-infographics-with-r.html#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> pubyear, <span class="at">values_from =</span> n)</span>
-<span id="cb59-7"><a href="patent-infographics-with-r.html#cb59-7" aria-hidden="true" tabindex="-1"></a>country_totals</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="patent-infographics-with-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb55-2"><a href="patent-infographics-with-r.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb55-3"><a href="patent-infographics-with-r.html#cb55-3" aria-hidden="true" tabindex="-1"></a>country_totals <span class="ot">&lt;-</span> <span class="fu">select</span>(pizza_1990_2012, publication_country_name, publication_number, pubyear) <span class="sc">%&gt;%</span></span>
+<span id="cb55-4"><a href="patent-infographics-with-r.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-5"><a href="patent-infographics-with-r.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(publication_country_name, pubyear, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-6"><a href="patent-infographics-with-r.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> pubyear, <span class="at">values_from =</span> n)</span>
+<span id="cb55-7"><a href="patent-infographics-with-r.html#cb55-7" aria-hidden="true" tabindex="-1"></a>country_totals</span></code></pre></div>
 <pre><code>## # A tibble: 16 × 24
 ##    publication_country_… `1990` `1991` `1992` `1993` `1994` `1995` `1996` `1997`
 ##    &lt;chr&gt;                  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -902,21 +902,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 15 more variables: 1998 &lt;dbl&gt;, 1999 &lt;dbl&gt;, 2000 &lt;dbl&gt;, 2001 &lt;dbl&gt;,
 ## #   2002 &lt;dbl&gt;, 2003 &lt;dbl&gt;, 2004 &lt;dbl&gt;, 2005 &lt;dbl&gt;, 2006 &lt;dbl&gt;, 2007 &lt;dbl&gt;,
 ## #   2008 &lt;dbl&gt;, 2009 &lt;dbl&gt;, 2010 &lt;dbl&gt;, 2011 &lt;dbl&gt;, 2012 &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="patent-infographics-with-r.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(country_totals, <span class="st">&quot;pizza_country_1990_2012.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="patent-infographics-with-r.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(country_totals, <span class="st">&quot;pizza_country_1990_2012.csv&quot;</span>)</span></code></pre></div>
 <p>To restore the data to long format we would need to use <code>pivot_longer()</code> as the counterpart to <code>pivot_wider()</code> (formerly <code>gather()</code> was used as the counterpart to <code>spread()</code>). <code>gather()</code> takes a dataset, a key for the name of the column we want to gather the countries into, a value for the numeric count (in this case n), and finally the positions of the columns to gather in. Note here that we need to look up the column positions in <code>country_totals</code> (e.g. using <code>View()</code>) or count the columns using <code>ncol(country_totals)</code>.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="patent-infographics-with-r.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb62-2"><a href="patent-infographics-with-r.html#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="patent-infographics-with-r.html#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co">#country_totals %&gt;% </span></span>
-<span id="cb62-4"><a href="patent-infographics-with-r.html#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  pivot_longer(everything(), </span></span>
-<span id="cb62-5"><a href="patent-infographics-with-r.html#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="co">#               names_to = c(&quot;pubyear&quot;, &quot;n&quot;),</span></span>
-<span id="cb62-6"><a href="patent-infographics-with-r.html#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="co">#               )</span></span>
-<span id="cb62-7"><a href="patent-infographics-with-r.html#cb62-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-8"><a href="patent-infographics-with-r.html#cb62-8" aria-hidden="true" tabindex="-1"></a><span class="co">#gather(country_totals, year, n, 2:24) %&gt;%</span></span>
-<span id="cb62-9"><a href="patent-infographics-with-r.html#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  print()</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="patent-infographics-with-r.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb58-2"><a href="patent-infographics-with-r.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="patent-infographics-with-r.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co">#country_totals %&gt;% </span></span>
+<span id="cb58-4"><a href="patent-infographics-with-r.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  pivot_longer(everything(), </span></span>
+<span id="cb58-5"><a href="patent-infographics-with-r.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="co">#               names_to = c(&quot;pubyear&quot;, &quot;n&quot;),</span></span>
+<span id="cb58-6"><a href="patent-infographics-with-r.html#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="co">#               )</span></span>
+<span id="cb58-7"><a href="patent-infographics-with-r.html#cb58-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-8"><a href="patent-infographics-with-r.html#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="co">#gather(country_totals, year, n, 2:24) %&gt;%</span></span>
+<span id="cb58-9"><a href="patent-infographics-with-r.html#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  print()</span></span></code></pre></div>
 <p>The combination of spread and gather work really well to prepare data in formats that are expected by other software. However, one of the main issues we encounter with patent data is that our data is not tidy because various fields are concatenated.</p>
 </div>
-<div id="tidying-data---separating-and-gathering" class="section level2" number="14.9">
-<h2><span class="header-section-number">14.9</span> Tidying data - Separating and Gathering</h2>
+<div id="tidying-data---separating-and-gathering" class="section level2 hasAnchor" number="14.9">
+<h2><span class="header-section-number">14.9</span> Tidying data - Separating and Gathering<a href="patent-infographics-with-r.html#tidying-data---separating-and-gathering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In patent data we often see concatenated fields with a separator (normally a <code>;</code>). These are typically applicant names, inventor names, International Patent Classification (IPC) codes, or document numbers (priority numbers, family numbers). We need to <code>tidy</code> this data prior to data cleaning (such as cleaning names) or to prepare for analysis and visualisation. For more on the concept of tidy data read <a href="http://vita.had.co.nz/papers/tidy-data.pdf">Hadley Wickham’s Tidy Data article</a>. The new <a href="http://r4ds.had.co.nz/tidy-data.html">R for Data Science book</a> by Garrett Grolemund and Hadley Wickham (see Chapter 12) is also strongly recommended.</p>
 <p>To tidy patent data we will typically need to do two things.</p>
 <ol style="list-style-type: decimal">
@@ -926,14 +926,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Separating data into columns is very easy in tools such as Excel. However, gathering the data back into separate rows is remarkably difficult. Happily, this is very easy to do in R with the <code>tidyr</code> package.</p>
 <p>The <code>tidyr</code> package contains three functions that are very useful when working with patent data. When dealing with concatenated fields in columns the key function is <code>separate_rows</code>.</p>
 <p>Here we will work with the <code>applicants_cleaned</code> field in the pizza dataset. This field contains concatenated names with a <code>;</code> as the separator. For example, on lines 1_9 there are single applicant names or NA values. However, on lines 10 and line 59 we see:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="patent-infographics-with-r.html#cb63-1" aria-hidden="true" tabindex="-1"></a>Ehrno Flexible A<span class="sc">/</span>S; Stergaard, Ole</span>
-<span id="cb63-2"><a href="patent-infographics-with-r.html#cb63-2" aria-hidden="true" tabindex="-1"></a>Farrell Brian; Mcnulty John; Vishoot Lisa</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="patent-infographics-with-r.html#cb59-1" aria-hidden="true" tabindex="-1"></a>Ehrno Flexible A<span class="sc">/</span>S; Stergaard, Ole</span>
+<span id="cb59-2"><a href="patent-infographics-with-r.html#cb59-2" aria-hidden="true" tabindex="-1"></a>Farrell Brian; Mcnulty John; Vishoot Lisa</span></code></pre></div>
 <p>The problem here is that when we are dealing with thousands of lines of applicant names we don’t know how many names might be concatenated into each cell as a basis for separating the data into columns. Once we had split the columns (for example using Text to Columns in Excel) we would then need to work out how to gather the columns into rows. The <code>separate_rows()</code> function from <code>tidyr</code> makes light work of this problem. To use the function we name the dataset, the column we want to separate into rows and the separator (sep).</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="patent-infographics-with-r.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb64-2"><a href="patent-infographics-with-r.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb64-3"><a href="patent-infographics-with-r.html#cb64-3" aria-hidden="true" tabindex="-1"></a>pizza1 <span class="ot">&lt;-</span> pizza_1990_2012 <span class="sc">%&gt;%</span> </span>
-<span id="cb64-4"><a href="patent-infographics-with-r.html#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(applicants_cleaned, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
-<span id="cb64-5"><a href="patent-infographics-with-r.html#cb64-5" aria-hidden="true" tabindex="-1"></a>pizza1</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="patent-infographics-with-r.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb60-2"><a href="patent-infographics-with-r.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb60-3"><a href="patent-infographics-with-r.html#cb60-3" aria-hidden="true" tabindex="-1"></a>pizza1 <span class="ot">&lt;-</span> pizza_1990_2012 <span class="sc">%&gt;%</span> </span>
+<span id="cb60-4"><a href="patent-infographics-with-r.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(applicants_cleaned, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb60-5"><a href="patent-infographics-with-r.html#cb60-5" aria-hidden="true" tabindex="-1"></a>pizza1</span></code></pre></div>
 <pre><code>## # A tibble: 12,597 × 31
 ##    applicants_cleaned         applicants_clea… applicants_orga… applicants_orig…
 ##    &lt;chr&gt;                      &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
@@ -955,13 +955,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   priority_data_original &lt;chr&gt;, priority_date &lt;chr&gt;,
 ## #   publication_country_code &lt;chr&gt;, publication_country_name &lt;chr&gt;, …</code></pre>
 <p>Our original dataset contained 8,262 rows. Our new dataset split on applicant names contains 12,729 rows. The function has moved our target column from column 1 to column 31 in the data frame. We can easily move it back to inspect.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="patent-infographics-with-r.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb66-2"><a href="patent-infographics-with-r.html#cb66-2" aria-hidden="true" tabindex="-1"></a>pizza1 <span class="ot">&lt;-</span> pizza1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="dv">31</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="patent-infographics-with-r.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb62-2"><a href="patent-infographics-with-r.html#cb62-2" aria-hidden="true" tabindex="-1"></a>pizza1 <span class="ot">&lt;-</span> pizza1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="dv">31</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>)</span></code></pre></div>
 <p><code>separate_rows()</code> has done a great job but one of the problems with concatenated names is extra white space around the separator. We will deal with this next.</p>
-<div id="trimming-with-stringr" class="section level3" number="14.9.1">
-<h3><span class="header-section-number">14.9.1</span> Trimming with <code>stringr</code></h3>
+<div id="trimming-with-stringr" class="section level3 hasAnchor" number="14.9.1">
+<h3><span class="header-section-number">14.9.1</span> Trimming with <code>stringr</code><a href="patent-infographics-with-r.html#trimming-with-stringr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we inspect the bottom of the column by subsetting into it using <code>$</code> we will see that a lot of the names have a leading whitespace space. This results from the separate exercise where the <code>;</code> is actually <code>;space</code>. Take a look at the last few rows of the data using <code>tail()</code>.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="patent-infographics-with-r.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(pizza1<span class="sc">$</span>applicants_cleaned, <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="patent-infographics-with-r.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(pizza1<span class="sc">$</span>applicants_cleaned, <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;Yahoo! Inc&quot;                        &quot;Clarcor Inc&quot;                      
 ##  [3] &quot;Holden Jeffrey A&quot;                  &quot; Vengroff Darren E&quot;               
 ##  [5] &quot;Casper Jeffrey L&quot;                  &quot; Erickson Braden J&quot;               
@@ -974,11 +974,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [19] &quot;Cole Lorin R&quot;                      &quot; Middleton Scott W&quot;</code></pre>
 <p>This is a big issue because any counts that we make later on using the applicants_cleaned field will treat “Oppenheimer Alan A” and ” Oppenheimer Alan A” as separate names when they should be grouped together.</p>
 <p>We can address this in a couple of ways. One approach is to recognise that actually our separator is not a simple <code>";"</code> but <code>";space"</code> in our call to <code>separate_rows()</code>. In that case the call to <code>separate_rows()</code> would actually be <code>sep = "; "</code>. We will add a line of code to illustrate the impact of this change.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="patent-infographics-with-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> pizza_1990_2012 <span class="sc">%&gt;%</span> </span>
-<span id="cb69-2"><a href="patent-infographics-with-r.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(., applicants_cleaned, <span class="at">sep =</span> <span class="st">&quot;; &quot;</span>)</span>
-<span id="cb69-3"><a href="patent-infographics-with-r.html#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-4"><a href="patent-infographics-with-r.html#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect the problem entry</span></span>
-<span id="cb69-5"><a href="patent-infographics-with-r.html#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(tmp<span class="sc">$</span>applicants_cleaned, <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="patent-infographics-with-r.html#cb65-1" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> pizza_1990_2012 <span class="sc">%&gt;%</span> </span>
+<span id="cb65-2"><a href="patent-infographics-with-r.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(., applicants_cleaned, <span class="at">sep =</span> <span class="st">&quot;; &quot;</span>)</span>
+<span id="cb65-3"><a href="patent-infographics-with-r.html#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="patent-infographics-with-r.html#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect the problem entry</span></span>
+<span id="cb65-5"><a href="patent-infographics-with-r.html#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(tmp<span class="sc">$</span>applicants_cleaned, <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;Yahoo! Inc&quot;                       &quot;Clarcor Inc&quot;                     
 ##  [3] &quot;Holden Jeffrey A&quot;                 &quot;Vengroff Darren E&quot;               
 ##  [5] &quot;Casper Jeffrey L&quot;                 &quot;Erickson Braden J&quot;               
@@ -992,9 +992,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Another way to address this, is to use the <code>str_trim()</code> function from the <code>stringr</code> package.</p>
 <p>We can address this problem using a function from the <code>stringr</code> package <code>str_trim()</code>. We have a choice with <code>str_trim()</code> on whether to trim the whitespace on the right, left or both. Here we will choose both.</p>
 <p>Because we are seeking to modify an existing column (not to create a new vector or data.frame) we will use <code>$</code> to select the column and as the data for the <code>str_trim()</code> function. That will apply the function to the applicants column in pizza1.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="patent-infographics-with-r.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb71-2"><a href="patent-infographics-with-r.html#cb71-2" aria-hidden="true" tabindex="-1"></a>pizza1<span class="sc">$</span>applicants_cleaned <span class="ot">&lt;-</span> <span class="fu">str_trim</span>(pizza1<span class="sc">$</span>applicants_cleaned, <span class="at">side =</span> <span class="st">&quot;both&quot;</span>)</span>
-<span id="cb71-3"><a href="patent-infographics-with-r.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(pizza1<span class="sc">$</span>applicants_cleaned, <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="patent-infographics-with-r.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb67-2"><a href="patent-infographics-with-r.html#cb67-2" aria-hidden="true" tabindex="-1"></a>pizza1<span class="sc">$</span>applicants_cleaned <span class="ot">&lt;-</span> <span class="fu">str_trim</span>(pizza1<span class="sc">$</span>applicants_cleaned, <span class="at">side =</span> <span class="st">&quot;both&quot;</span>)</span>
+<span id="cb67-3"><a href="patent-infographics-with-r.html#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(pizza1<span class="sc">$</span>applicants_cleaned, <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;Yahoo! Inc&quot;                       &quot;Clarcor Inc&quot;                     
 ##  [3] &quot;Holden Jeffrey A&quot;                 &quot;Vengroff Darren E&quot;               
 ##  [5] &quot;Casper Jeffrey L&quot;                 &quot;Erickson Braden J&quot;               
@@ -1008,16 +1008,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that when using <code>str_trim()</code> we use subsetting to modify the applicants column in place. There is possibly a more efficient way of doing this with pipes but this appears difficult because the data.frame needs to exist for <code>str_trim()</code> to act on in place or we end up with a vector of applicant names rather than a data.frame. A solution to this problem is provided on Stack Overflow<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <p>In practice, the most efficient solution in this case is to recognise that the separator for <code>separate_rows</code> is <code>";space"</code>. However, that will not always be true making the tools in <code>stringr</code> invaluable. To learn more about string manipulation in R try <a href="http://r4ds.had.co.nz/strings.html">Chapter 14 of R for Data Science by Garrett Grolemund and Hadley Wickham</a>.</p>
 <p>We can tie the steps so far together using pipes into the following simpler code that we will become the applicants table for use in the infographic. We will add a call to rename and rename applicants_cleaned to tidy up.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="patent-infographics-with-r.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb73-2"><a href="patent-infographics-with-r.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb73-3"><a href="patent-infographics-with-r.html#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb73-4"><a href="patent-infographics-with-r.html#cb73-4" aria-hidden="true" tabindex="-1"></a>applicants <span class="ot">&lt;-</span> pizza <span class="sc">%&gt;%</span> </span>
-<span id="cb73-5"><a href="patent-infographics-with-r.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(., <span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year) <span class="sc">%&gt;%</span></span>
-<span id="cb73-6"><a href="patent-infographics-with-r.html#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb73-7"><a href="patent-infographics-with-r.html#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(applicants_cleaned, <span class="at">sep =</span> <span class="st">&quot;; &quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb73-8"><a href="patent-infographics-with-r.html#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">applicants =</span> applicants_cleaned) <span class="sc">%&gt;%</span> </span>
-<span id="cb73-9"><a href="patent-infographics-with-r.html#cb73-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">31</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="co"># moves separated column to the beginning (could use everything?)</span></span>
-<span id="cb73-10"><a href="patent-infographics-with-r.html#cb73-10" aria-hidden="true" tabindex="-1"></a>applicants</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="patent-infographics-with-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb69-2"><a href="patent-infographics-with-r.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb69-3"><a href="patent-infographics-with-r.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb69-4"><a href="patent-infographics-with-r.html#cb69-4" aria-hidden="true" tabindex="-1"></a>applicants <span class="ot">&lt;-</span> pizza <span class="sc">%&gt;%</span> </span>
+<span id="cb69-5"><a href="patent-infographics-with-r.html#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(., <span class="st">&quot;pubyear&quot;</span> <span class="ot">=</span> publication_year) <span class="sc">%&gt;%</span></span>
+<span id="cb69-6"><a href="patent-infographics-with-r.html#cb69-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pubyear <span class="sc">&gt;=</span> <span class="dv">1990</span>, pubyear <span class="sc">&lt;=</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-7"><a href="patent-infographics-with-r.html#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(applicants_cleaned, <span class="at">sep =</span> <span class="st">&quot;; &quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-8"><a href="patent-infographics-with-r.html#cb69-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">applicants =</span> applicants_cleaned) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-9"><a href="patent-infographics-with-r.html#cb69-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">31</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="co"># moves separated column to the beginning (could use everything?)</span></span>
+<span id="cb69-10"><a href="patent-infographics-with-r.html#cb69-10" aria-hidden="true" tabindex="-1"></a>applicants</span></code></pre></div>
 <pre><code>## # A tibble: 12,597 × 31
 ##    title_original  applicants applicants_clea… applicants_orga… applicants_orig…
 ##    &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
@@ -1040,16 +1040,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   publication_country_code &lt;chr&gt;, publication_country_name &lt;chr&gt;, …</code></pre>
 <p>We will want to create a plot with the applicants data in our infographic software. For that we need to introduce a field to count on. We might also want to establish a cut off point based on the number of records per applicant.</p>
 <p>In this code we will simply print the applicants ranked in descending order. The second to last line of the code provides a filter on the number of records. This value can be changed after inspecting the data. The final line omits NA values (otherwise the top result) where an applicant name is not available.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="patent-infographics-with-r.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb75-2"><a href="patent-infographics-with-r.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb75-3"><a href="patent-infographics-with-r.html#cb75-3" aria-hidden="true" tabindex="-1"></a>applicant_count <span class="ot">&lt;-</span> applicants <span class="sc">%&gt;%</span> </span>
-<span id="cb75-4"><a href="patent-infographics-with-r.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., applicants, publication_number) <span class="sc">%&gt;%</span></span>
-<span id="cb75-5"><a href="patent-infographics-with-r.html#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb75-6"><a href="patent-infographics-with-r.html#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(applicants, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
-<span id="cb75-7"><a href="patent-infographics-with-r.html#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb75-8"><a href="patent-infographics-with-r.html#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb75-9"><a href="patent-infographics-with-r.html#cb75-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
-<span id="cb75-10"><a href="patent-infographics-with-r.html#cb75-10" aria-hidden="true" tabindex="-1"></a>applicant_count </span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="patent-infographics-with-r.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb71-2"><a href="patent-infographics-with-r.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb71-3"><a href="patent-infographics-with-r.html#cb71-3" aria-hidden="true" tabindex="-1"></a>applicant_count <span class="ot">&lt;-</span> applicants <span class="sc">%&gt;%</span> </span>
+<span id="cb71-4"><a href="patent-infographics-with-r.html#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., applicants, publication_number) <span class="sc">%&gt;%</span></span>
+<span id="cb71-5"><a href="patent-infographics-with-r.html#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb71-6"><a href="patent-infographics-with-r.html#cb71-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(applicants, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb71-7"><a href="patent-infographics-with-r.html#cb71-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb71-8"><a href="patent-infographics-with-r.html#cb71-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb71-9"><a href="patent-infographics-with-r.html#cb71-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb71-10"><a href="patent-infographics-with-r.html#cb71-10" aria-hidden="true" tabindex="-1"></a>applicant_count </span></code></pre></div>
 <pre><code>## # A tibble: 6,110 × 2
 ##    applicants                               n
 ##    &lt;chr&gt;                                &lt;dbl&gt;
@@ -1065,17 +1065,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Yahoo! Inc                              54
 ## # … with 6,100 more rows</code></pre>
 <p>If we inspect applicant count using <code>View(applicant_count)</code> we have 6,178 rows. That is far too many to display in an infographic. So, next we will filter the data on the value for the top ten (54). Then we will write the data to a .csv file using the simple <code>write_csv()</code> from <code>readr</code>.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="patent-infographics-with-r.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb77-2"><a href="patent-infographics-with-r.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb77-3"><a href="patent-infographics-with-r.html#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb77-4"><a href="patent-infographics-with-r.html#cb77-4" aria-hidden="true" tabindex="-1"></a>applicant_count <span class="ot">&lt;-</span> applicants <span class="sc">%&gt;%</span> </span>
-<span id="cb77-5"><a href="patent-infographics-with-r.html#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., applicants, publication_number) <span class="sc">%&gt;%</span></span>
-<span id="cb77-6"><a href="patent-infographics-with-r.html#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb77-7"><a href="patent-infographics-with-r.html#cb77-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(applicants, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
-<span id="cb77-8"><a href="patent-infographics-with-r.html#cb77-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb77-9"><a href="patent-infographics-with-r.html#cb77-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">54</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb77-10"><a href="patent-infographics-with-r.html#cb77-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
-<span id="cb77-11"><a href="patent-infographics-with-r.html#cb77-11" aria-hidden="true" tabindex="-1"></a>applicant_count </span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="patent-infographics-with-r.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb73-2"><a href="patent-infographics-with-r.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb73-3"><a href="patent-infographics-with-r.html#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb73-4"><a href="patent-infographics-with-r.html#cb73-4" aria-hidden="true" tabindex="-1"></a>applicant_count <span class="ot">&lt;-</span> applicants <span class="sc">%&gt;%</span> </span>
+<span id="cb73-5"><a href="patent-infographics-with-r.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., applicants, publication_number) <span class="sc">%&gt;%</span></span>
+<span id="cb73-6"><a href="patent-infographics-with-r.html#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="at">publication_number =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-7"><a href="patent-infographics-with-r.html#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(applicants, <span class="at">wt =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb73-8"><a href="patent-infographics-with-r.html#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-9"><a href="patent-infographics-with-r.html#cb73-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">54</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb73-10"><a href="patent-infographics-with-r.html#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb73-11"><a href="patent-infographics-with-r.html#cb73-11" aria-hidden="true" tabindex="-1"></a>applicant_count </span></code></pre></div>
 <pre><code>## # A tibble: 10 × 2
 ##    applicants                               n
 ##    &lt;chr&gt;                                &lt;dbl&gt;
@@ -1089,19 +1089,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 The Procter &amp; Gamble Company            59
 ##  9 Pizza Hut, Inc                          57
 ## 10 Yahoo! Inc                              54</code></pre>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="patent-infographics-with-r.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(applicant_count, <span class="st">&quot;pizza_applicants_1990_2012.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="patent-infographics-with-r.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(applicant_count, <span class="st">&quot;pizza_applicants_1990_2012.csv&quot;</span>)</span></code></pre></div>
 <p>When we inspect <code>applicant_count</code> we will see that Graphic Packaging International is the top result with 154 results with Google ranking third with 123 results followed by Microsoft. This could suggest that Google and Microsoft are suddenly entering the market for online pizza sales or pizza making software or, as is more likely, that there are uses other uses of the word pizza in patent data that we are not aware of.</p>
 <p>As part of our infographic we will want to explore this intriguing result in more detail. We can do this by creating a subdataset for Google using <code>filter()</code>.</p>
 </div>
 </div>
-<div id="selecting-applicants-using-filter" class="section level2" number="14.10">
-<h2><span class="header-section-number">14.10</span> Selecting applicants using <code>filter()</code></h2>
+<div id="selecting-applicants-using-filter" class="section level2 hasAnchor" number="14.10">
+<h2><span class="header-section-number">14.10</span> Selecting applicants using <code>filter()</code><a href="patent-infographics-with-r.html#selecting-applicants-using-filter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As we saw above, while <code>select()</code> functions with columns, <code>filter()</code> from <code>dplyr</code> works with rows. Here we will filter the data to select the rows in the applicants column that contain Google Inc. and then write that to a .csv for use in our infographic. Note the use of double <code>==</code> and the quotes around “Google Inc”.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="patent-infographics-with-r.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb80-2"><a href="patent-infographics-with-r.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb80-3"><a href="patent-infographics-with-r.html#cb80-3" aria-hidden="true" tabindex="-1"></a>google <span class="ot">&lt;-</span> applicants <span class="sc">%&gt;%</span> </span>
-<span id="cb80-4"><a href="patent-infographics-with-r.html#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., applicants <span class="sc">==</span> <span class="st">&quot;Google Inc&quot;</span>)</span>
-<span id="cb80-5"><a href="patent-infographics-with-r.html#cb80-5" aria-hidden="true" tabindex="-1"></a>google</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="patent-infographics-with-r.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb76-2"><a href="patent-infographics-with-r.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb76-3"><a href="patent-infographics-with-r.html#cb76-3" aria-hidden="true" tabindex="-1"></a>google <span class="ot">&lt;-</span> applicants <span class="sc">%&gt;%</span> </span>
+<span id="cb76-4"><a href="patent-infographics-with-r.html#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., applicants <span class="sc">==</span> <span class="st">&quot;Google Inc&quot;</span>)</span>
+<span id="cb76-5"><a href="patent-infographics-with-r.html#cb76-5" aria-hidden="true" tabindex="-1"></a>google</span></code></pre></div>
 <pre><code>## # A tibble: 123 × 31
 ##    title_original  applicants applicants_clea… applicants_orga… applicants_orig…
 ##    &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
@@ -1122,11 +1122,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   priority_country_code &lt;chr&gt;, priority_country_code_names &lt;chr&gt;,
 ## #   priority_data_original &lt;chr&gt;, priority_date &lt;chr&gt;,
 ## #   publication_country_code &lt;chr&gt;, publication_country_name &lt;chr&gt;, …</code></pre>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="patent-infographics-with-r.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(google, <span class="st">&quot;google_1990_2012.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="patent-infographics-with-r.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(google, <span class="st">&quot;google_1990_2012.csv&quot;</span>)</span></code></pre></div>
 <p>Note that the correct result for the period 1990 to 2012 for Google is 123 records from 191 records across the whole pizza dataset. The correct result will be achieved only where you use the filtered, separated and trimmed data we created in the applicants data frame.</p>
 </div>
-<div id="generating-ipc-tables" class="section level2" number="14.11">
-<h2><span class="header-section-number">14.11</span> Generating IPC Tables</h2>
+<div id="generating-ipc-tables" class="section level2 hasAnchor" number="14.11">
+<h2><span class="header-section-number">14.11</span> Generating IPC Tables<a href="patent-infographics-with-r.html#generating-ipc-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the next step we will want to generate two tables containing International Patent Classification (IPC) data. IPC codes and the Cooperative Patent Classification (CPC, not present in this dataset) provide information on the technologies involved in a patent document. The IPC is hierarchical and proceeds from the general class level to the detailed group and subgroup level. Experience reveals that the majority of patent documents receive more than one IPC code to more fully describe the technological aspects of patent documents.</p>
 <p>The pizza dataset contains IPC codes on the class and the subclass level in concatenated fields. One important consideration in using IPC data is that the descriptions are long and can be difficult for non-specialists to grasp. This can make visualising the data difficult and often requires manual efforts to edit labels for display.</p>
 <p>We now want to generate three IPC tables.</p>
@@ -1139,17 +1139,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To generate the table we can use a generic function based on the code developed for dealing with the applicants data. We will call the function patent_count().</p>
 <!--- rewrite this function--->
 <!--- rewritten function--->
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="patent-infographics-with-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a>patent_count <span class="ot">&lt;-</span> <span class="cf">function</span> (<span class="at">data =</span> <span class="cn">NULL</span>, <span class="at">col =</span> <span class="cn">NULL</span>, <span class="at">count_col =</span>  <span class="cn">NULL</span>, <span class="at">n_results =</span> n_results, <span class="at">sep =</span> <span class="st">&quot;[^[:alnum:]]+&quot;</span>) </span>
-<span id="cb83-2"><a href="patent-infographics-with-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb83-3"><a href="patent-infographics-with-r.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  p_count <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb83-4"><a href="patent-infographics-with-r.html#cb83-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(., .data[[col]], .data[[count_col]]) <span class="sc">%&gt;%</span></span>
-<span id="cb83-5"><a href="patent-infographics-with-r.html#cb83-5" aria-hidden="true" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">separate_rows</span>(.data[[col]], <span class="at">sep =</span> <span class="st">&quot;[;]&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># was sep</span></span>
-<span id="cb83-6"><a href="patent-infographics-with-r.html#cb83-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="sc">!!</span><span class="at">col :=</span> stringr<span class="sc">::</span><span class="fu">str_trim</span>(.data[[col]], <span class="at">side =</span> <span class="st">&quot;both&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb83-7"><a href="patent-infographics-with-r.html#cb83-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb83-8"><a href="patent-infographics-with-r.html#cb83-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(.data[[col]]) <span class="sc">%&gt;%</span> </span>
-<span id="cb83-9"><a href="patent-infographics-with-r.html#cb83-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(., <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb83-10"><a href="patent-infographics-with-r.html#cb83-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
-<span id="cb83-11"><a href="patent-infographics-with-r.html#cb83-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="patent-infographics-with-r.html#cb79-1" aria-hidden="true" tabindex="-1"></a>patent_count <span class="ot">&lt;-</span> <span class="cf">function</span> (<span class="at">data =</span> <span class="cn">NULL</span>, <span class="at">col =</span> <span class="cn">NULL</span>, <span class="at">count_col =</span>  <span class="cn">NULL</span>, <span class="at">n_results =</span> n_results, <span class="at">sep =</span> <span class="st">&quot;[^[:alnum:]]+&quot;</span>) </span>
+<span id="cb79-2"><a href="patent-infographics-with-r.html#cb79-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb79-3"><a href="patent-infographics-with-r.html#cb79-3" aria-hidden="true" tabindex="-1"></a>  p_count <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb79-4"><a href="patent-infographics-with-r.html#cb79-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(., .data[[col]], .data[[count_col]]) <span class="sc">%&gt;%</span></span>
+<span id="cb79-5"><a href="patent-infographics-with-r.html#cb79-5" aria-hidden="true" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">separate_rows</span>(.data[[col]], <span class="at">sep =</span> <span class="st">&quot;[;]&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># was sep</span></span>
+<span id="cb79-6"><a href="patent-infographics-with-r.html#cb79-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="sc">!!</span><span class="at">col :=</span> stringr<span class="sc">::</span><span class="fu">str_trim</span>(.data[[col]], <span class="at">side =</span> <span class="st">&quot;both&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb79-7"><a href="patent-infographics-with-r.html#cb79-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-8"><a href="patent-infographics-with-r.html#cb79-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(.data[[col]]) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-9"><a href="patent-infographics-with-r.html#cb79-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(., <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-10"><a href="patent-infographics-with-r.html#cb79-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb79-11"><a href="patent-infographics-with-r.html#cb79-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>The <code>patent_count()</code> function is based on the the code we developed for applicants. It contains variations to make it work as a function. The function takes four arguments:</p>
 <ol style="list-style-type: decimal">
 <li>col = the concatenated column that we want to split and gather back in</li>
@@ -1158,8 +1158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>sep = the separator to use to separate the data in col. With patent data this is almost always “;” (as <code>;space</code>.</li>
 </ol>
 <p>To generate the <code>ipc_class</code> data we can do the following and then write the file to .csv. Note that we have set the number of results <code>n_results</code> to 10.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="patent-infographics-with-r.html#cb84-1" aria-hidden="true" tabindex="-1"></a>pizza_ipc_class <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> pizza_1990_2012, <span class="at">col =</span> <span class="st">&quot;ipc_class&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">10</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
-<span id="cb84-2"><a href="patent-infographics-with-r.html#cb84-2" aria-hidden="true" tabindex="-1"></a>pizza_ipc_class</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="patent-infographics-with-r.html#cb80-1" aria-hidden="true" tabindex="-1"></a>pizza_ipc_class <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> pizza_1990_2012, <span class="at">col =</span> <span class="st">&quot;ipc_class&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">10</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb80-2"><a href="patent-infographics-with-r.html#cb80-2" aria-hidden="true" tabindex="-1"></a>pizza_ipc_class</span></code></pre></div>
 <pre><code>## # A tibble: 111 × 2
 ##    ipc_class                                               n
 ##    &lt;chr&gt;                                               &lt;int&gt;
@@ -1174,11 +1174,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 A61: Medical Or Veterinary Science                    318
 ## 10 G07: Checking                                         226
 ## # … with 101 more rows</code></pre>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="patent-infographics-with-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co">#write_csv(pizza_ipc_class, &quot;pizza_ipcclass_1990_2012.csv&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="patent-infographics-with-r.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co">#write_csv(pizza_ipc_class, &quot;pizza_ipcclass_1990_2012.csv&quot;)</span></span></code></pre></div>
 <p>Note that this dataset is based on the main <code>pizza_1990_2012</code> dataset (including cases where no applicant name is available). The reason we have not used the applicants dataset is because that dataset will duplicate the IPC field for each split of an applicant name. As a result it will over count the IPCs by the number of applicants on a document name. As this suggests, it is important to be careful when working with data that has been tidied because of the impact on other counts.</p>
 <p>This problem does not apply in the case of our Google data because the only applicant listed in that data is Google (excluding co-applicants). We can therefore safely use the Google dataset to identify the IPC codes.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="patent-infographics-with-r.html#cb87-1" aria-hidden="true" tabindex="-1"></a>google_ipc_class <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> google, <span class="at">col =</span> <span class="st">&quot;ipc_class&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">10</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
-<span id="cb87-2"><a href="patent-infographics-with-r.html#cb87-2" aria-hidden="true" tabindex="-1"></a>google_ipc_class</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="patent-infographics-with-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a>google_ipc_class <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> google, <span class="at">col =</span> <span class="st">&quot;ipc_class&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">10</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb83-2"><a href="patent-infographics-with-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a>google_ipc_class</span></code></pre></div>
 <pre><code>## # A tibble: 7 × 2
 ##   ipc_class                                 n
 ##   &lt;chr&gt;                                 &lt;int&gt;
@@ -1189,10 +1189,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 G10: Musical Instruments                  7
 ## 6 A63: Sports                               1
 ## 7 G08: Signalling                           1</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="patent-infographics-with-r.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(google_ipc_class, <span class="st">&quot;google_ipcclass_1990_2012.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="patent-infographics-with-r.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(google_ipc_class, <span class="st">&quot;google_ipcclass_1990_2012.csv&quot;</span>)</span></code></pre></div>
 <p>There are only 7 classes and as we might expect they are dominated by computing. We might want to dig into this in a little more detail and so let’s also create an IPC subclass field.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="patent-infographics-with-r.html#cb90-1" aria-hidden="true" tabindex="-1"></a>google_ipc_subclass <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> google, <span class="at">col =</span> <span class="st">&quot;ipc_subclass_detail&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">10</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
-<span id="cb90-2"><a href="patent-infographics-with-r.html#cb90-2" aria-hidden="true" tabindex="-1"></a>google_ipc_subclass</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="patent-infographics-with-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a>google_ipc_subclass <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> google, <span class="at">col =</span> <span class="st">&quot;ipc_subclass_detail&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">10</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb86-2"><a href="patent-infographics-with-r.html#cb86-2" aria-hidden="true" tabindex="-1"></a>google_ipc_subclass</span></code></pre></div>
 <pre><code>## # A tibble: 16 × 2
 ##    ipc_subclass_detail                                                         n
 ##    &lt;chr&gt;                                                                   &lt;int&gt;
@@ -1212,13 +1212,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 14 G06N: Computer Systems Based On Specific Computational Models               1
 ## 15 G06T: Image Data Processing Or Generation, In General                       1
 ## 16 G08G: Traffic Control Systems                                               1</code></pre>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="patent-infographics-with-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(google_ipc_subclass, <span class="st">&quot;google_ipcsubclass_1990_2012.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="patent-infographics-with-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(google_ipc_subclass, <span class="st">&quot;google_ipcsubclass_1990_2012.csv&quot;</span>)</span></code></pre></div>
 <p>We now have the data on technology areas that we need to understand our data. The next and final step is to generate data from the text fields.</p>
-<div id="phrases-tables" class="section level3" number="14.11.1">
-<h3><span class="header-section-number">14.11.1</span> Phrases Tables</h3>
-<p>We will be using data from words and phrases in the titles of patent documents for use in a word cloud in our infographic. It is possible to generate this type of data in R directly using the <code>tm</code> and <code>NLP</code> packages. Our pizza dataset already contains a title field broken down into phrases using Vantagepoint software and so we will use that. We will use the field <code>title_nlp_multiword_phrases</code> as phrases are generally more informative than individual words. Once again we will use our general <code>patent_count()</code> function although experimentation may be needed to identify the number of phrases that visualise well in a word cloud.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="patent-infographics-with-r.html#cb93-1" aria-hidden="true" tabindex="-1"></a>pizza_phrases <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> pizza_1990_2012, <span class="at">col =</span> <span class="st">&quot;title_nlp_multiword_phrases&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">15</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
-<span id="cb93-2"><a href="patent-infographics-with-r.html#cb93-2" aria-hidden="true" tabindex="-1"></a>pizza_phrases</span></code></pre></div>
+<div id="phrases-tables" class="section level3 hasAnchor" number="14.11.1">
+<h3><span class="header-section-number">14.11.1</span> Phrases Tables<a href="patent-infographics-with-r.html#phrases-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We will be using data from words and phrases in the titles of patent documents for use in a word cloud in our infographic. It is possible to generate this type of data in R directly using the <code>tm</code> and <code>NLP</code> packages. Our pizza dataset already contains a title field broken down into phrases using VantagePoint software and so we will use that. We will use the field <code>title_nlp_multiword_phrases</code> as phrases are generally more informative than individual words. Once again we will use our general <code>patent_count()</code> function although experimentation may be needed to identify the number of phrases that visualise well in a word cloud.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="patent-infographics-with-r.html#cb89-1" aria-hidden="true" tabindex="-1"></a>pizza_phrases <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> pizza_1990_2012, <span class="at">col =</span> <span class="st">&quot;title_nlp_multiword_phrases&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">15</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb89-2"><a href="patent-infographics-with-r.html#cb89-2" aria-hidden="true" tabindex="-1"></a>pizza_phrases</span></code></pre></div>
 <pre><code>## # A tibble: 6,323 × 2
 ##    title_nlp_multiword_phrases     n
 ##    &lt;chr&gt;                       &lt;int&gt;
@@ -1233,10 +1233,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 pizza Box                      40
 ## 10 Microwave Cooking              39
 ## # … with 6,313 more rows</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="patent-infographics-with-r.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(pizza_phrases, <span class="st">&quot;pizza_phrases_1990_2012.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="patent-infographics-with-r.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(pizza_phrases, <span class="st">&quot;pizza_phrases_1990_2012.csv&quot;</span>)</span></code></pre></div>
 <p>Now we do the same with the Google data.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="patent-infographics-with-r.html#cb96-1" aria-hidden="true" tabindex="-1"></a>google_phrases <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> google, <span class="at">col =</span> <span class="st">&quot;title_nlp_multiword_phrases&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">15</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
-<span id="cb96-2"><a href="patent-infographics-with-r.html#cb96-2" aria-hidden="true" tabindex="-1"></a>google_phrases</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="patent-infographics-with-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a>google_phrases <span class="ot">&lt;-</span> <span class="fu">patent_count</span>(<span class="at">data =</span> google, <span class="at">col =</span> <span class="st">&quot;title_nlp_multiword_phrases&quot;</span>, <span class="at">count_col =</span> <span class="st">&quot;publication_number&quot;</span>, <span class="at">n_results =</span> <span class="dv">15</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb92-2"><a href="patent-infographics-with-r.html#cb92-2" aria-hidden="true" tabindex="-1"></a>google_phrases</span></code></pre></div>
 <pre><code>## # A tibble: 68 × 2
 ##    title_nlp_multiword_phrases              n
 ##    &lt;chr&gt;                                &lt;int&gt;
@@ -1251,7 +1251,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 Processing Queries                       4
 ## 10 Search Query                             4
 ## # … with 58 more rows</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="patent-infographics-with-r.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(google_phrases, <span class="st">&quot;google_phrases_1990_2012.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="patent-infographics-with-r.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(google_phrases, <span class="st">&quot;google_phrases_1990_2012.csv&quot;</span>)</span></code></pre></div>
 <p>We now have the following .csv files.</p>
 <ol style="list-style-type: decimal">
 <li><code>pizza_total_1990_2012</code></li>
@@ -1266,8 +1266,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 </div>
-<div id="creating-an-infographic-in-infogr.am" class="section level2" number="14.12">
-<h2><span class="header-section-number">14.12</span> Creating an infographic in infogr.am</h2>
+<div id="creating-an-infographic-in-infogr.am" class="section level2 hasAnchor" number="14.12">
+<h2><span class="header-section-number">14.12</span> Creating an infographic in infogr.am<a href="patent-infographics-with-r.html#creating-an-infographic-in-infogr.am" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you are starting this chapter here then download the datasets we will be using as a single zip file from the Manual repository <a href="https://github.com/wipo-analytics/opensource-patent-analytics/blob/master/2_datasets/infographic/infographic.zip?raw=true">here</a> and then unzip the file.</p>
 <p>We first need to sign up for a free account with <a href="https://infogr.am/">infogr.am</a></p>
 <p><img src="images/infogram/fig1_infogram_front.png" /></p>
@@ -1294,8 +1294,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>One nice feature of infogram is that it is easy to share the infographic with others through a url, an embed code or on facebook or via twitter.</p>
 <p>At the end of the infographic it is a good idea to provide a link where the reader can obtain more information, such as the full report or the underlying data. In this case we will add a link to the Tableau workbook on pizza patent activity that we developed in an earlier <a href="https://public.tableau.com/profile/wipo.open.source.patent.analytics.manual#!/vizhome/pizzapatents/Overview">chapter</a>.</p>
 <p>Our final infographic should look something like <a href="https://infogr.am/trends_in_something">this</a>.</p>
-<div id="round-up-9" class="section level3" number="14.12.1">
-<h3><span class="header-section-number">14.12.1</span> Round Up</h3>
+<div id="round-up-9" class="section level3 hasAnchor" number="14.12.1">
+<h3><span class="header-section-number">14.12.1</span> Round Up<a href="patent-infographics-with-r.html#round-up-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this chapter we have concentrated on using R to tidy patent data in order to create an online infographic using free software. Using our trusty pizza patent data from WIPO Patentscope we walked through the process of wrangling and tidying patent data first using short lines of code that we then combined into a reusable function. As this introduction to tidying data in R has hopefully revealed, R and packages such as <code>dplyr</code>, <code>tidyr</code> and <code>stringr</code> provide very useful tools for working with patent data, and they are free and well supported.</p>
 <p>In the final part of the chapter we used the data we had generated in RStudio to create an infographic using infogr.am that we then shared online. Infogram is just one of a number of online infographic services and it is well worth trying other services such as <a href="https://www.easel.ly">easel.ly</a> to find a service that meets your needs.</p>
 <p>As regular users of R will already know, it is already possible to produce all of these graphics (such as word clouds) directly in R using tools such as <code>ggplot2</code>, <code>plotly</code> and word clouds using packages such as <code>wordcloud</code>. Some of these topics have been covered in other chapters and for more on text mining and word clouds in R see this recent article on <a href="http://www.r-bloggers.com/building-wordclouds-in-r/">R-bloggers</a>. None of the infographic services we viewed appeared to offer an API that would enable a direct connection with R. There also seems to be a gap in R’s packages where infographics might sit with this <a href="http://www.r-bloggers.com/r-how-to-layout-and-design-an-infographic/">2015 R-bloggers article</a> providing a walk through on how to create a basic infographic.</p>
@@ -1306,6 +1306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+</div>
 <div class="footnotes">
 <hr />
 <ol start="1">
@@ -1378,7 +1379,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

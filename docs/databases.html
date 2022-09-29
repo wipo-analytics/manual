@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Databases | The WIPO Manual on Open Source Patent Analytics (2nd edition)</title>
   <meta name="description" content="A practical introduction to free and open source tools for patent analytics." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Databases | The WIPO Manual on Open Source Patent Analytics (2nd edition)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical introduction to free and open source tools for patent analytics." />
   <meta name="github-repo" content="wipo-analytics/manual_bookdown" />
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="datasets.html"/>
 <link rel="next" href="patentscope-1.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -472,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.19" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#arranging-the-data"><i class="fa fa-check"></i><b>15.19</b> Arranging the Data</a></li>
 <li class="chapter" data-level="15.20" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#dealing-with-duplicates"><i class="fa fa-check"></i><b>15.20</b> Dealing with Duplicates</a>
 <ul>
-<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#spreading-data-using-spread-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Spreading data using <code>spread()</code> from <code>tidyr</code></a></li>
+<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#pivoting-data-using-pivot_wider-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Pivoting data using <code>pivot_wider()</code> from <code>tidyr</code></a></li>
 <li class="chapter" data-level="15.20.2" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#deleting-duplicates"><i class="fa fa-check"></i><b>15.20.2</b> Deleting Duplicates</a></li>
 </ul></li>
 <li class="chapter" data-level="15.21" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#restricting-searches-by-section"><i class="fa fa-check"></i><b>15.21</b> Restricting searches by section</a></li>
@@ -510,18 +509,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="databases" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Databases</h1>
-<div id="introduction-1" class="section level3" number="7.0.1">
-<h3><span class="header-section-number">7.0.1</span> Introduction</h3>
+<div id="databases" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Databases<a href="databases.html#databases" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-1" class="section level3 hasAnchor" number="7.0.1">
+<h3><span class="header-section-number">7.0.1</span> Introduction<a href="databases.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This chapter provides a quick overview of some of the main sources of free patent data. It is intended for quick reference and points to some free tools for accessing patent databases that you may not be familiar with.</p>
 <p>It goes without saying that getting access to patent data in the first place is fundamental to patent analysis. There are quite a few free services out there and we will highlight some of the important ones. Most free sources have particular strengths or weaknesses such as the number of records that can be downloaded, the data fields that can be queried, the format the data comes back in or how <code>clean</code> data is in terms of the hours required to prepare for analysis. We won’t go into all of the details that but will provide some basic pointers.</p>
 </div>
-<div id="the-databases" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> The Databases</h2>
-<div id="the-lens" class="section level3" number="7.1.1">
-<h3><span class="header-section-number">7.1.1</span> <a href="https://www.lens.org/lens/">The Lens</a></h3>
-<p>Originally known as the Patent Lens this is a very well designed site that provides combined access to data on hundreds of millions of scientific publications and worldwide patent collections Figure <a href="databases.html#fig:fig1lens">7.1</a>. Originally free for all users, the services are increasingly being split between non-commercial and commercial users in order to generate funds for the services.</p>
+<div id="the-databases" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> The Databases<a href="databases.html#the-databases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-lens" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> <a href="https://www.lens.org/lens/">The Lens</a><a href="databases.html#the-lens" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Originally known as the Patent Lens this is a very well designed site that provides combined access to data on hundreds of millions of scientific publications and worldwide patent collections Figure <a href="databases.html#fig:fig1lens">7.1</a>. Originally free for all users, the services are increasingly being split between non-commercial and commercial users in order to generate funds for the services. However, the Lens has adopted an equitable access policy (<a href="https://www.lens.org/lens/collective-action/leap">LEAP</a>) that means that ability to pay should not be an obstacle to access.</p>
 <p>Compared with other service providers, the Lens is particularly strong in linking the scientific and patent literature through citations. The Lens also stands out for the number of records that can be downloaded (50,000) compared with other services, for its rapid visualisation tools, new application programming and bulk download services (paid) and genetic sequence data (free and paid).</p>
 <p>It is possible to search the title, abstract, description and claims of patent documents and create and share data in collections. As of 2021 it is possible to download 50,000 records at a time, including the titles, abstracts and claims of patent documents. As far as we are aware no other patent database offers this level of rapid access for patent analytics purposes.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig1lens"></span>
@@ -531,8 +530,8 @@ Figure 7.1: The Lens Home Page
 </p>
 </div>
 </div>
-<div id="patentscope" class="section level3" number="7.1.2">
-<h3><span class="header-section-number">7.1.2</span> <a href="https://patentscope.wipo.int/search/en/search.jsf">Patentscope</a></h3>
+<div id="patentscope" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> <a href="https://patentscope.wipo.int/search/en/search.jsf">Patentscope</a><a href="databases.html#patentscope" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The WIPO Patentscope database provides access to over 2.4 million Patent Cooperation Treaty applications and over 99 million patent documents. including downloads of a selection of fields (up to 10,000 records), a very useful <a href="https://patentscope.wipo.int/search/en/clir/clir.jsf?new=true">search expansion translation tool</a>, and <a href="https://www3.wipo.int/patentscope/translate/translate.jsf?interfaceLanguage=en">translation</a> (Figure <a href="databases.html#fig:patentscopefront">7.2</a>.</p>
 <p>For readers in South East Asia (ASEAN) it is important to note that the national collections of Brunei Darussalam, Cambodia, Philippines, Indonesia, Malaysia and Thailand and Viet Nam are available in Patentscope. This overcomes a limitation in access to these national collections across different databases.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:patentscopefront"></span>
@@ -570,8 +569,8 @@ Figure 7.6: WIPO Pearl Patent Concept Map
 </p>
 </div>
 </div>
-<div id="espacenet" class="section level3" number="7.1.3">
-<h3><span class="header-section-number">7.1.3</span> <a href="http://worldwide.espacenet.com/?locale=en_EP">espacenet</a></h3>
+<div id="espacenet" class="section level3 hasAnchor" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> <a href="http://worldwide.espacenet.com/?locale=en_EP">espacenet</a><a href="databases.html#espacenet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Probably the best known free patent database from the European Patent Office. espacenet provides free access to over 130 million patent documents Figure <a href="databases.html#fig:fig1espacenet">7.7</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig1espacenet"></span>
 <img src="images/databases/espacenet/fig2espacenet.png" alt="espacenet home page" width="1834" />
@@ -587,8 +586,8 @@ Figure 7.8: espacenet advanced search features filters and tool tips
 </p>
 </div>
 </div>
-<div id="latipat" class="section level3" number="7.1.4">
-<h3><span class="header-section-number">7.1.4</span> <a href="http://lp.espacenet.com">LATIPAT</a></h3>
+<div id="latipat" class="section level3 hasAnchor" number="7.1.4">
+<h3><span class="header-section-number">7.1.4</span> <a href="http://lp.espacenet.com">LATIPAT</a><a href="databases.html#latipat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For readers in Latin America (or Spain &amp; Portugal) LATIPAT Figure <a href="databases.html#fig:fig3latipat">7.9</a> is a very useful resource</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig3latipat"></span>
 <img src="images/databases/espacenet/fig3latipat.png" alt="LATIPAT for patent texts in Spanish and Portugese" width="1763" />
@@ -597,8 +596,8 @@ Figure 7.9: LATIPAT for patent texts in Spanish and Portugese
 </p>
 </div>
 </div>
-<div id="epo-open-patent-services" class="section level3" number="7.1.5">
-<h3><span class="header-section-number">7.1.5</span> <a href="http://www.epo.org/searching/free/ops.html">EPO Open Patent Services</a></h3>
+<div id="epo-open-patent-services" class="section level3 hasAnchor" number="7.1.5">
+<h3><span class="header-section-number">7.1.5</span> <a href="https://www.epo.org/searching-for-patents/data/web-services/ops.html">EPO Open Patent Services</a><a href="databases.html#epo-open-patent-services" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Access patent data through the EPO Application Programming Interface (API) free of charge (Figure <a href="databases.html#fig:fig4ops">7.10</a>. Requires programming knowledge.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig4ops"></span>
 <img src="images/databases/espacenet/fig4ops.png" alt="EPO Open Patent Services for programmatic access to EPO data" width="1614" />
@@ -610,13 +609,13 @@ Figure 7.10: EPO Open Patent Services for programmatic access to EPO data
 <!---TO DO. Add more details on the service and also show the developers area. Very unclear who--->
 <!---![](images/tools/OPS_Developer_Portal.png)--->
 </div>
-<div id="uspto-patents-view" class="section level3" number="7.1.6">
-<h3><span class="header-section-number">7.1.6</span> <a href="http://www.patentsview.org/web/">USPTO Patents View</a></h3>
+<div id="uspto-patents-view" class="section level3 hasAnchor" number="7.1.6">
+<h3><span class="header-section-number">7.1.6</span> <a href="http://www.patentsview.org">USPTO Patents View</a><a href="databases.html#uspto-patents-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <a href="http://patft.uspto.gov">USPTO main database search page</a> can reasonably be described as well… old. In 2016 the USPTO team initiated an <a href="http://www.uspto.gov/learning-and-resources/open-data-and-mobility">Open Data and Mobility initiative</a> that opens up USPTO patent and trademark data. The new <a href="https://developer.uspto.gov">Open Date Portal</a> is still in Beta but provides an insight into things to come.</p>
-<p>As part of the shift to open data the USPTO has established an external <a href="http://www.patentsview.org/web/">Patents View</a> for free searches and <a href="http://www.patentsview.org/download/">bulk downloads</a>. If simple searching does not meet your needs, or the bulk options are too overwhelming, then <a href="http://www.patentsview.org/api/doc.html">the new JSON API service</a> is likely to meet your needs. The services are still in beta but this is a very exciting development for those who need greater levels of access to patent data or access to specific data fields.</p>
+<p>As part of the shift to open data the USPTO has established an external <a href="http://www.patentsview.org">Patents View</a> for free searches and <a href="http://www.patentsview.org/download/">bulk downloads</a>. If simple searching does not meet your needs, or the bulk options are too overwhelming, then <a href="http://www.patentsview.org/api/doc.html">the new JSON API service</a> is likely to meet your needs. The services are still in beta but this is a very exciting development for those who need greater levels of access to patent data or access to specific data fields.</p>
 </div>
-<div id="google-patents" class="section level3" number="7.1.7">
-<h3><span class="header-section-number">7.1.7</span> <a href="http://www.google.com/patents">Google Patents</a></h3>
+<div id="google-patents" class="section level3 hasAnchor" number="7.1.7">
+<h3><span class="header-section-number">7.1.7</span> <a href="http://www.google.com/patents">Google Patents</a><a href="databases.html#google-patents" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <!---updated 2021-12-29--->
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:googlepatents"></span>
 <img src="images/databases/Google%20Patents%202021-12-29%2009-35-39.png" alt="Google Patents" width="1654" />
@@ -627,10 +626,10 @@ Figure 7.11: Google Patents
 <p>The <a href="https://developers.google.com/patent-search/terms">Google Patent Search API</a> has been deprecated. Access through the Google Custom Search API with the API flag for patents <a href="http://stackoverflow.com/questions/15028166/python-module-for-searching-patent-databases-ie-uspto-or-epo">reported</a> to be <code>&amp;tbm=pts</code> with example code for using the API in Python.</p>
 <p>In the free version of the Google Custom Search API data retrieval is limited and the patent field headings are unclear (that is, they use non-standard names). For free patent analytics, Google Custom Search is presently of very limited use.</p>
 </div>
-<div id="uspto-bulk-downloads" class="section level3" number="7.1.8">
-<h3><span class="header-section-number">7.1.8</span> <a href="https://www.google.com/googlebooks/uspto.html">USPTO Bulk Downloads</a></h3>
+<div id="uspto-bulk-downloads" class="section level3 hasAnchor" number="7.1.8">
+<h3><span class="header-section-number">7.1.8</span> <a href="https://www.google.com/googlebooks/uspto.html">USPTO Bulk Downloads</a><a href="databases.html#uspto-bulk-downloads" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <a href="http://patft.uspto.gov">USPTO patent database interface</a> is archaic. However, a lot has been happening at the USPTO to make patent data more accessible in a range of formats to enable wider use.</p>
-<p>For patent analytics we recommend the <a href="https://patentsview.org/apis/purpose">PatentsView API</a> for regular lightweight use and the <a href="https://patentsview.org/download/data-download-tables">PatentsView Data Download</a> for heavier duty users. The PatentsView Data Download is an excellent resource because it offers the complete US patent collection in data tables that can easily be joined or text mined.</p>
+<p>For patent analytics we recommend the <a href="https://patentsview.org/apis/api-endpoints">PatentsView API</a> for regular lightweight use and the <a href="https://patentsview.org/download/data-download-tables">PatentsView Data Download</a> for heavier duty users. The PatentsView Data Download is an excellent resource because it offers the complete US patent collection in data tables that can easily be joined or text mined.</p>
 <p>In addition to PatentsView the USPTO also offers a bulk download service for the raw html files from the USPTO Patent Gazette.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:usptobulk"></span>
 <img src="images/databases/USPTO%202021-12-29%2009-59-21.png" alt="USPTO Bulk Patent Data" width="1618" />
@@ -640,8 +639,8 @@ Figure 7.12: USPTO Bulk Patent Data
 </div>
 <p>It is unclear what exactly you might want to do with this and it could take a lot of work to parse but we include it for the sake of completeness. One possible use would be to check legal status issues such as the payment of payment renewal fees. We suspect that this type of use will be more relevant to companies for whom up to date information is of critical importance. Regular users will probably prefer other sources of the same data even if it is less timely.</p>
 </div>
-<div id="free-patents-online" class="section level3" number="7.1.9">
-<h3><span class="header-section-number">7.1.9</span> <a href="http://www.freepatentsonline.com">Free Patents Online</a></h3>
+<div id="free-patents-online" class="section level3 hasAnchor" number="7.1.9">
+<h3><span class="header-section-number">7.1.9</span> <a href="http://www.freepatentsonline.com">Free Patents Online</a><a href="databases.html#free-patents-online" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Sign up for a free account for enhanced access and to save and download data. It has been around quite a while now and while the download options are limited we rather like it.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:freepatentsonline"></span>
 <img src="images/databases/FPO%202021-12-29%2010-01-37.png" alt="Free Patents Online" width="1618" />
@@ -650,8 +649,8 @@ Figure 7.13: Free Patents Online
 </p>
 </div>
 </div>
-<div id="depatisnet" class="section level3" number="7.1.10">
-<h3><span class="header-section-number">7.1.10</span> <a href="https://www.dpma.de/english/search/depatisnet/index.html">DEPATISnet</a></h3>
+<div id="depatisnet" class="section level3 hasAnchor" number="7.1.10">
+<h3><span class="header-section-number">7.1.10</span> <a href="https://www.dpma.de/english/search/depatisnet/index.html">DEPATISnet</a><a href="databases.html#depatisnet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We are not covering national databases. However, the patent database of the German Patent and Trademark Office struck us as potentially very useful. It allows for searches in English and German and has extensive coverage of international patent data, including the China, EP, US and PCT collections. Worth experimenting with.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:depatisnet"></span>
 <img src="images/databases/DEPATISnet%202021-12-29%2010-03-19.png" alt="German Patent and Trademark Office Database" width="1511" />
@@ -660,8 +659,8 @@ Figure 7.14: German Patent and Trademark Office Database
 </p>
 </div>
 </div>
-<div id="oecd-patent-databases-resources" class="section level3" number="7.1.11">
-<h3><span class="header-section-number">7.1.11</span> <a href="https://www.oecd.org/sti/inno/intellectual-property-statistics-and-analysis.htm">OECD Patent Databases &amp; Resources</a></h3>
+<div id="oecd-patent-databases-resources" class="section level3 hasAnchor" number="7.1.11">
+<h3><span class="header-section-number">7.1.11</span> <a href="https://www.oecd.org/sti/inno/intellectual-property-statistics-and-analysis.htm">OECD Patent Databases &amp; Resources</a><a href="databases.html#oecd-patent-databases-resources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One that is more for patent statisticians and particularly important for methodologies and understanding patent data. The OECD has invested a lot of effort in developing patent indicators and resources including citations, the Harmonised Applicants names database <em>HAN database</em> and mapping through the <em>REGPAT database</em> among other resources that are available free of charge. The OECD datasets are linked to PATSTAT and are accessible free of charge by filling out a <a href="https://forms.office.com/r/1tUjVJUdu6">short form</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:oecd"></span>
 <img src="images/databases/OECD%202021-12-29%2010-10-35.png" alt="The OECD IP Portal" width="1511" />
@@ -671,8 +670,8 @@ Figure 7.15: The OECD IP Portal
 </div>
 <p>Along the same lines the US National Bureau of Economic Research <a href="http://www.nber.org/patents/">NBER US Patent Citations Data File</a> is an important resource. NBER patent data resources are accessible as part of the suite of data at <a href="https://patentsview.org/download/data-download-tables">PatentsView</a>, notably the NBER patent category and subcategory classification files.</p>
 </div>
-<div id="epo-world-patent-statistical-database" class="section level3" number="7.1.12">
-<h3><span class="header-section-number">7.1.12</span> <a href="https://www.epo.org/searching-for-patents/business/patstat.html">EPO World Patent Statistical Database</a></h3>
+<div id="epo-world-patent-statistical-database" class="section level3 hasAnchor" number="7.1.12">
+<h3><span class="header-section-number">7.1.12</span> <a href="https://www.epo.org/searching-for-patents/business/patstat.html">EPO World Patent Statistical Database</a><a href="databases.html#epo-world-patent-statistical-database" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The most important database for statistical use is the EPO World Patent Statistical Database (PATSTAT) and contains around 90 million records. PATSTAT is not free and costs 1250 Euro for a year (two editions) or 630 Euro for a single edition. The main barrier to using PATSTAT is the need to run and maintain a +200 Gigabyte database. However, there is also an online version of PATSTAT that is free for the first two months if you wish to try it by signing up for the trial (knowledge of SQL required).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:patstat"></span>
 <img src="images/databases/PATSTAT-2021-12-29%2010-30-56.png" alt="EPO Patstat Portal" width="1684" />
@@ -682,10 +681,10 @@ Figure 7.16: EPO Patstat Portal
 </div>
 <p>For users seeking to load PATSTAT into a MySQL database Simone Mainardi provides the following <a href="https://github.com/simonemainardi/load_patstat">code on Github</a> while Gianluca Tarasconi also provides scripts through the <a href="https://rawpatentdata.blogspot.com/search/label/patstat">raw patent blog</a>. Note that, as a result of the pandemic, members of the patent analytics community may not have posted the latest scripts. However, the PATSTAT team includes</p>
 </div>
-<div id="other-data-sources" class="section level3" number="7.1.13">
-<h3><span class="header-section-number">7.1.13</span> Other data sources</h3>
-<p>A number of companies provide access to patent data, typically with tiered access depending on your needs and budget. Examples include <a href="https://www.lens.org/">The Lens</a>, <a href="https://clarivate.com/derwent/solutions/derwent-innovation/">Derwent Innovation</a>, <a href="https://www.patsnap.com/">PatSnap</a>, <a href="https://www.patsnap.com/">Dimensions</a>, <a href="https://www.questel.com/business-intelligence-software/orbit-intelligence/">Questel Orbit</a>, <a href="http://www.stn-international.de/index.php?id=123">STN</a>, and <a href="https://www.patbase.com/login.asp">PatBase</a>. We will not be focusing on these services but we will look at the use of data tools to work with data from services such as Derwent Innovation.</p>
-<p>For more information on free and commercial data providers try the excellent <a href="http://www.piug.org">Patent Information User Group</a> and its list of <a href="http://wiki.piug.org/display/PIUG/Patent+Databases">Patent Databases</a> from Tom Wolff and Robert Austin.</p>
+<div id="other-data-sources" class="section level3 hasAnchor" number="7.1.13">
+<h3><span class="header-section-number">7.1.13</span> Other data sources<a href="databases.html#other-data-sources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A number of companies provide access to patent data, typically with tiered access depending on your needs and budget. Examples include <a href="https://www.lens.org/">The Lens</a>, <a href="https://clarivate.com/derwent/solutions/derwent-innovation/">Derwent Innovation</a>, <a href="https://www.patsnap.com/">PatSnap</a>, <a href="https://www.patsnap.com/">Dimensions</a>, <a href="https://www.questel.com/ip-intelligence-software/orbit-intelligence">Questel Orbit</a>, <a href="http://www.stn-international.de/index.php?id=123">STN</a>, and <a href="https://www.patbase.com/login.asp">PatBase</a>. We will not be focusing on these services but we will look at the use of data tools to work with data from services such as Derwent Innovation.</p>
+<p>For more information on free and commercial data providers try the excellent <a href="http://www.piug.org">Patent Information User Group</a> and its list of <a href="https://www.piug.org/vendors/#Database_Producers">Patent Databases</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:piug"></span>
 <img src="images/databases/PIUG-2021-12-29%2011-05-31.png" alt="Patent Information User Group" width="1684" />
 <p class="caption">
@@ -694,11 +693,11 @@ Figure 7.17: Patent Information User Group
 </div>
 </div>
 </div>
-<div id="tools-for-accessing-patent-data" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Tools for Accessing Patent Data</h2>
+<div id="tools-for-accessing-patent-data" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Tools for Accessing Patent Data<a href="databases.html#tools-for-accessing-patent-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In closing this chapter we will highlight a couple of tools for accessing patent data, typically using APIs and Python. We will come back to this later and are working to try this approach in R.</p>
-<div id="patent2net-in-python" class="section level3" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> <a href="https://github.com/Patent2net/Patent2Net">Patent2Net</a> in Python</h3>
+<div id="patent2net-in-python" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> <a href="https://github.com/Patent2net/Patent2Net">Patent2Net</a> in Python<a href="databases.html#patent2net-in-python" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A Python based tool to access and process the data from the European Patent Office OPS service.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:patent2net"></span>
 <img src="images/databases/Patent2Net-2021-12-29%2011-09-49.png" alt="Patent2Net" width="1496" />
@@ -707,8 +706,8 @@ Figure 7.18: Patent2Net
 </p>
 </div>
 </div>
-<div id="python-epo-ops-client-by-gsong" class="section level3" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> <a href="https://github.com/55minutes/python-epo-ops-client">Python EPO OPS Client</a> by Gsong</h3>
+<div id="python-epo-ops-client-by-gsong" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> <a href="https://github.com/55minutes/python-epo-ops-client">Python EPO OPS Client</a> by Gsong<a href="databases.html#python-epo-ops-client-by-gsong" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A Python client for OPS access developed by Gsong and freely available on GitHub. Used in Patent2Net above.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pythonepo"></span>
 <img src="images/databases/python-epo-ops-client%20%C2%B7%20PyPI%202021-12-29%2011-14-42.png" alt="Python Client for the EPO OPS Service" width="1838" />
@@ -718,8 +717,8 @@ Figure 7.19: Python Client for the EPO OPS Service
 </div>
 </div>
 </div>
-<div id="round-up-3" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Round Up</h2>
+<div id="round-up-3" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Round Up<a href="databases.html#round-up-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One problem that has confronted patent analysts for many years is access to data in a form that is suitable for more detailed analysis. In the six years between the creation of the first edition of this Manual and the second edition the situation has changed quite dramatically. On the one hand data providers such as the Lens allow users to download 50,000 records at a time. On the other hand the USPTO through <a href="https://patentsview.org/download/data-download-tables">PatentsView</a> and the EPO through its <a href="https://www.epo.org/searching-for-patents/data/bulk-data-sets/text-analytics.html">text analysis service</a> have made access to patent full texts quite straightforward for those who are prepared to invest some of their time in acquiring programming skills. As patent data becomes more readily available for analysis attention is inevitably turning to topics such as machine learning to work with data at scale, such as the open source <a href="https://github.com/cverluise/PatCit">PatCit initiative</a> for patent citations. However, before addressing these more complex topics it is important to focus on the fundamentals of patent analytics. In the next two chapters we provide practical walkthroughs with two patent databases before turning to the use of analytics tools.</p>
 
 </div>
@@ -790,7 +789,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>The WIPO Manual on Open Source Patent Analytics (2nd edition)</title>
   <meta name="description" content="A practical introduction to free and open source tools for patent analytics." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="The WIPO Manual on Open Source Patent Analytics (2nd edition)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical introduction to free and open source tools for patent analytics." />
   <meta name="github-repo" content="wipo-analytics/manual_bookdown" />
@@ -32,7 +31,6 @@
   
 
 <link rel="next" href="preface.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -472,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.19" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#arranging-the-data"><i class="fa fa-check"></i><b>15.19</b> Arranging the Data</a></li>
 <li class="chapter" data-level="15.20" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#dealing-with-duplicates"><i class="fa fa-check"></i><b>15.20</b> Dealing with Duplicates</a>
 <ul>
-<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#spreading-data-using-spread-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Spreading data using <code>spread()</code> from <code>tidyr</code></a></li>
+<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#pivoting-data-using-pivot_wider-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Pivoting data using <code>pivot_wider()</code> from <code>tidyr</code></a></li>
 <li class="chapter" data-level="15.20.2" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#deleting-duplicates"><i class="fa fa-check"></i><b>15.20.2</b> Deleting Duplicates</a></li>
 </ul></li>
 <li class="chapter" data-level="15.21" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#restricting-searches-by-section"><i class="fa fa-check"></i><b>15.21</b> Restricting searches by section</a></li>
@@ -514,11 +513,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title">The WIPO Manual on Open Source Patent Analytics (2nd edition)</h1>
 <p class="date"><em>2022</em></p>
 </div>
-<div id="frontmatter" class="section level1 unnumbered">
-<h1>Frontmatter</h1>
-<div id="authorship" class="section level2" number="0.1">
-<h2><span class="header-section-number">0.1</span> Authorship</h2>
-<p>The 2nd edition of the Manual on Open Source Patent Analytics was written by Dr. Paul Oldham from the <a href="https://www.mioir.manchester.ac.uk/">Manchester Institute of Innovation Research at Manchester University</a> and <a href="http://oneworldanalytics.com/">One World Analytics</a> with Chapter contributions from Enric Escorsa (WIPO) and with contributions from and under the coordination of Ms. Irene Kitsara (<a href="http://www.wipo.int/portal/en/index.html">WIPO</a>).</p>
+<div id="frontmatter" class="section level1 unnumbered hasAnchor">
+<h1>Frontmatter<a href="index.html#frontmatter" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="authorship" class="section level2 hasAnchor" number="0.1">
+<h2><span class="header-section-number">0.1</span> Authorship<a href="index.html#authorship" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The 2nd edition of the Manual on Open Source Patent Analytics was written by Dr. Paul Oldham from the <a href="https://www.mioir.manchester.ac.uk/">Manchester Institute of Innovation Research at Manchester University</a> and <a href="http://oneworldanalytics.com/">One World Analytics</a> under the coordination of Ms. Irene Kitsara (<a href="http://www.wipo.int/portal/en/index.html">WIPO</a>).</p>
 </div>
 </div>
             </section>
@@ -587,7 +586,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

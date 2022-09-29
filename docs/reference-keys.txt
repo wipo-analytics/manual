@@ -72,7 +72,7 @@ fig:tinventors
 fig:tipc
 fig:tresize
 fig:tfitwidth
-fig:tableauddash
+fig:tableaudash
 fig:tsave
 fig:tonline
 fig:tdetails
@@ -318,7 +318,7 @@ add-a-count
 remove-a-column
 arranging-the-data
 dealing-with-duplicates
-spreading-data-using-spread-from-tidyr
+pivoting-data-using-pivot_wider-from-tidyr
 deleting-duplicates
 restricting-searches-by-section
 by-author

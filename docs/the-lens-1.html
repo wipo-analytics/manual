@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 The Lens | The WIPO Manual on Open Source Patent Analytics (2nd edition)</title>
   <meta name="description" content="A practical introduction to free and open source tools for patent analytics." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 The Lens | The WIPO Manual on Open Source Patent Analytics (2nd edition)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical introduction to free and open source tools for patent analytics." />
   <meta name="github-repo" content="wipo-analytics/manual_bookdown" />
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="patentscope-1.html"/>
 <link rel="next" href="open-refine.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -472,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.19" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#arranging-the-data"><i class="fa fa-check"></i><b>15.19</b> Arranging the Data</a></li>
 <li class="chapter" data-level="15.20" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#dealing-with-duplicates"><i class="fa fa-check"></i><b>15.20</b> Dealing with Duplicates</a>
 <ul>
-<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#spreading-data-using-spread-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Spreading data using <code>spread()</code> from <code>tidyr</code></a></li>
+<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#pivoting-data-using-pivot_wider-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Pivoting data using <code>pivot_wider()</code> from <code>tidyr</code></a></li>
 <li class="chapter" data-level="15.20.2" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#deleting-duplicates"><i class="fa fa-check"></i><b>15.20.2</b> Deleting Duplicates</a></li>
 </ul></li>
 <li class="chapter" data-level="15.21" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#restricting-searches-by-section"><i class="fa fa-check"></i><b>15.21</b> Restricting searches by section</a></li>
@@ -510,17 +509,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-lens-1" class="section level1" number="9">
-<h1><span class="header-section-number">Chapter 9</span> The Lens</h1>
-<div id="introduction-3" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<div id="the-lens-1" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> The Lens<a href="the-lens-1.html#the-lens-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!--- last spell checked 2022-09-29--->
+<div id="introduction-3" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Introduction<a href="the-lens-1.html#introduction-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this chapter we provide a brief introduction to <a href="https://www.lens.org/lens/">The Lens</a> database as a free source of data for patent analytics.</p>
 <p>In the period between the first edition of this Manual in 2015 and this second edition the Lens has become the standout choice for patent analytics purposes across both free and commercial service providers. Over this period the Lens has increased coverage of the scientific literature to over 200 million records and patent records to 136 million records. In an important breakthrough the team at the Lens have also cross mapped citations between the scientific and the patent literature. As a result, and for the first time, it is possible to easily move from the scientific literature into the patent literature and from the patent literature into the citing literature. In 2020 the Lens also released Application Programming Interfaces (APIs) for the scientific literature (Scholarly API) and the patent literature (Patent API). This means that with programming knowledge it is now possible to automate search, retrieval and analysis of the scientific and patent literature.</p>
 <p>The pioneering improvements in the integration of the scientific and patent literature have also been accompanied by a change in business model. Whereas all Lens services were formerly free, the demands of sustaining the services mean that the non-profit Cambia is increasingly pushing towards paid services. Services remain free for individuals and those at what are called ‘public good institutions’ whose work can be described as non-profit while those who make professional use of the services (as lawyers, consultants or organisations) are expected to pay fees ranging from US$1,000 to US$5,000 per year for use of the main interface. Value added services such as the Application Programming Interfaces or bulk access to patent sequence or the scientific literature attract additional subscription fees. It remains to be seen how this transformation in business model will work out both for users and for Cambia.</p>
 <p>The patent analytics team at WIPO has made regular use of the Lens in patent analytics training workshops that have been run around the world. The Lens is a very valuable and accessible tool for learning patent analytics and we encourage readers to try it out.</p>
 </div>
-<div id="getting-started" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Getting Started</h2>
+<div id="getting-started" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Getting Started<a href="the-lens-1.html#getting-started" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To get the most out of the Lens the first step is to sign up for an account from the front page. There is an expectation that you will use your official email address, e.g., university or non-profit organisation or company. After signing up and logging in you will be asked to confirm if you are a non-profit or professional user (professional users will be expected to pay the subscription fee).</p>
 <p>You can use the Lens without signing up for an account to search for and download records. However, your ability to download records will be limited to 1000 records (rather than 50,000) and you will not be able to save collections or search queries for later use.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lens1"></span>
@@ -537,7 +537,7 @@ Figure 9.2: Lens Structured Search
 </p>
 </div>
 <p>As we can see we can use boolean queries, for searching a range of fields including the full text, title, abstract or claims (a major plus). We can also select one or multiple jurisdictions. In addition the results can be refined to patent applications or grants, and there are options for full text or one doc per family (which greatly reduces the number of results).</p>
-<p>We used our standard query “pizza”, all jurisdictions with stemming turned stemming off (see Figure <a href="the-lens-1.html#fig:lens2">9.2</a>. The raw results are displayed in Figure <a href="#fig:"><strong>??</strong></a>.</p>
+<p>We used our standard query “pizza”, all jurisdictions with stemming turned stemming off (see Figure <a href="the-lens-1.html#fig:lens2">9.2</a>. The raw results are displayed in Figure <a href="the-lens-1.html#fig:lens3">9.3</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lens3"></span>
 <img src="images/lens/2021/Screenshot%202021-12-30%20at%2016.19.03.png" alt="Lens Raw Results" width="1730" />
 <p class="caption">
@@ -570,7 +570,7 @@ Figure 9.5: Create Collection
 <li>Choose whether to make a collection dynamic. This means that your search criteria will be preserved and an update email will be sent when new records are added. This is a very powerful feature if you work on the same topic(s) over time and works very well. Emails are only sent when new records are added;</li>
 <li>You are now able to add images as avatars for collections.</li>
 </ul>
-<p>When creating a collection remember to add a description of the search strategy that was used and what is in the collection. This will assist others in undestanding what the data set is and “future you” in understanding why you created the collection.</p>
+<p>When creating a collection remember to add a description of the search strategy that was used and what is in the collection. This will assist others in understanding what the data set is and “future you” in understanding why you created the collection.</p>
 <p>For researchers, lens collections can be a very good way of sharing the results of research with the wider research community in a public way. An alternative use is to share collections with collaborators for review before publication or in the case of private sector work to share collections with co-workers or clients as part of a project. As such collections are an important feature of the Lens. <!--- insert example of the Antarctica dataset---></p>
 <p>An example of a public Lens collection with patent data is provided by Paul Oldham in a research project on innovation in polar regions. The full datasets created by the project are documented in a repository from the <a href="https://osf.io/py6ve/wiki/home/">Open Science Foundation</a> and a paper called “Biodiversity and Innovation in Antarctica and the Southern Ocean” was made available as a preprint that analyses the data on <a href="https://doi.org/10.1101/2020.05.03.074849">BioArxiv</a>. The Lens <a href="https://www.lens.org/lens/search/patent/list?collectionId=179814&amp;p=0&amp;n=10&amp;l=EN">raw patent collection</a> was included in the documentation and can be seen in Figure <a href="the-lens-1.html#fig:antarctica">9.6</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:antarctica"></span>
@@ -580,15 +580,15 @@ Figure 9.6: Create Collection
 </p>
 </div>
 <p>As this example suggests, the Lens can be a very powerful way of sharing data with wider audiences. These collections can also endure over long periods. For example, the pizza dataset created for the first edition of this manual in 2016 can still be access at <a href="https://www.lens.org/lens/collection/9606">https://www.lens.org/lens/collection/9606</a>. At that time it was not possible to create dynamic collections that would automatically update over time.</p>
-<p>Note that in addition to creating collections of results we also recommend that you save your queries using the button next to Create Collection on the Lens with a description of the search and when it was conducted as we see in Figure <a href="#fig:"><strong>??</strong></a></p>
+<p>Note that in addition to creating collections of results we also recommend that you save your queries using the button next to Create Collection on the Lens with a description of the search and when it was conducted as we see in Figure <a href="the-lens-1.html#fig:savequery">9.7</a></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:savequery"></span>
 <img src="images/lens/2021/Screenshot%202021-12-30%20at%2017.06.39.png" alt="Create Collection" width="1666" />
 <p class="caption">
 Figure 9.7: Create Collection
 </p>
 </div>
-<div id="lens-analysis-tools" class="section level3" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> Lens Analysis Tools</h3>
+<div id="lens-analysis-tools" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Lens Analysis Tools<a href="the-lens-1.html#lens-analysis-tools" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Lens also include a set of dynamic analysis tools that appear on the right hand side of the Screen that are accessible by clicking <code>Analysis</code> as we see in Figure <a href="the-lens-1.html#fig:lensanalysis">9.8</a>. These are standard visualisations of trends and rankings that are autogenerated at the time of search. The visuals can be edited and exported as images for use in reports. If using these images remember to credit the Lens in accordance with the terms of use.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lensanalysis"></span>
 <img src="images/lens/2021/Screenshot%202021-12-30%20at%2017.12.06.png" alt="Analysis Tab Visualisations" width="1666" />
@@ -599,8 +599,8 @@ Figure 9.8: Analysis Tab Visualisations
 <p>A range of dynamically generated visualisations are available such as the rankings of applicants, inventors and technology areas. It is also possible to drill into these visualisations to refine your data (for example to focus on a specific applicant or a technology areas such as pizza boxes for the musical pizza box that you have recently invented). As such, the analysis panel can be a useful tool for data exploration as part of the process of considering how to refine your search strategy or filter the data.</p>
 <p>It is important to emphasise that the analysis visualisations in the Lens should be treated as <code>raw</code>, that is, they do not necessarily accurately reflect rankings on issues such as applicant and inventor activity. Some areas of patent data require considerable work to clean up and the results of automated analysis (in the absence of detailed information on any clean up methods that have been applied) should only ever be treated as raw. Nevertheless, we would emphasise that these visualisations are a valuable exploratory device and can be used in raw form to inform discussions on potential areas for further exploration.</p>
 </div>
-<div id="exporting-patent-data" class="section level3" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> Exporting Patent Data</h3>
+<div id="exporting-patent-data" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Exporting Patent Data<a href="the-lens-1.html#exporting-patent-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Data can be exported either directly from the search the search results page or from the collections page. Note that you must be logged in to export more than 1,000 records.</p>
 <p>When we select the export button we will be presented with a choice on the number of records to export and whether to export in JSON (for programmatic use), RIS for bibliographic software or .csv for use in tools such as Excel or other programmes. In general you will want to use the .csv format. In addition you can also select the fields that you want to export. Note here that Lens exports include both the patent title and abstract, priority data and family data (fuller data can be exported using the patent API). It can be useful to give the file a name if you are exporting multiple datasets or it can become confusing. Where the datasets are quite large the dataset will be emailed in a zipped file.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lensexport"></span>
@@ -617,8 +617,8 @@ Figure 9.10: Exporting Data
 </p>
 </div>
 </div>
-<div id="going-further-with-citations" class="section level3" number="9.2.3">
-<h3><span class="header-section-number">9.2.3</span> Going Further with Citations</h3>
+<div id="going-further-with-citations" class="section level3 hasAnchor" number="9.2.3">
+<h3><span class="header-section-number">9.2.3</span> Going Further with Citations<a href="the-lens-1.html#going-further-with-citations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As mentioned above, an important innovation at the Lens was linking the scientific and the patent literature collections through citations. We can see the impact of this if we conduct a simple patent search for CRISPR (for gene editing technology) as displayed in Figure <a href="the-lens-1.html#fig:citation">9.11</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:citation"></span>
 <img src="images/lens/2021/Screenshot%202021-12-30%20at%2018.05.15.png" alt="Raw Patent Data for CRISPR Gene editing technology" width="1633" />
@@ -627,7 +627,7 @@ Figure 9.11: Raw Patent Data for CRISPR Gene editing technology
 </p>
 </div>
 <p>We have ranked these results using the filters menu and have chosen <code>Cited By Patent Count</code>. This helps us to identify patent documents that have had the greatest impact in the technology space (in this case in terms of the impact on what is claimed in later filings). As we might expect, a filing by Nobel Prize winner Jennifer Doudna as the original developer of CRISPR Cas-9 technology appears at the top of this list.</p>
-<p>However, we can also navigate into the scientific literature that is informing the development of gene editing technology by looking at the tab for “Cited Works” as dispayed in Figure <a href="the-lens-1.html#fig:scholcitation">9.12</a>.</p>
+<p>However, we can also navigate into the scientific literature that is informing the development of gene editing technology by looking at the tab for “Cited Works” as displayed in Figure <a href="the-lens-1.html#fig:scholcitation">9.12</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:scholcitation"></span>
 <img src="images/lens/2021/Screenshot%202021-12-30%20at%2018.11.25.png" alt="Identifying Articles Cited in Patent Documents" width="1633" />
 <p class="caption">
@@ -645,8 +645,8 @@ Figure 9.13: Exploring Patents Citing the Scientific literature for CRISPR
 </div>
 </div>
 </div>
-<div id="working-with-texts" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> Working with texts</h2>
+<div id="working-with-texts" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Working with texts<a href="the-lens-1.html#working-with-texts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In common with other free databases, the Lens is not designed to allow downloads of multiple full texts (although this is possible using the new patent API). However, you can access the full text of documents, including .pdf files, and you can make notes that will be stored with a collection in your account. The image below provides an example of our ongoing efforts to understand why Google is so dominant in the results of searches for pizza in patent documents. We won’t provide the answer but Figure <a href="the-lens-1.html#fig:googletexts">9.14</a> illustrates that we can search the different sections of patent documents to find out.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:googletexts"></span>
 <img src="images/lens/2021/Screenshot%202021-12-30%20at%2018.31.46.png" alt="Exploring Google's Interest in Pizza" width="1633" />
@@ -655,9 +655,9 @@ Figure 9.14: Exploring Google’s Interest in Pizza
 </p>
 </div>
 </div>
-<div id="patseq" class="section level2" number="9.4">
-<h2><span class="header-section-number">9.4</span> PatSeq</h2>
-<p>One important focus of the development of the Lens has been DNA sequence data including an <a href="https://www.lens.org/about/">ongoing series of articles</a> on the interpretation and significance of sequence data in patent activity.</p>
+<div id="patseq" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> PatSeq<a href="the-lens-1.html#patseq" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One important focus of the development of the Lens has been <a href="https://www.lens.org/lens/bio">DNA sequence data</a> including a series of articles on the interpretation and significance of sequence data in patent activity.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:patseq"></span>
 <img src="images/lens/2021/Screenshot%202021-12-30%20at%2018.34.31.png" alt="PatSeq Service" width="1633" />
 <p class="caption">
@@ -687,15 +687,16 @@ Figure 9.17: Explore Patent Activity for the Human Genome
 </div>
 <p>This is an area where researchers with <a href="http://www.cambia.org/daisy/cambia/home.html">Cambia</a>, the non-profit organisation behind the Lens, have invested considerable effort and it is well worth reading the research articles listed on the Cambia and Lens websites on this topic. <a href="https://www.lens.org/lens/bio/patseqanalyzer#/psa/homo_sapiens/latest/chromosome/13/32871517-32955711">PatSeq Analyzer</a> is closely related to the Explorer and presently provides details on the genomes mentioned above with a detailed summary of sequences by document including the region, sequence, transcript, single nucleotide polymorphisms (SNPs) and grants with sequences in the patent claims.</p>
 </div>
-<div id="round-up-5" class="section level2" number="9.5">
-<h2><span class="header-section-number">9.5</span> Round Up</h2>
-<p>In recent years the Lens has become the leading open access database for the scholarly and patent literature. The ability to search hundreds of millions of scientific and patent publications free of charge, to share datasets publicly or privately and, depending on the status of the user, to download up to 50,000 records at a time free of charge cannot be rivalled by any other provider. The Lens Scholarly and Patent APIs are also powerful tools for researchers and professionals.</p>
+<div id="round-up-5" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Round Up<a href="the-lens-1.html#round-up-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In recent years the Lens has become the leading open access database for the scholarly and patent literature. The ability to search hundreds of millions of scientific and patent publications free of charge, to share datasets publicly or privately and, depending on the status of the user, to download up to 50,000 records at a time free of charge cannot be rivalled by any other provider. The Lens Scholarly and Patent APIs are also very powerful tools for researchers and professionals.</p>
 
 </div>
 </div>
 
 
 
+</div>
             </section>
 
           </div>
@@ -762,7 +763,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

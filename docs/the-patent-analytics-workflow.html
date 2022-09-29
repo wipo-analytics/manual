@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 The Patent Analytics Workflow | The WIPO Manual on Open Source Patent Analytics (2nd edition)</title>
   <meta name="description" content="A practical introduction to free and open source tools for patent analytics." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 The Patent Analytics Workflow | The WIPO Manual on Open Source Patent Analytics (2nd edition)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical introduction to free and open source tools for patent analytics." />
   <meta name="github-repo" content="wipo-analytics/manual_bookdown" />
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="introduction.html"/>
 <link rel="next" href="an-overview-of-tools.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -472,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.19" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#arranging-the-data"><i class="fa fa-check"></i><b>15.19</b> Arranging the Data</a></li>
 <li class="chapter" data-level="15.20" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#dealing-with-duplicates"><i class="fa fa-check"></i><b>15.20</b> Dealing with Duplicates</a>
 <ul>
-<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#spreading-data-using-spread-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Spreading data using <code>spread()</code> from <code>tidyr</code></a></li>
+<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#pivoting-data-using-pivot_wider-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Pivoting data using <code>pivot_wider()</code> from <code>tidyr</code></a></li>
 <li class="chapter" data-level="15.20.2" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#deleting-duplicates"><i class="fa fa-check"></i><b>15.20.2</b> Deleting Duplicates</a></li>
 </ul></li>
 <li class="chapter" data-level="15.21" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#restricting-searches-by-section"><i class="fa fa-check"></i><b>15.21</b> Restricting searches by section</a></li>
@@ -510,8 +509,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-patent-analytics-workflow" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> The Patent Analytics Workflow</h1>
+<div id="the-patent-analytics-workflow" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> The Patent Analytics Workflow<a href="the-patent-analytics-workflow.html#the-patent-analytics-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!--- last spell checked 2022-09-29--->
 <p>When starting out in patent analytics it is tempting to think of patent analytics as involving three steps:</p>
 <ul>
 <li>Searching a database</li>
@@ -528,25 +528,25 @@ Figure 3.1: The Patent Analytics Workflow
 </p>
 </div>
 <p>This workflow has proven to be very robust as a practical guide to actually conducting patent analytics. We will go through the main steps below. The remainder of the Manual itself is organised to provide a practical introduction to tools for carrying out this workflow. We will briefly discuss each component of the workflow.</p>
-<div id="scoping-search" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Scoping Search</h2>
+<div id="scoping-search" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Scoping Search<a href="the-patent-analytics-workflow.html#scoping-search" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Patent analytics starts by conducting a scoping search. A scoping search can be carried out using either a database of the scientific literature, a patent database or both.</p>
 <p>The aim of a scoping search is to get a basic grip on the subject matter at hand. In this case, and at various points in this Manual, we will be focusing on drone technology. For the purpose of the scoping search we start with the simple term drone or drones as the search terms.</p>
 <p>At this stage we are carrying out a basic inspection of the results for our search terms and trying to gain insights into how we might want to refine our search terms. For example the term “drone” has multiple uses in the scientific and the patent literature. We want to identify what those uses are.</p>
 </div>
-<div id="exploratory-data-visualisation" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Exploratory data visualisation</h2>
+<div id="exploratory-data-visualisation" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Exploratory data visualisation<a href="the-patent-analytics-workflow.html#exploratory-data-visualisation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We will normally want to refine our search terms based on our inspection of the results. For example, for drone technology we will probably want to include the terms “Unmanned Aerial Vehicle” and a host of other terms. We might also want to identify uses of these terms that we want to exclude and invite the reader to contemplate other uses of the term “drone” that they think might meet fit the bill here.</p>
 <p>Data visualisation is often seen as the end result of the analytics process. However, it is also important for out ability to understand our data and refine our approach at the very beginning of the patent analytics process. For example, we might want to visualise trends in the publication of patent data or try to identify clusters or themes in the data. A common approach in patent analysis would be to divide up the data using the International Patent Classification or Cooperative Patent Classification to test whether there are existing classification codes (like library codes or MeSH codes in medical literature) that quite accurately describe our data.</p>
 <p>It is important to emphasise that this is an <em>iterative process</em>. Depending on the size of the data and the complexity of the topic you may run multiple experimental searches. You may also end up deciding to create multiple thematic datasets under your topic, particularly where the terms are very noisy (lots of unwanted results) or where some terms are so dominant that other areas of interest get lost.</p>
 <p>As you move forward in defining your search query and exploring the data it is a very good idea to write down your observations as you go. This could be in a simple text or word document that you save with the exploratory data. The important point here being that you create a record that ‘future you’ will be able to follow in reconstructing what you did and why you did it. Just as importantly, you will be able to explain what you did to other people. This is particularly important if you are working as part of a team or if your work involves multiple groups of people.</p>
 </div>
-<div id="defined-search" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Defined Search</h2>
+<div id="defined-search" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Defined Search<a href="the-patent-analytics-workflow.html#defined-search" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One you have passed through the exploratory stage and defined your search you are in a position to move forward and retrieve your data using the query that you have defined.</p>
 </div>
-<div id="core-dataset" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Core Dataset</h2>
+<div id="core-dataset" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Core Dataset<a href="the-patent-analytics-workflow.html#core-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When you run your new query, the result will be a new dataset that you will typically download from a database provider. <em>Do not edit this dataset!</em> because you may well regret it later.</p>
 <p>Best practice with your new dataset is to archive a copy of it and save it with the label <code>_raw</code> somewhere in the name. An easy option for this, if not already in a .zip file, is to compress the file as .zip (or .gz or .bzip for those familiar with working with data) to preserve the original record.</p>
 <p>It is also good practice, as mentioned above, to write down the details of the dataset in a text file that you store with that data.</p>
@@ -571,8 +571,8 @@ Figure 3.1: The Patent Analytics Workflow
 </ol>
 <p>The basic naming of files really starts to matter at the next stage of the analysis process.</p>
 </div>
-<div id="cleaning-the-core-dataset" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> Cleaning the Core Dataset</h2>
+<div id="cleaning-the-core-dataset" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Cleaning the Core Dataset<a href="the-patent-analytics-workflow.html#cleaning-the-core-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In patent analytics the data is normally delivered in one of three basic formats:</p>
 <ul>
 <li>comma separated (.csv) or tab separated (.tsv) files where the separator is used to distinguished between columns.</li>
@@ -590,13 +590,13 @@ Figure 3.1: The Patent Analytics Workflow
 <p>However, other fields such as dates, identifiers and other columns may also be concatenated.</p>
 <p>Patent data is also available in other data formats, notably XML and JSON. These are formats that are designed to be read by computers rather than humans and consist of lists of nested data. Relevant items of interest in these lists (such as applicants) need to be identified and then extracted.</p>
 <p>The concatenation of multiple observations in one cell in a data table and the nesting of lists in XML and JSON are distinct. However, for the data scientist and patent analyst, what matters is that <em>we cannot perform accurate analysis on this data without splitting it up into separate tables</em>.</p>
-<div id="splitting-data" class="section level3" number="3.5.1">
-<h3><span class="header-section-number">3.5.1</span> Splitting Data</h3>
+<div id="splitting-data" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Splitting Data<a href="the-patent-analytics-workflow.html#splitting-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Splitting data is normally performed by identifying the separator in the column of interest, such as patent applicants, and then breaking the data into new rows, one per name, while keeping the document identifier (e.g. the patent publication number).</p>
 <p>The splitting of data in this was is tricky to do in tools such as Excel. However, it is made very easy with tools such as Open Refine as discussed in Chapter 10 of this Manual.</p>
 </div>
-<div id="cleaning-data" class="section level3" number="3.5.2">
-<h3><span class="header-section-number">3.5.2</span> Cleaning Data</h3>
+<div id="cleaning-data" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Cleaning Data<a href="the-patent-analytics-workflow.html#cleaning-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One issue when working with data on scientific publications and patent data is a need to clean up noisy data. For example, if we imagine that we have a table with patent applicant names we might observe the following:</p>
 <blockquote>
 <p>Google
@@ -635,8 +635,8 @@ Subgroup: 68</p>
 <p>We will cover some of these additional options in this Manual with the remainder addressed in the more advanced <a href="https://wipo-analytics.github.io/handbook/">WIPO Patent Analytics Handbook</a>.</p>
 </div>
 </div>
-<div id="visualise-report" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Visualise &amp; Report</h2>
+<div id="visualise-report" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Visualise &amp; Report<a href="the-patent-analytics-workflow.html#visualise-report" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The final major step in the patent analytics workflow is to visualise the data and report in a way that is suitable and targeted to your specific audience.</p>
 <p>In the Manual we will focus on two popular forms of data visualisation:</p>
 <ul>
@@ -650,8 +650,8 @@ Subgroup: 68</p>
 </ul>
 <p>The Manual requires no prior knowledge of the use of programming languages such as R or Python. However, the use of programming languages opens up a world of possibilities for the patent analyst.</p>
 </div>
-<div id="conclusion" class="section level2" number="3.7">
-<h2><span class="header-section-number">3.7</span> Conclusion</h2>
+<div id="conclusion" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Conclusion<a href="the-patent-analytics-workflow.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Patent analytics is an iterative process that involves a number of clearly defined step ranging from initial scoping searches and exploratory data analysis through to the definition of a core dataset, splitting a core dataset into sub-tables, cleaning data, joining data with other data sources and finally, visualising data and reporting.</p>
 <p>We will implement the main elements of this workflow as we move through the different chapters in the Manual. Each chapter is designed to provide a practical rather than theoretical guide to patent analytics.</p>
 
@@ -723,7 +723,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

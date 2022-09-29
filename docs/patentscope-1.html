@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Patentscope | The WIPO Manual on Open Source Patent Analytics (2nd edition)</title>
   <meta name="description" content="A practical introduction to free and open source tools for patent analytics." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Patentscope | The WIPO Manual on Open Source Patent Analytics (2nd edition)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical introduction to free and open source tools for patent analytics." />
   <meta name="github-repo" content="wipo-analytics/manual_bookdown" />
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="databases.html"/>
 <link rel="next" href="the-lens-1.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -472,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.19" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#arranging-the-data"><i class="fa fa-check"></i><b>15.19</b> Arranging the Data</a></li>
 <li class="chapter" data-level="15.20" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#dealing-with-duplicates"><i class="fa fa-check"></i><b>15.20</b> Dealing with Duplicates</a>
 <ul>
-<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#spreading-data-using-spread-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Spreading data using <code>spread()</code> from <code>tidyr</code></a></li>
+<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#pivoting-data-using-pivot_wider-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Pivoting data using <code>pivot_wider()</code> from <code>tidyr</code></a></li>
 <li class="chapter" data-level="15.20.2" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#deleting-duplicates"><i class="fa fa-check"></i><b>15.20.2</b> Deleting Duplicates</a></li>
 </ul></li>
 <li class="chapter" data-level="15.21" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#restricting-searches-by-section"><i class="fa fa-check"></i><b>15.21</b> Restricting searches by section</a></li>
@@ -510,10 +509,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="patentscope-1" class="section level1" number="8">
-<h1><span class="header-section-number">Chapter 8</span> Patentscope</h1>
-<div id="introduction-2" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Introduction</h2>
+<div id="patentscope-1" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Patentscope<a href="patentscope-1.html#patentscope-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!--- last spell checked 2022-09-29--->
+<div id="introduction-2" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Introduction<a href="patentscope-1.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://patentscope.wipo.int/search/en/search.jsf">Patentscope</a> is the WIPO public access database. It includes coverage of the Patent Cooperation Treaty applications (administered by WIPO) and a <a href="https://patentscope.wipo.int/search/en/help/data_coverage.jsf">wide range of other countries</a> including the European Patent Office, USPTO and Japan totalling 100 million patent documents including 4.2 million PCT applications.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:psfront"></span>
 <img src="images/databases/patentscope/patentscope_front.png" alt="patentscope Home Page" width="1575" />
@@ -527,23 +527,22 @@ Figure 8.1: patentscope Home Page
 <li>Download up to 10,000 records</li>
 <li>Expand search terms into multiple other languages using <code>Cross Lingual Expansion</code> or <a href="https://patentscope.wipo.int/search/en/clir/clir.jsf?new=true">CLIR</a></li>
 <li>Simple, Advanced and Combined Field searching</li>
-<li>Accessible in multiple languages and a <a href="https://www3.wipo.int/patentscope/translate/translate.jsf?interfaceLanguage=en">WIPO Translate</a> text function</li>
-<li><a href="https://patentscope.wipo.int/search/mobile/index.jsf">Mobile version</a> and <a href="http://www.wipo.int/patentscope/en/news/pctdb/2015/news_0002.html">https:</a> access</li>
+<li>Accessible in multiple languages and a <a href="https://www.wipo.int/wipo-translate/en/">WIPO Translate</a> text function</li>
 <li><a href="https://patentscope.wipo.int/search/en/sequences.jsf">Sequence listing downloads</a></li>
-<li>Green technologies through the <a href="http://www.wipo.int/classifications/ipc/en/est/">IPC Green Inventory</a></li>
+<li>Green technologies through the <a href="https://www.wipo.int/classifications/ipc/green-inventory/home">IPC Green Inventory</a></li>
 <li>Different types of graphical analysis of results lists on the fly using the Options menu.</li>
 </ol>
 <p>To get the most out of Patentscope it is a good idea to consult the two detailed guides and the video tutorials:</p>
 <ol style="list-style-type: decimal">
 <li><a href="http://www.wipo.int/edocs/pubdocs/en/patents/434/wipo_pub_l434_08.pdf">Patentscope Search: The User’s Guide</a>.</li>
 <li>Patentscope CLIR for the Cross-Lingual Information Retrieval Tool <a href="https://patentscope.wipo.int/search/help/en/CLIR_DOC.pdf">here</a>.</li>
-<li><a href="https://patentscope.wipo.int/search/en/tutorial.jsf">Patentscope video tutorials</a></li>
+<li><a href="https://patentscope.wipo.int/search/en/help/tipsAndTricks.jsf">Patentscope Tips and Tricks Videos</a></li>
 </ol>
-<p>If you would like to download patent or sequence data you will need to register for a free account. To register for a free account go <a href="https://patentscope.wipo.int/search/en/reg/registration.jsf">here</a>.</p>
+<p>If you would like to download patent or sequence data you will need to register for a free account. To register for a free account go <a href="https://www3.wipo.int/authpage/signin.xhtml?goto=https%3A%2F%2Fwww3.wipo.int%3A443%2Fam%2Foauth2%2Fauthorize%3Fclient_id%3Dpatentscope1Prd%26redirect_uri%3Dhttps%253A%252F%252Fpatentscope.wipo.int%252Fsearch%252Fwiposso%252Floggedin%26response_type%3Dcode%26scope%3Dopenid%2Bprofile%2Bemail%26state%3DErpetfWGvGpBt1eJJJk_bSgOj-W47BHMaSCka4hmnVc">here</a>.</p>
 </div>
-<div id="collections-to-search" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Collections to Search</h2>
-<p>Perhaps the best place to start is with the collections we will be searching. Those can be accessed under the Options menu on the main menu and then the tab reading <a href="https://patentscope.wipo.int/search/en/reg/registration.jsf">office</a>.</p>
+<div id="collections-to-search" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Collections to Search<a href="patentscope-1.html#collections-to-search" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Perhaps the best place to start is with the collections we will be searching. Those can be accessed from the search page under <a href="https://patentscope.wipo.int/search/en/help/data_coverage.jsf">Detailed Coverage information</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pscollection"></span>
 <img src="images/databases/patentscope/WIPO%20-%20Search%20International%20and%20National%20Patent%20Collections%202021-12-30%2009-39-55.png" alt="Patent Collections in patentscope" width="1595" />
 <p class="caption">
@@ -552,8 +551,8 @@ Figure 8.2: Patent Collections in patentscope
 </div>
 <p>We can see here that Patentscope provides access to the Patent Cooperation Treaty collection, regional collections such as the ARIPO and the European Patent Office and national collections such as the United States, Japan and Others. The ability to search and retrieve data from the LATIPAT collection will be particularly useful for researchers in Latin America and could be linked to analysis using the espacenet version of <a href="http://lp.espacenet.com">LATIPAT</a>. If you are only interested in particular collections, this is the place to change the settings.</p>
 </div>
-<div id="simple-search" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> Simple Search</h2>
+<div id="simple-search" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Simple Search<a href="patentscope-1.html#simple-search" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can select a range of different fields for search. In this case we have selected full text from the drop down menu for a simple search on the term pizza.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:psearch"></span>
 <img src="images/databases/patentscope/WIPO%20-%20Search%20International%20and%20National%20Patent%20Collections%202021-12-30%2009-43-13.png" alt="patentscope: Choose Search Fields" width="1484" />
@@ -589,7 +588,7 @@ Figure 8.6: Pizza Search Results with Stemming Turned Off
 <li>A precise search that may exclude particular terms or phrases.</li>
 </ol>
 <p>The second issue to be aware of is that patent documents in a result set may be duplicates (re-publications) of the same document such as the publication of a patent application and a patent grant. Re-publications of the same document form part of a ‘patent family’. A patent family can be defined in a wide variety of ways and patent families are discussed in detail in the <a href="https://wipo-analytics.github.io/handbook/patents.html#families">WIPO Patent Analytics Handbook</a>. The basic principle is that patent documents are related to each other where they share an earlier filing (which may or may not be published) as a parent. For statistical purposes as in the 2009 <a href="https://www.oecd.org/sti/inno/oecdpatentstatisticsmanual.htm">OECD Patent Statistics Manual</a> the most important document is the priority document (the first document for a claimed invention to be filed anywhere in the world). These documents have no parent and form the basis of patent families for statistical purposes. The members of that family are all children of the priority or first original filing.</p>
-<p>However, different database providers may use their own definitions of patent families (which may or may not be explained). In 2020 patentscope introduct the concept of the Patent Cooperation Treaty family as described in Figure <a href="patentscope-1.html#fig:psfamily">8.7</a> below.</p>
+<p>However, different database providers may use their own definitions of patent families (which may or may not be explained). In 2020 patentscope introduced the concept of the Patent Cooperation Treaty family as described in Figure <a href="patentscope-1.html#fig:psfamily">8.7</a> below.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:psfamily"></span>
 <img src="images/databases/patentscope/patentscope-families-2021-12-30%2011-21-19.png" alt="patentscope Patent Family" width="1600" />
 <p class="caption">
@@ -613,10 +612,10 @@ Figure 8.9: Side By Side Result and Document View
 </p>
 </div>
 <p>Side by side view is particularly useful for manually reviewing and taking notes on documents of interest.</p>
-<p>Many patent databases have a specialist interest in a particular topic. In the case of patentscope particular effort has gone into <a href="https://patentscope.wipo.int/search/en/chemc/chemc.jsf">Chemical Compounds Search</a> which allows for searches for chemical structures. Finally, as discussed in <a href="https://wipo-analytics.github.io/manual/databases.html#:~:text=Lens%20Home%20Page-,7.1.2,-Patentscope">Chapter 7</a> above the <a href="https://wipopearl.wipo.int/en/linguistic">WIPO Pearl</a> tool allows for the identification of concepts to aid in search constructiion.</p>
+<p>Many patent databases have a specialist interest in a particular topic. In the case of patentscope particular effort has gone into <a href="https://patentscope.wipo.int/search/en/chemc/chemc.jsf">Chemical Compounds Search</a> which allows for searches for chemical structures. Finally, as discussed in <a href="https://wipo-analytics.github.io/manual/databases.html#:~:text=Lens%20Home%20Page-,7.1.2,-Patentscope">Chapter 7</a> above the <a href="https://wipopearl.wipo.int/en/linguistic">WIPO Pearl</a> tool allows for the identification of concepts to aid in search construction.</p>
 </div>
-<div id="downloading-results" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Downloading Results</h2>
+<div id="downloading-results" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Downloading Results<a href="patentscope-1.html#downloading-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In order to download data from patentscope you must be logged in to your account (accounts are free).</p>
 <p>When logged in the results list will display a download button as we see in Figure <a href="patentscope-1.html#fig:psdownload">8.10</a> with an option to download 1,000 or 10,000 records at at time.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:psdownload"></span>
@@ -635,15 +634,15 @@ Figure 8.11: Download patentscope Results
 <p>When compared with other data providers this data is somewhat limited (presumably to limit the size of downloads). However, the hyperlinking of application numbers can be useful for viewing documents of interest.</p>
 <p>We can observe that we have only downloaded 10,000 results for the purpose of illustration. To download larger sets it will be necessary to restrict the searches by data and download the data in chunks. When working with multiple downloads it is a good idea to write down the total number of results and then the results for each date limited segment to ensure that the data adds up to what you would expect.</p>
 </div>
-<div id="cross-lingual-searching" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Cross Lingual Searching</h2>
+<div id="cross-lingual-searching" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Cross Lingual Searching<a href="patentscope-1.html#cross-lingual-searching" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One challenge in patent searching is the use of different expressions in different languages for the same query. Patentscope presents a very useful solution to this through cross-lingual searching. From the pull down menu select <a href="https://patentscope.wipo.int/search/en/clir/clir.jsf">Cross Lingual Expansion</a>, then enter the search terms. You will be presented with options for automatic expansion of the search terms to other languages or supervised expansion.</p>
-<p>For example, entering the search term “synthetic biology” and automated expansion produced the fillowing query in english, french and german for searches of abstracts.</p>
+<p>For example, entering the search term “synthetic biology” and automated expansion produced the following query in English, French and German for searches of abstracts.</p>
 <p><code>EN_AB:("synthetic biology") OR FR_AB:("biologie synthétique" OR "biologie synthéthique") OR DE_AB:("synthetische Biologie")</code></p>
 <p>For those interested in this tool a <a href="https://patentscope.wipo.int/search/en/help/tutorial.jsf?videoId=9">video tutorial</a> is available along with a tutorial on the <a href="https://patentscope.wipo.int/search/en/help/tutorial.jsf?videoId=10">supervised mode</a>. The major advantage of Cross Lingual Search is that it will allow for the identification of the same and similar search terms in multiple languages.</p>
 </div>
-<div id="sequence-data" class="section level2" number="8.6">
-<h2><span class="header-section-number">8.6</span> Sequence Data</h2>
+<div id="sequence-data" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Sequence Data<a href="patentscope-1.html#sequence-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A third major feature of Patentscope is access to DNA and amino acid sequence listings filed with PCT Applications. This data can be accessed and downloaded for individual records <a href="https://patentscope.wipo.int/search/en/sequences.jsf">here</a> as shown in Figure <a href="patentscope-1.html#fig:pssequence">8.12</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pssequence"></span>
 <img src="images/databases/patentscope/fig3_patentscope.png" alt="patentscope Sequence Data" width="1530" />
@@ -667,8 +666,8 @@ Figure 8.14: patentscope Sequence Listing Example
 </div>
 <p>If using the anonymous ftp service note that the recent data is measured in gigabytes, so do not try to download this data over a weak WIFI connection, a gated connection or to your phone(!). Nevertheless, the open accessibility of this data is important. For other sequence data sources you may be interested in the European Bioinformatics Institute resources <a href="http://www.ebi.ac.uk/patentdata">here</a> and for the US by document number <a href="http://seqdata.uspto.gov/">here</a> and until March 2015 at the DNA Patent Database <a href="https://dnapatents.georgetown.edu/">here</a>. Also important is the Lens <code>Patseq</code> tool <a href="https://www.lens.org/lens/bio/sequence">here</a>.</p>
 </div>
-<div id="round-up-4" class="section level2" number="8.7">
-<h2><span class="header-section-number">8.7</span> Round Up</h2>
+<div id="round-up-4" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Round Up<a href="patentscope-1.html#round-up-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>WIPO patentscope is a useful tool for gaining access to a significant amount of patent data on a topic of interest. The ability to download 10,000 or more records at a time has been surpassed by other free databases but remains useful. The <code>Cross Lingual Searching</code> tool appears to be unique and very valuable as is <a href="https://wipopearl.wipo.int/en/linguistic">WIPO Pearl</a> for concept mapping. Free access to bulk download of sequence data is likely to keep bioinformaticians happy for quite a long time. Perhaps the standout specialist use from patentscope is the Chemical Compound search that is likely to be particularly valuable for industrial chemists.</p>
 <p>However, despite its evident strengths in terms of specialist tools the utility of patentscope for patent analytics is presently limited in terms of the size of data that can be downloaded, the availability of particular data fields and the standardisation of numbers for linking with other data sources. As such, the main usefulness of patentscope for patent analytics, with the notable exception of research on industrial chemistry, is in terms of specialist support tools to support patent analysis.</p>
 
@@ -740,7 +739,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

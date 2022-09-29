@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Preface | The WIPO Manual on Open Source Patent Analytics (2nd edition)</title>
   <meta name="description" content="A practical introduction to free and open source tools for patent analytics." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Preface | The WIPO Manual on Open Source Patent Analytics (2nd edition)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical introduction to free and open source tools for patent analytics." />
   <meta name="github-repo" content="wipo-analytics/manual_bookdown" />
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="introduction.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -472,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.19" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#arranging-the-data"><i class="fa fa-check"></i><b>15.19</b> Arranging the Data</a></li>
 <li class="chapter" data-level="15.20" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#dealing-with-duplicates"><i class="fa fa-check"></i><b>15.20</b> Dealing with Duplicates</a>
 <ul>
-<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#spreading-data-using-spread-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Spreading data using <code>spread()</code> from <code>tidyr</code></a></li>
+<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#pivoting-data-using-pivot_wider-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Pivoting data using <code>pivot_wider()</code> from <code>tidyr</code></a></li>
 <li class="chapter" data-level="15.20.2" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#deleting-duplicates"><i class="fa fa-check"></i><b>15.20.2</b> Deleting Duplicates</a></li>
 </ul></li>
 <li class="chapter" data-level="15.21" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#restricting-searches-by-section"><i class="fa fa-check"></i><b>15.21</b> Restricting searches by section</a></li>
@@ -510,27 +509,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="preface" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Preface</h1>
+<div id="preface" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Preface<a href="preface.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Welcome to the Second edition of the WIPO Manual on Open Source Patent Analytics. The first edition of the WIPO Manual on Open Source Patent Analytics broke new ground in patent analytics by documenting and exploring free and open source tools that could be used for patent analytics. The coverage of free tools ranges from databases to visualisation tools and the use of programming languages.</p>
-<p>Between 2016 and 2019, the first edition of the Manual becamee the basis for a series of national and regional training workshops held in Brazil, South Africa, Malaysia, the Philippines and Thailand that offered hands on training in the patent analytics. In the period since the last update to the Manual in 2019 many of the tools have been update and new tools have emerged. The time is therefore ripe for the second edition as the basis for future practical work.</p>
+<p>Between 2016 and 2019, the first edition of the Manual became the basis for a series of national and regional training workshops held in Brazil, South Africa, Malaysia, the Philippines and Thailand that offered hands on training in the patent analytics. In the period since the last update to the Manual in 2019 many of the tools have been update and new tools have emerged. The time is therefore ripe for the second edition as the basis for future practical work.</p>
 <p>The second edition of the Manual updates the information on existing tools and adds a small number of new chapters on more recent tools and trends in patent analytics. The Manual is now organised around a <code>Patent Analytics Workflow</code> developed by Paul Oldham and Irene Kitsara during the patent analytics training workshops. That workflow can be used by anyone from beginners in patent analytics through to advanced users who are using programming languages and machine learning models. In the coming months the Manual and the patent analytics workflow will be linked to the <a href="https://wipo-analytics.github.io/handbook/">WIPO Handbook on Patent Analytics</a>.</p>
-<div id="acknowledgements" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Acknowledgements</h2>
-<p>The first and second editions of tyhe WIPO Manual on Open Source Tools for Patent Analytics were written with the generous financial support of the Patent Office of Japan (JPO). The Manual was prepared under the direction of Mr. Yo Takagi (Assistant Director General) and under the supervision of Mr. Alejandro Roca Campaña (Senior Director) and Mr. Andrew Czajkowski (Head of Section). Mr. Anthony Cutter prepared and analyzed the survey on the use of tools for patent analytics by patent information professionals. We are grateful to the participants in two regional workshops on patent analytics which took place in 2015 in Rio de Janeiro, Brazil, and Manila, Philippines who were presented with the draft Manual and who provided useful feedback, facilitating the optimization and completion of the Manual. We would also like to thank Ms. Alica Daly, Director of the IP Analytics Hub, IP Australia, as well as Mr. Rich Corken, Head of Informatics at the UK IPO for the fruitful discussions and for sharing their experiences with open source tools. The development of this Manual would have not been possible without the excellent support and troubleshooting provided by the open source tools community. Ms. Catherine Oldham offered valuable comments throughout the preparation of the report and assistance with editing. Thanks go to colleagues in the Communications Division and in the Printing Plant for their services.</p>
+<div id="acknowledgements" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Acknowledgements<a href="preface.html#acknowledgements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The first and second editions of the WIPO Manual on Open Source Tools for Patent Analytics were written with the generous financial support of the Patent Office of Japan (JPO). The Manual was prepared under the direction of Mr. Yo Takagi (Assistant Director General) and under the supervision of Mr. Alejandro Roca Campaña (Senior Director) and Mr. Andrew Czajkowski (Head of Section). We are grateful to Craig Dsouza (WIPO) for his valuable assistance in checking the second edition of the Manual and Lakshmi Supriya (WIPO) for her support. We thank Jasmine Kindness (One World Analytics) and Christine Wanjiru (Amband, Kenya and One World Analytics) for their contribution to reviewing the Manual and preparing supporting materials. We thank Enric Escorsa (WIPO) for his contributions to the creation of the online course and data packages that support the Manual and accompanying Handbook.</p>
 </div>
-<div id="further-information" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Further information</h2>
-<p>The electronic version of the report, as well as all datasets mentioned in the Manual and used for the various exercises can be downloaded from the <a href="https://github.com/wipo-analytics">Manual Github repository</a>.</p>
+<div id="further-information" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Further information<a href="preface.html#further-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The electronic version of the Manual, as well as all datasets mentioned in the Manual and used for the various exercises can be downloaded from the <a href="https://github.com/wipo-analytics">Manual Github repository</a>.</p>
 </div>
-<div id="conditions-of-use" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Conditions of use</h2>
-<p>This publication is made available under a Creative Commons Attribution licence (CC-BY) and may be freely used and shared subject to attribution. Please cite as</p>
-<p>INSERT CITATION</p>
+<div id="conditions-of-use" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Conditions of use<a href="preface.html#conditions-of-use" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This publication is made available under a Creative Commons Attribution licence (CC-BY) and may be freely used and shared subject to attribution. Please cite as:</p>
+<p>Paul Oldham (2022) The WIPO Manual on Open Source Analytics (2nd edition). Geneva: World Intellectual Property Organization.</p>
 <p>Contact e-mail: <a href="mailto:patent.information@wipo.int" class="email">patent.information@wipo.int</a></p>
 </div>
-<div id="disclaimer" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Disclaimer</h2>
+<div id="disclaimer" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Disclaimer<a href="preface.html#disclaimer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This Manual does not constitute an exhaustive presentation of all open source tools and the information contained therein was valid at the time of printing. In addition, the opinions expressed in the Manual do not necessarily reflect the opinion of WIPO Member States.</p>
 
 </div>
@@ -601,7 +600,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

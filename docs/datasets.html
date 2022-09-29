@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Datasets | The WIPO Manual on Open Source Patent Analytics (2nd edition)</title>
   <meta name="description" content="A practical introduction to free and open source tools for patent analytics." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Datasets | The WIPO Manual on Open Source Patent Analytics (2nd edition)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical introduction to free and open source tools for patent analytics." />
   <meta name="github-repo" content="wipo-analytics/manual_bookdown" />
@@ -32,7 +31,6 @@
   
 <link rel="prev" href="patent-datafields.html"/>
 <link rel="next" href="databases.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -472,7 +471,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.19" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#arranging-the-data"><i class="fa fa-check"></i><b>15.19</b> Arranging the Data</a></li>
 <li class="chapter" data-level="15.20" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#dealing-with-duplicates"><i class="fa fa-check"></i><b>15.20</b> Dealing with Duplicates</a>
 <ul>
-<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#spreading-data-using-spread-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Spreading data using <code>spread()</code> from <code>tidyr</code></a></li>
+<li class="chapter" data-level="15.20.1" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#pivoting-data-using-pivot_wider-from-tidyr"><i class="fa fa-check"></i><b>15.20.1</b> Pivoting data using <code>pivot_wider()</code> from <code>tidyr</code></a></li>
 <li class="chapter" data-level="15.20.2" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#deleting-duplicates"><i class="fa fa-check"></i><b>15.20.2</b> Deleting Duplicates</a></li>
 </ul></li>
 <li class="chapter" data-level="15.21" data-path="scientific-literature-with-rplos.html"><a href="scientific-literature-with-rplos.html#restricting-searches-by-section"><i class="fa fa-check"></i><b>15.21</b> Restricting searches by section</a></li>
@@ -510,16 +509,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="datasets" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Datasets</h1>
+<div id="datasets" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Datasets<a href="datasets.html#datasets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!--- last spell checked 2022-09-29--->
 <!---update the datasets locations--->
 <p>In this chapter we introduce the patent datasets developed for the Open Source Patent Analytics Project as training sets for patent analytics. The datasets will be used in the walkthroughs. The datasets will grow over time but we will briefly introduce them and explain how to access them.</p>
 <p>The datasets are housed at the project <a href="https://github.com/wipo-analytics/opensource-patent-analytics/tree/master/2_datasets">GitHub repository</a>. To download individual files click on the link and then select raw to download the file.</p>
-<div id="the-datasets" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> The datasets</h2>
+<div id="the-datasets" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> The datasets<a href="datasets.html#the-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The datasets are intended to illustrate the range of possibilities for patent data including some of the challenges that may be encountered in cleaning and analysing patent data. They are also drawn from different sources.</p>
-<div id="pizza-patent-datasets" class="section level3" number="6.1.1">
-<h3><span class="header-section-number">6.1.1</span> Pizza patent datasets</h3>
+<div id="pizza-patent-datasets" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Pizza patent datasets<a href="datasets.html#pizza-patent-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Almost everyone likes pizza and it is easy to search a patent database for the term “pizza”. It is also an area of patent activity that encompasses a wide range of technologies such as pizza ovens, pizza boxes, pizza cutters and pizza toppings etc. It is therefore useful for demonstrating ways of interrogating patent data for particular topics.</p>
 <ol style="list-style-type: decimal">
 <li><code>pizza_small</code> is a very small 26 row dataset created by downloading the first page of results from the <a href="http://worldwide.espacenet.com/?locale=en_EP">European Patent Office espacenet database</a> for a smart search on “pizza”. It’s a quick and easy test dataset.</li>
@@ -530,14 +530,14 @@ An important feature of Patentscope data from a statistical standpoint is that t
 <li><code>pizza_lens_1000</code> is a raw dataset of 1000 records including the term pizza downloaded from <a href="https://www.lens.org/lens/">The Lens</a> database. The dataset has not been cleaned.</li>
 </ol>
 </div>
-<div id="patent-landscape-reports-datasets" class="section level3" number="6.1.2">
-<h3><span class="header-section-number">6.1.2</span> Patent Landscape Reports datasets</h3>
+<div id="patent-landscape-reports-datasets" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Patent Landscape Reports datasets<a href="datasets.html#patent-landscape-reports-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Three datasets are drawn from the <a href="http://www.wipo.int/patentscope/en/programs/patent_landscapes/">WIPO Patent Landscape Reports</a>. The datasets address different topics, present a variety of fields and formats and are different sizes. Each dataset is linked to a detailed patent landscape report that provides an insight into approaches to patent analytics.</p>
 <ol style="list-style-type: decimal">
-<li><code>ewaste</code> presents the results of research for a <a href="http://www.wipo.int/patentscope/en/programs/patent_landscapes/reports/ewaste.html">report</a> on patent activity for electronic waste recycling and its implications for developing countries.</li>
-<li><code>solar_cooking</code> presents the data supporting a <a href="http://www.wipo.int/patentscope/en/programs/patent_landscapes/reports/solar_cooking.html">report</a> on technologies that use solar energy as the source for cooking and pasteurizing food.</li>
-<li><code>ritonavir</code> presents the data for a patent <a href="http://www.wipo.int/patentscope/en/programs/patent_landscapes/reports/ritonavir.html">report</a> on patent activity for the HIV antiretroviral drug Ritonavir in the field of pharmaceuticals. The dataset illustrates specific activity around issues such as dosage and also the problem of ‘evergreening’ in patent activity.</li>
-<li><a href="">Artificial Intelligence</a>. The <a href="https://www.wipo.int/tech_trends/en/artificial_intelligence/">WIPO Technology Trends 2019 report</a> focused on artificial intelligence. The raw data used for the report is not available for direct download but the data for individual figures is available in a set of <a href="">multi-sheet excel tables</a> for those interested. In addition, WIPO offers an <a href="https://www.wipo.int/tech_trends/en/artificial_intelligence/patentscope.html">Artificial Intelligence Index</a> page with links from the search terms used to generate the report data in WIPO Patentscope. For example, the <a href="https://patentscope.wipo.int/search/en/result.jsf?query=AItechniqueMachineLearning&amp;sortOption=Relevance">Machine Learning link</a> will generate a new dataset with results. Users who have signed up for a free Patentscope account can then refine the search and download basic data fields for up to 10,000 records.</li>
+<li><code>ewaste</code> presents the results of research for a <a href="https://www.wipo.int/publications/en/details.jsp?id=388">report</a> on patent activity for electronic waste recycling and its implications for developing countries.</li>
+<li><code>solar_cooking</code> presents the data supporting a <a href="https://www.wipo.int/publications/en/details.jsp?id=233">report</a> on technologies that use solar energy as the source for cooking and pasteurizing food.</li>
+<li><code>ritonavir</code> presents the data for a patent <a href="https://www.wipo.int/publications/en/details.jsp?id=230&amp;plang=EN">report</a> on patent activity for the HIV antiretroviral drug Ritonavir in the field of pharmaceuticals. The dataset illustrates specific activity around issues such as dosage and also the problem of ‘evergreening’ in patent activity.</li>
+<li><a href="https://www.wipo.int/tech_trends/en/artificial_intelligence/">Artificial Intelligence</a>. The <a href="https://www.wipo.int/tech_trends/en/artificial_intelligence/">WIPO Technology Trends 2019 report</a> focused on artificial intelligence. The raw data used for the report is not available for direct download but the data for individual figures is available in a set of <a href="https://www.wipo.int/export/sites/www/tech_trends/en/artificial_intelligence/docs/techtrends_ai_data_2019.zip">multi-sheet excel tables</a> for those interested. In addition, WIPO offers an <a href="https://www.wipo.int/tech_trends/en/artificial_intelligence/patentscope.html">Artificial Intelligence Index</a> page with links from the search terms used to generate the report data in WIPO Patentscope. For example, the <a href="https://patentscope.wipo.int/search/en/result.jsf?query=AItechniqueMachineLearning&amp;sortOption=Relevance">Machine Learning link</a> will generate a new dataset with results. Users who have signed up for a free Patentscope account can then refine the search and download basic data fields for up to 10,000 records.</li>
 <li><a href="https://www.wipo.int/publications/en/details.jsp?id=4541">Assistive Technology</a>. The <a href="https://www.wipo.int/edocs/pubdocs/en/wipo_pub_1055_2021.pdf">WIPO Technology Trends 2021 report</a> focused on assistive technologies. The <a href="(https://www.wipo.int/edocs/pubdocs/en/wipo_pub_1055_2021.pdf)">report</a> includes two datasets in Excel.</li>
 </ol>
 <ul>
@@ -545,24 +545,24 @@ An important feature of Patentscope data from a statistical standpoint is that t
 <li><a href="https://www.wipo.int/edocs/pubdocs/en/wipo_pub_1055_2021-tech2.xlsx">Emerging Assistive Technology Dataset</a></li>
 </ul>
 </div>
-<div id="packaged-datasets" class="section level3" number="6.1.3">
-<h3><span class="header-section-number">6.1.3</span> Packaged Datasets</h3>
+<div id="packaged-datasets" class="section level3 hasAnchor" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> Packaged Datasets<a href="datasets.html#packaged-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We have created two packages in R that can be downloaded for use in R or Python.</p>
 <ol style="list-style-type: decimal">
 <li><a href="https://github.com/wipo-analytics/drones">Drones</a></li>
 <li>Women Inventors. Forthcoming in 2022.</li>
 </ol>
 </div>
-<div id="other-datasets" class="section level3" number="6.1.4">
-<h3><span class="header-section-number">6.1.4</span> Other datasets</h3>
+<div id="other-datasets" class="section level3 hasAnchor" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> Other datasets<a href="datasets.html#other-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><code>wipo</code> is a single Excel sheet of data on trends in patent applications and growth rates from the <a href="http://www.wipo.int/ipstats/en/wipi/">WIPO World Intellectual Property Indicators - 2014 Edition</a>. The data is used for simple graphing in tools such as R and illustrates the need to skip rows when reading data into analytics tools. More recent data from WIPO annual indicators reports is available for individual reports on the <a href="https://www.wipo.int/publications/en/series/index.jsp?id=37">WIPO Indicators page</a>. For example, the <a href="https://www.wipo.int/publications/en/details.jsp?id=4571&amp;plang=EN">WIPO Indicators 2021 report</a> page includes a set of multi-sheet excel workbooks with the data used to generate the figures for the indicators set.</li>
 <li><code>WIPO_sequence_data</code>. This dataset contains a small sample of the sequence data from the year 2000 available free of charge from the <a href="https://patentscope.wipo.int/search/en/sequences.jsf">WIPO Patentscope database</a>. This dataset can be used to explore analysis of patent sequence data.</li>
 <li><a href="https://github.com/poldham/opensource-patent-analytics/tree/master/2_datasets/synbio_patents">Synthetic biology</a>. This is a sample of data from Thomson Innovation developed by Paul Oldham for research on patent activity involving synthetic biology. The data has been extensively cleaned in VantagePoint from Search Technology Inc. and is intended to illustrate the use of data from a commercial patent database.</li>
 </ol>
 </div>
-<div id="round-up-2" class="section level3" number="6.1.5">
-<h3><span class="header-section-number">6.1.5</span> Round Up</h3>
+<div id="round-up-2" class="section level3 hasAnchor" number="6.1.5">
+<h3><span class="header-section-number">6.1.5</span> Round Up<a href="datasets.html#round-up-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The datasets section of the project provides a series of useful training sets from a variety of sources and displaying a variety of features. These are open access datasets that can be used to test different approaches but please credit their sources. More datasets may be added to the online version of the Manual in due course. We are particularly interested in sample data from STN, QuestelOrbit, PATSTAT or other data providers that can be used as training sets.</p>
 
 </div>
@@ -571,6 +571,7 @@ An important feature of Patentscope data from a statistical standpoint is that t
 
 
 
+</div>
             </section>
 
           </div>
@@ -637,7 +638,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
