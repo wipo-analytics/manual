@@ -29,13 +29,13 @@ The first and second editions of the WIPO Manual on Open Source Tools for Patent
 
 ## Further information
 
-The electronic version of the report, as well as all datasets mentioned in the Manual and used for the various exercises can be downloaded from the [Manual Github repository](https://github.com/wipo-analytics). 
+The electronic version of the Manual, as well as all datasets mentioned in the Manual and used for the various exercises can be downloaded from the [Manual Github repository](https://github.com/wipo-analytics). 
 
 ## Conditions of use
 
-This publication is made available under a Creative Commons Attribution licence (CC-BY) and may be freely used and shared subject to attribution. Please cite as
+This publication is made available under a Creative Commons Attribution licence (CC-BY) and may be freely used and shared subject to attribution. Please cite as:
 
-INSERT CITATION
+Paul Oldham (2022) The WIPO Manual on Open Source Analytics (2nd edition). Geneva: World Intellectual Property Organization. 
 
 Contact e-mail: patent.information@wipo.int 
 
