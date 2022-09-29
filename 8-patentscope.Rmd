@@ -1,5 +1,5 @@
 # Patentscope
-
+<!--- last spell checked 2022-09-29--->
 ## Introduction
 
 [Patentscope](https://patentscope.wipo.int/search/en/search.jsf) is the WIPO public access database. It includes coverage of the Patent Cooperation Treaty applications (administered by WIPO) and a [wide range of other countries](https://patentscope.wipo.int/search/en/help/data_coverage.jsf) including the European Patent Office, USPTO and Japan totalling 100 million patent documents including 4.2 million PCT applications.
@@ -15,23 +15,22 @@ In this article we cover the basics of using Patentscope to search for and downl
 2.  Download up to 10,000 records
 3.  Expand search terms into multiple other languages using `Cross Lingual Expansion` or [CLIR](https://patentscope.wipo.int/search/en/clir/clir.jsf?new=true)
 4.  Simple, Advanced and Combined Field searching
-5.  Accessible in multiple languages and a [WIPO Translate](https://www3.wipo.int/patentscope/translate/translate.jsf?interfaceLanguage=en) text function
-6.  [Mobile version](https://patentscope.wipo.int/search/mobile/index.jsf) and [https:](http://www.wipo.int/patentscope/en/news/pctdb/2015/news_0002.html) access
-7.  [Sequence listing downloads](https://patentscope.wipo.int/search/en/sequences.jsf)
-8.  Green technologies through the [IPC Green Inventory](http://www.wipo.int/classifications/ipc/en/est/)
-9.  Different types of graphical analysis of results lists on the fly using the Options menu.
+5.  Accessible in multiple languages and a [WIPO Translate](https://www.wipo.int/wipo-translate/en/) text function
+6.  [Sequence listing downloads](https://patentscope.wipo.int/search/en/sequences.jsf)
+7.  Green technologies through the [IPC Green Inventory](https://www.wipo.int/classifications/ipc/green-inventory/home)
+8.  Different types of graphical analysis of results lists on the fly using the Options menu.
 
 To get the most out of Patentscope it is a good idea to consult the two detailed guides and the video tutorials:
 
 1.  [Patentscope Search: The User's Guide](http://www.wipo.int/edocs/pubdocs/en/patents/434/wipo_pub_l434_08.pdf).
 2.  Patentscope CLIR for the Cross-Lingual Information Retrieval Tool [here](https://patentscope.wipo.int/search/help/en/CLIR_DOC.pdf).
-3.  [Patentscope video tutorials](https://patentscope.wipo.int/search/en/tutorial.jsf)
+3.  [Patentscope Tips and Tricks Videos](https://patentscope.wipo.int/search/en/help/tipsAndTricks.jsf)
 
-If you would like to download patent or sequence data you will need to register for a free account. To register for a free account go [here](https://patentscope.wipo.int/search/en/reg/registration.jsf).
+If you would like to download patent or sequence data you will need to register for a free account. To register for a free account go [here](https://www3.wipo.int/authpage/signin.xhtml?goto=https%3A%2F%2Fwww3.wipo.int%3A443%2Fam%2Foauth2%2Fauthorize%3Fclient_id%3Dpatentscope1Prd%26redirect_uri%3Dhttps%253A%252F%252Fpatentscope.wipo.int%252Fsearch%252Fwiposso%252Floggedin%26response_type%3Dcode%26scope%3Dopenid%2Bprofile%2Bemail%26state%3DErpetfWGvGpBt1eJJJk_bSgOj-W47BHMaSCka4hmnVc).
 
 ## Collections to Search
 
-Perhaps the best place to start is with the collections we will be searching. Those can be accessed under the Options menu on the main menu and then the tab reading [office](https://patentscope.wipo.int/search/en/reg/registration.jsf).
+Perhaps the best place to start is with the collections we will be searching. Those can be accessed from the search page under [Detailed Coverage information](https://patentscope.wipo.int/search/en/help/data_coverage.jsf).
 
 ```{r pscollection, echo=FALSE, fig.align='center', fig.cap="Patent Collections in patentscope"}
 knitr::include_graphics("images/databases/patentscope/WIPO - Search International and National Patent Collections 2021-12-30 09-39-55.png")
@@ -71,7 +70,7 @@ As we can see in Figure \@ref(fig:pspizzanostem) the effect of removing stemming
 
 The second issue to be aware of is that patent documents in a result set may be duplicates (re-publications) of the same document such as the publication of a patent application and a patent grant. Re-publications of the same document form part of a 'patent family'. A patent family can be defined in a wide variety of ways and patent families are discussed in detail in the [WIPO Patent Analytics Handbook](https://wipo-analytics.github.io/handbook/patents.html#families). The basic principle is that patent documents are related to each other where they share an earlier filing (which may or may not be published) as a parent. For statistical purposes as in the 2009 [OECD Patent Statistics Manual](https://www.oecd.org/sti/inno/oecdpatentstatisticsmanual.htm) the most important document is the priority document (the first document for a claimed invention to be filed anywhere in the world). These documents have no parent and form the basis of patent families for statistical purposes. The members of that family are all children of the priority or first original filing. 
 
-However, different database providers may use their own definitions of patent families (which may or may not be explained). In 2020 patentscope introduct the concept of the Patent Cooperation Treaty family as described in Figure \@ref(fig:psfamily) below. 
+However, different database providers may use their own definitions of patent families (which may or may not be explained). In 2020 patentscope introduced the concept of the Patent Cooperation Treaty family as described in Figure \@ref(fig:psfamily) below. 
 
 ```{r psfamily, echo=FALSE, fig.align='center', fig.cap="patentscope Patent Family"}
 knitr::include_graphics("images/databases/patentscope/patentscope-families-2021-12-30 11-21-19.png")
@@ -95,7 +94,7 @@ knitr::include_graphics("images/databases/patentscope/WIPO - Search Internationa
 
 Side by side view is particularly useful for manually reviewing and taking notes on documents of interest.
 
-Many patent databases have a specialist interest in a particular topic. In the case of patentscope particular effort has gone into [Chemical Compounds Search](https://patentscope.wipo.int/search/en/chemc/chemc.jsf) which allows for searches for chemical structures. Finally, as discussed in [Chapter 7](https://wipo-analytics.github.io/manual/databases.html#:~:text=Lens%20Home%20Page-,7.1.2,-Patentscope) above the [WIPO Pearl](https://wipopearl.wipo.int/en/linguistic) tool allows for the identification of concepts to aid in search constructiion. 
+Many patent databases have a specialist interest in a particular topic. In the case of patentscope particular effort has gone into [Chemical Compounds Search](https://patentscope.wipo.int/search/en/chemc/chemc.jsf) which allows for searches for chemical structures. Finally, as discussed in [Chapter 7](https://wipo-analytics.github.io/manual/databases.html#:~:text=Lens%20Home%20Page-,7.1.2,-Patentscope) above the [WIPO Pearl](https://wipopearl.wipo.int/en/linguistic) tool allows for the identification of concepts to aid in search construction. 
 
 ## Downloading Results
 
@@ -120,7 +119,7 @@ We can observe that we have only downloaded 10,000 results for the purpose of il
 
 One challenge in patent searching is the use of different expressions in different languages for the same query. Patentscope presents a very useful solution to this through cross-lingual searching. From the pull down menu select [Cross Lingual Expansion](https://patentscope.wipo.int/search/en/clir/clir.jsf), then enter the search terms. You will be presented with options for automatic expansion of the search terms to other languages or supervised expansion. 
 
-For example, entering the search term "synthetic biology" and automated expansion produced the fillowing query in english, french and german for searches of abstracts. 
+For example, entering the search term "synthetic biology" and automated expansion produced the following query in English, French and German for searches of abstracts. 
 
 `EN_AB:("synthetic biology") OR FR_AB:("biologie synthétique" OR "biologie synthéthique") OR DE_AB:("synthetische Biologie")`
 
