@@ -1,5 +1,5 @@
 # Gephi
-
+<!--- last spell checked 2022-09-29--->
 <!---update dataset links--->
 This chapter focuses on visualising patent data in networks using the open source software [Gephi](http://gephi.github.io). Gephi is one of a growing number of free network analysis and visualisation tools with others including [Cytoscape](http://www.cytoscape.org), [Tulip](http://tulip.labri.fr/TulipDrupal/), [GraphViz](http://www.graphviz.org), [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) for Windows, and [VOSviewer](http://www.vosviewer.com/Home) to name but a few. In addition, network visualisation packages are available for R and Python. We have chosen to focus on Gephi because it is a good all round network visualisation tool that is quite easy to use and to learn. 
 
@@ -37,7 +37,7 @@ You will need to restart Gephi for it to take effect but if you return to the Pl
 
 ![](images/gephi9/result.png)
 
-You are good to go. While you are there you may want to check out the other plugins to get an idea of what is available. For more on the conversion plugin see this description [Excel/csv converter to network plugin](https://marketplace.gephi.org/plugin/excel-csv-converter-to-network/). 
+You are good to go. While you are there you may want to check out the other plugins to get an idea of what is available. For more on the conversion plugin see this description [Excel/csv converter to network plugin](https://gephi.org/plugins/#/plugin/excelcsvimporter). 
 
 ## Importing a file to Gephi with the converter plugin
 
@@ -242,9 +242,9 @@ A more involved option for network visualisation is to move over to the Preview 
 
 The default option uses curved edges. To use this press `Refresh`. This is fine but we can't see any labels. In the presets now try default curved. You can play around with the different settings until you find a version that you like. 
 
-The main issue that we have here is that the labels are too large and the line weigths may also be very heavy.
+The main issue that we have here is that the labels are too large and the line weights may also be very heavy.
 
-To address the line weigth look for and check the rescale weight option under edges. 
+To address the line weight look for and check the rescale weight option under edges. 
 
 ![](images/gephi9/rescale_weight.png)
 
@@ -300,5 +300,5 @@ Congratulations, you have now created your first Gephi network graph.
 3.  Quick start [guide](https://gephi.github.io/tutorials/gephi-tutorial-quick_start.pdf)
 4.  Installation instructions for [All platforms](http://gephi.github.io/users/install/).
 Gephi 8 suffers from a known issue for Mac users. That is, it uses Java 6 which is not installed by default on Macs. To resolve this you should follow the instructions posted [here](http://sumnous.github.io/blog/2014/07/24/gephi-on-mac/) and works very well in most cases. It basically involves downloading a mac version of Java containing Java 6 and then running three or four commands in the Terminal on the mac to configure Gephi. If that doesn't work try this more [detailed account](https://lbartkowski.wordpress.com/2014/11/28/gephi-0-8-2-on-apple-osx-yosemite/). 
-5.  [Excel/csv converter to network plugin](https://marketplace.gephi.org/plugin/excel-csv-converter-to-network/)
+5.  [Excel/csv converter to network plugin](https://gephi.org/plugins/#/plugin/excelcsvimporter)
 6. For ideas on patent network visualisation you might want to try this article on [synthetic biology](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0034368), this [article](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078737) on species names in patent data, and the use of exploratory network analysis using IPC/CPC co-occurrence analysis in the [WIPO Patent Landscape for Animal Genetic Resources](http://www.wipo.int/patentscope/en/programs/patent_landscapes/reports/animal_gr.html). For more try this [Google Search](https://www.google.co.uk/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=patent%20network%20analysis).
